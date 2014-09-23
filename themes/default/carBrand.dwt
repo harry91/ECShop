@@ -1,0 +1,263 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- az_inserted -->
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link href="http://www.autozi.com:80/resources/common/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
+<link href="http://www.autozi.com:80/resources/common/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/header.css" />
+<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/main.css" />
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?039d115effb1a43fa3c66e592c74aa5e";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<link href="http://www.autozi.com:80/resources/themes/default/css/theme.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/pagination-plugin.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,index.js'}
+</head>
+<body>
+<div id="templates" style="display:none;">
+  <div class="clearfix sub_car_types" style="height:auto; clear:both; margin-left:93px; margin-right:50px; padding-bottom:10px; display:block;">
+    <style>
+	dl dd a{
+		color:#3B5998;
+		font-size:12px;
+		text-decoration:none;
+		font-family:Microsoft YaHei;
+	}
+	dl dd a:hover{
+		text-decoration:underline;
+	}
+	dl dd{
+		margin-top:8px;
+		width:250px;
+		display:block;
+		float:left;
+	}
+	.prevPageBtn, .nextPageBtn{
+		position:absolute;
+		height:100%;
+		width:40px;
+		cursor:pointer;
+	}
+	a.next, span.next, a.prev, span.prev{
+		display:none;
+	}
+	</style>
+    <div style="height:30px; background:#EDEDF0; display:block;">
+      <select onchange="filterCarTypes()" class="carYear" name="carYear" style="margin-top:4px; margin-left:10px;">
+        <option value="">全部年款</option>
+      </select>
+      <select onchange="filterCarTypes()" class="capacity" name="capacity" style="margin-top:4px;margin-left:5px;">
+        <option value="">全部排量</option>
+      </select>
+      <div class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
+      </div>
+    <div style="position: relative; min-height:60px;">
+      <div class="prevPageBtn" style="float:left;background:url(images/tinyArrowLeft.png) center no-repeat;" onclick="clickPrevBtn()"></div>
+      <dl style="width:755px;display:block; margin-left:50px;">
+        <div class="nextPageBtn" style="clear:both; background:url(images/tinyArrowRight.png) center no-repeat; margin-left:730px;"  onclick="clickNextBtn()"></div>
+        <div style="clear:both;"></div>
+      </dl>
+    </div>
+    <div style="clear:both;"></div>
+  </div>
+</div>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
+<input type="hidden" id="anchorPoint" value=""/>
+<div class="main" style="margin-top:10px">
+  <div class="option-bar" id="optionBar"> <a href="#A" class="border all">全部</a> <a href="#A" class="border">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border disabled">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border disabled">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border disabled">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border disabled">T</a> <a href="#U" class="border disabled">U</a> <a href="#V" class="border disabled">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
+  <div id="optionBarHidden" style="display:none;height: 34px"> </div>
+  <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
+  <script>
+  function clickCarType(targetElement){
+	  //alert(jQuery(targetElement).attr('cat_id'));
+	  Ajax.call( 'carBrand.php?act=query_sub_car_types', 'cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text(), callbackQuerySubCarType , 'GET', 'JSON', true, true );
+  }
+  function callbackQuerySubCarType(result){
+	  if(window.newSubCarTypes){
+		  window.newSubCarTypes.remove();
+	  }
+	  
+	  window.newSubCarTypes=jQuery("#templates .sub_car_types").clone(true);
+	  
+	  jQuery("[cat_id='"+result['cat_id']+"']").closest(".brand-panel").append(window.newSubCarTypes);
+	  var carYears = result['carYears'].split(',');
+	  for(var i = 0; i < carYears.length; i++){
+		  if(carYears[i] != ''){
+			  window.newSubCarTypes.find(".carYear").append("<option value=\""+carYears[i]+"\">"+carYears[i]+"</option>");
+		  }
+	  }
+	  
+	  var capacities = result['capacities'].split(',');
+	  for(var i = 0; i < capacities.length; i++){
+		  if(capacities[i] != ''){
+			  window.newSubCarTypes.find(".capacity").append("<option value=\""+capacities[i]+"\">"+capacities[i]+"</option>");
+		  }
+	  }
+	  
+	  window.subCarTypesContentReturned=result['car_types'];
+	  
+	  filterCarTypes();
+  }
+  function filterCarTypes(){
+	  delete window.subCarTypesContent;
+	  window.subCarTypesContent={};
+	  var contentLength = Object.keys(window.subCarTypesContentReturned).length;
+	  var newIndex=0;
+	  for(var i = 0; i < contentLength; i++){
+		  if( window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
+			  window.subCarTypesContent[newIndex+'']=jQuery.extend(true, {}, window.subCarTypesContentReturned[i+'']);
+			  newIndex++;
+		  }
+	  }
+	  
+	  contentLength = Object.keys(window.subCarTypesContent).length;	  
+	  
+	  window.newSubCarTypes.find(".pagination").pagination(contentLength,
+	  {
+		  callback:callbackPagination,
+		  items_per_page: 5,//若修改此项，则下方函数中的同名变量也要做相应修改
+		  num_display_entries: 8,
+		  num_edge_entries: 2,
+		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
+	  });
+  }
+  function callbackPagination(page_index, jq){
+	  window.newSubCarTypes.find("dd").remove();
+	  
+	  var contentLength = Object.keys(window.subCarTypesContent).length;
+	  var items_per_page = 5;
+      var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
+	  for(var i = page_index*items_per_page; i < max_elem; i++){
+		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
+	  }
+	  
+	  jQuery(".prevPageBtn").css("display", "block");
+	  jQuery(".nextPageBtn").css("display", "block");
+	  if(page_index==0){
+		  jQuery(".prevPageBtn").css("display", "none");
+	  }else if(contentLength==max_elem){
+		  jQuery(".nextPageBtn").css("display", "none");
+	  }
+  }
+  function clickPrevBtn(){
+	  jQuery("a.prev").trigger("click");
+  }
+  function clickNextBtn(){
+	  jQuery("a.next").trigger("click");
+  }
+  </script>
+  <!--<div class="brand-panel clearfix">
+    <div class="car-brand-panel clearfix no_line"  id="47">
+      <div class="thumbnail"></div>
+      <div class="car-brand-list" >
+        <div class="car-series-list">
+          <div class="car-brand-title">
+            <h4>广汽乘用车</h4>
+          </div>
+          <a class="link car-type-button" cat_id="8" href="javascript:void(0);" onclick="clickCarType(this);">广汽乘用车传祺</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GS5</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GA5</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GA3</a>
+          <div class="car-type-list" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix sub_car_types" style="height:auto; clear:both; margin-left:93px; margin-right:50px; padding-bottom:10px; display:block;">
+      <style>
+	dl dd a{
+		color:#3B5998;
+		font-size:12px;
+		text-decoration:none;
+		font-family:Microsoft YaHei;
+	}
+	dl dd a:hover{
+		text-decoration:underline;
+	}
+	dl dd{
+		margin-top:8px;
+		width:250px;
+		display:block;
+		float:left;
+	}
+	</style>
+      <div style="height:30px; background:#EDEDF0; display:block;">
+        <select id="carYear" name="carYear" style="margin-top:4px; margin-left:10px; float:left;">
+          <option value="">全部年款</option>
+          <option value="1992">1992款</option>
+          <option value="1993">1993款</option>
+          <option value="1994">1994款</option>
+          <option value="1995">1995款</option>
+          <option value="1996">1996款</option>
+          <option value="1997">1997款</option>
+        </select>
+        <select id="capacity" name="capacity" style="margin-top:4px;margin-left:5px; float:left;">
+          <option value="">全部排量</option>
+          <option value="1.8L">1.8L</option>
+          <option value="2.0L">2.0L</option>
+          <option value="2.2L">2.2L</option>
+          <option value="2.6L">2.6L</option>
+        </select>
+        <div id="demo123" class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
+      </div>
+      <div style="position: relative; min-height:60px;">
+        <div style="float:left; position:absolute; height:100%; width:40px;background:url(images/tinyArrowLeft.png) center no-repeat;"></div>
+        <dl style="width:755px;display:block; margin-left:65px;">
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <div style="clear:both; position:absolute; height:100%; width:40px;background:url(images/tinyArrowRight.png) center no-repeat; margin-left:695px;"></div>
+          <div style="clear:both;"></div>
+        </dl>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>-->
+  {foreach from=$all_car_brands item=one_car_brand}
+  <div class="brand-panel clearfix">
+    <div class="car-brand-panel clearfix no_line"  id="47">
+      <div class="thumbnail"></div>
+      <div class="car-brand-list" >
+        <div class="car-series-list">
+          <div class="car-brand-title">
+            <h4>{$one_car_brand.cat_name}</h4>
+          </div>
+          {foreach from=$one_car_brand.car_types item=one_car_type} <a class="link car-type-button" cat_id="{$one_car_type.cat_id}"  href="javascript:void(0);" onclick="clickCarType(this);">{$one_car_type.cat_name}</a> {/foreach}
+          <div class="car-type-list" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {/foreach} </div>
+<input id="pageIndex" type="hidden" value="4"/>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+<script>
+function test(){
+	var x='x1';
+	var xyz={'x':x, 'y':'y1'}
+	var xyz2 = jQuery.extend(true, {}, xyz); 
+	xyz2['x']='x2';
+	//alert(xyz['x']);
+}
+</script>
+</body>
+</html>
