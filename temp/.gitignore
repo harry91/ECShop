@@ -3,9 +3,3 @@ caches/*
 compiled/*
 query_caches/*
 static_caches/*
-
-!backup/.gitkeep
-!caches/.gitkeep
-!compiled/.gitkeep
-!query_caches/.gitkeep
-!static_caches/.gitkeep
