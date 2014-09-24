@@ -1,4 +1,4 @@
---²åÈë²Ù×÷Ê±µÄTrigger
+ï»¿/*æ’å…¥æ“ä½œæ—¶çš„Trigger*/
 DROP TRIGGER IF EXISTS t_on_add_goods;
 delimiter //
 CREATE TRIGGER t_on_add_goods AFTER INSERT ON ecs_goods
@@ -21,7 +21,7 @@ BEGIN
 END; //
 delimiter ;
 
---¸üĞÂ²Ù×÷Ê±µÄTrigger
+/*æ›´æ–°æ“ä½œæ—¶çš„Trigger*/
 DROP TRIGGER IF EXISTS t_on_update_goods;
 delimiter //
 CREATE TRIGGER t_on_update_goods AFTER UPDATE ON ecs_goods
