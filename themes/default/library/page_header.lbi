@@ -83,18 +83,18 @@ function onChangeSearchSelector(){
 }
 </script>
 <div id="azTopBar" class="clearfix" style="background:#484848; width:960px;">
-  <div style="float:left; width:250px; height:83px; background:url(../az_images/az_logo.png) no-repeat"></div>
-  <div style="float:left; width:500px; height:83px;">
+  <div style="float:left; width:250px; height:50px;"></div>
+  <div style="float:left; width:500px; height:50px;">
     <form action="search.php" name="AzSearchGoods" method="get">
-      <span id="searchTypeSpan" style="float:left; display:block; height:30px; margin-top:25px; width:75px; font-size:15px; background:url(../az_images/search_arrow.png) no-repeat; padding-left:5px; line-height:30px;">关键字</span>
-      <select id="searchTypeSelect" style="float:left; border:none; height:30px; margin-top:25px; margin-left:-80px; width:80px; font-size:15px; opacity:0; background:#FFF;" onChange="onChangeSearchSelector()">
+      <span id="searchTypeSpan" style="float:left; display:block; height:30px; margin-top:10px; width:75px; font-size:15px; background:url(../az_images/search_arrow.png) no-repeat; padding-left:5px; line-height:30px;">关键字</span>
+      <select id="searchTypeSelect" style="float:left; border:none; height:30px; margin-top:10px; margin-left:-80px; width:80px; font-size:15px; opacity:0; background:#FFF;" onChange="onChangeSearchSelector()">
         <option value="KEYWORDS" selected="selected">关键字</option>
         <option value="VIN">VIN</option>
         <option value="OEM">OEM</option>
       </select>
-      <span style="float:left; margin-top:25px; width:1px; height:30px; background:#999"></span>
-      <input id="searchValue" name="searchValue" style="float:left; height:28px; border:none; margin-top:25px; width:250px; padding-left:5px;" placeholder="请输入车型、商品名称、品牌、规格型号"/>
-      <input type="submit" style="height:30px; width:85px; background:#DD7715; border:none; margin-top:25px; font-size:17px; font-family:SimHei;" value="搜 索"/>
+      <span style="float:left; margin-top:10px; width:1px; height:30px; background:#999"></span>
+      <input id="searchValue" name="searchValue" style="float:left; height:28px; border:none; margin-top:10px; width:250px; padding-left:5px;" placeholder="请输入车型、商品名称、品牌、规格型号"/>
+      <input type="submit" style="height:30px; width:85px; background:#DD7715; border:none; margin-top:10px; font-size:17px; font-family:SimHei;" value="搜 索"/>
     </form>
   </div>
 </div>

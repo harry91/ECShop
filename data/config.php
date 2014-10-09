@@ -3,13 +3,13 @@
 $db_host   = "localhost:3306";
 
 // database name
-$db_name   = "testecs";
+$db_name   = "ecshop";
 
 // database username
 $db_user   = "root";
 
 // database password
-$db_pass   = "sbsbsb";
+$db_pass   = "root";
 
 // table prefix
 $prefix    = "ecs_";
@@ -30,6 +30,6 @@ define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
 
-define('API_TIME', '2014-09-24 10:42:35');
+define('API_TIME', '2014-10-09 10:28:40');
 
 ?>
