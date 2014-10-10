@@ -295,7 +295,9 @@
 			jQuery("#carBrandSelectorResult .box_text").text(carBrandName);
 			jQuery("#carBrandSelectorResult").attr("cat_id", carBrandCatId);
 			window.currCarCategoryId=carBrandCatId;
+			window.currCarBrandCatId=carBrandCatId;
 			window.currCarCategoryName=carBrandName;
+			window.currCarBrandName=carBrandName;
 			closeSelectorBox(targetElement);
 			clearFollowingSelectedResult(1);
 			jQuery("#carSeriesSelectorResult .box_text_cover").css("display","none");
@@ -305,7 +307,7 @@
 			closeAllSubSelectorBox();
 			jQuery("#carSeriesSelectorBox ul").empty();
 			jQuery("#carSeriesSelectorBox").css("display","block");
-			Ajax.call( 'search.php?act=query_sub_car_series', 'cat_id=' + window.currCarCategoryId, queryCarSeriesCallBack , 'GET', 'JSON', true, true );
+			Ajax.call( 'search.php?act=query_sub_car_series', 'cat_id=' + window.currCarBrandCatId, queryCarSeriesCallBack , 'GET', 'JSON', true, true );
 		}
 		function queryCarSeriesCallBack(result){
 			var resultLen=Object.keys(result).length;
@@ -318,7 +320,9 @@
 			jQuery("#carSeriesSelectorResult .box_text").text(carSeriesName);
 			jQuery("#carSeriesSelectorResult").attr("cat_id", carSeriesCatId);
 			window.currCarCategoryId=carSeriesCatId;
-			window.currCarCategoryName=window.currCarCategoryName+" "+carSeriesName;
+			window.currCarSeriesCatId=carSeriesCatId;
+			window.currCarSeriesName=carSeriesName;
+			window.currCarCategoryName=window.currCarBrandName+" "+carSeriesName;
 			closeSelectorBox(targetElement);
 			clearFollowingSelectedResult(2);
 			jQuery("#carYearSelectorResult .box_text_cover").css("display","none");
@@ -328,7 +332,7 @@
 			closeAllSubSelectorBox();
 			jQuery("#carYearSelectorBox ul").empty();
 			jQuery("#carYearSelectorBox").css("display","block");
-			Ajax.call( 'search.php?act=query_sub_car_year', 'cat_id=' + window.currCarCategoryId, queryCarYearCallBack , 'GET', 'JSON', true, true );
+			Ajax.call( 'search.php?act=query_sub_car_year', 'cat_id=' + window.currCarSeriesCatId, queryCarYearCallBack , 'GET', 'JSON', true, true );
 		}
 		function queryCarYearCallBack(result){
 			var resultLen=Object.keys(result).length;
@@ -340,6 +344,7 @@
 		function chooseCarYear(targetElement){
 			jQuery("#carYearSelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
+			window.currCarCategoryId=window.currCarSeriesCatId;//window.currCarCategoryId记录当前的车型分类Id，点击汽车品牌、系列、具体型号时都会更新它，点击年份和排量不会更新，但如果在选择具体型号后又更改了排量或年份，则该值需要回退为汽车系列的Id, 所以这么写。后面chooseCarCapacity()中的操作同理。
 			clearFollowingSelectedResult(3);
 			jQuery("#carCapacitySelectorResult .box_text_cover").css("display","none");
 			openCarCapacitySelectorBox();
@@ -349,7 +354,7 @@
 			jQuery("#carCapacitySelectorBox ul").empty();
 			jQuery("#carCapacitySelectorBox").css("display","block");
 			//alert('cat_id=' + jQuery("#carSeriesSelectorResult").attr('cat_id')+'&carYear='+jQuery("#carYearSelectorResult").text());
-			Ajax.call( 'search.php?act=query_sub_car_capacity', 'cat_id=' + window.currCarCategoryId+'&carYear='+jQuery("#carYearSelectorResult").text(), queryCarCapacityCallBack , 'GET', 'JSON', true, true );
+			Ajax.call( 'search.php?act=query_sub_car_capacity', 'cat_id=' + window.currCarSeriesCatId+'&carYear='+jQuery("#carYearSelectorResult").text(), queryCarCapacityCallBack , 'GET', 'JSON', true, true );
 		}
 		function queryCarCapacityCallBack(result){
 			var resultLen=Object.keys(result).length;
@@ -361,6 +366,7 @@
 		function chooseCarCapacity(targetElement){
 			jQuery("#carCapacitySelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
+			window.currCarCategoryId=window.currCarSeriesCatId;
 			clearFollowingSelectedResult(4);
 			jQuery("#carFullTypeSelectorResult .box_text_cover").css("display","none");
 			openCarFullTypeSelectorBox();
@@ -448,6 +454,12 @@
 			jQuery("input[name='car_category']").val(window.currCarCategoryId);
 			jQuery("input[name='car_category_for_display']").val(window.currCarCategoryName);
 			document.forms['listform'].submit();
+		}
+		function resetAllSubSelectors(){
+			window.currCarCategoryId="";
+			window.currCarCategoryName="";
+			clearFollowingSelectedResult(0);
+			closeAllSubSelectorBox();
 		}
 		function getUrlVars(){
 			var vars = [], hash;  
@@ -545,7 +557,7 @@
                     <li></li></ul>
                   </div>
                   <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:100px; border:2px solid #ccc; margin-top:15px; float:left;" onclick="filterResultByCarType()">确定</div>
-                  <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:50px; border:2px solid #ccc; margin-top:15px; float:left;" onclick="clearFollowingSelectedResult(0)">重置</div>
+                  <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:50px; border:2px solid #ccc; margin-top:15px; float:left;" onclick="resetAllSubSelectors()">重置</div>
                 </div></td>
             </tr>
             <tr>
