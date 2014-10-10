@@ -3,13 +3,13 @@
 $db_host   = "localhost:3306";
 
 // database name
-$db_name   = "ecshop";
+$db_name   = "testecs";
 
 // database username
 $db_user   = "root";
 
 // database password
-$db_pass   = "root";
+$db_pass   = "sbsbsb";
 
 // table prefix
 $prefix    = "ecs_";
