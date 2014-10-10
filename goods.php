@@ -221,10 +221,14 @@ if (!$smarty->is_cached('goods.dwt', $cache_id))
         }
 
         $position = assign_ur_here($goods['cat_id'], $goods['goods_name']);
+		$converted_ur_here = convert_ur_here($position['ur_here']);
+		
+		//print_r("abc");
+		//print_r($converted_ur_here);
 
         /* current position */
         $smarty->assign('page_title',          $position['title']);                    // 页面标题
-        $smarty->assign('ur_here',             $position['ur_here']);                  // 当前位置
+        $smarty->assign('ur_here',             $converted_ur_here);//$position['ur_here']);                  // 当前位置
 
         $properties = get_goods_properties($goods_id);  // 获得商品的规格和属性
 
@@ -620,6 +624,20 @@ function get_package_goods_list($goods_id)
     }
 
     return $res;
+}
+
+function convert_ur_here($ur_here){
+	$posi = strpos($ur_here, "<a href=\"category.php?id=2");
+	$ret_str = substr($ur_here, $posi);
+	$posi = strpos($ret_str, "category.php?id=2");
+	$ret_str = substr_replace($ret_str, "goodsCategory.php", $posi, strlen("category.php?id=2"));
+	$pattern = '/\"category\.php\?id=(.*?)\"/i';
+	preg_match_all($pattern, $ret_str, $matches, PREG_SET_ORDER);
+	foreach($matches as $key => $value){
+		$posi = strpos($ret_str, $value[0]);
+		$ret_str = substr_replace($ret_str, "search.php?category=".$value[1], $posi, strlen($value[0]));
+	}
+	return $ret_str;
 }
 
 ?>
