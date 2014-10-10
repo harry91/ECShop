@@ -633,9 +633,12 @@ function convert_ur_here($ur_here){
 	$ret_str = substr_replace($ret_str, "goodsCategory.php", $posi, strlen("category.php?id=2"));
 	$pattern = '/\"category\.php\?id=(.*?)\"/i';
 	preg_match_all($pattern, $ret_str, $matches, PREG_SET_ORDER);
+	
+	$category_level=1;
 	foreach($matches as $key => $value){
 		$posi = strpos($ret_str, $value[0]);
-		$ret_str = substr_replace($ret_str, "search.php?category=".$value[1], $posi, strlen($value[0]));
+		$ret_str = substr_replace($ret_str, "search.php?category=".$value[1]."&category_level=".$category_level, $posi, strlen($value[0]));
+		$category_level++;
 	}
 	return $ret_str;
 }
