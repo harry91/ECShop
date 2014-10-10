@@ -203,7 +203,6 @@
         <div class="result_filter" style="height:170px;">
         <style>
 		.line_in_box{
-			cursor:pointer;
 			margin-left:10px;
 			height:27px;
 			line-height:27px;
@@ -212,6 +211,21 @@
 			margin-top:10px;
 			background:url(images/t-bg.png) no-repeat right center;
 			border:2px solid #EEE;
+			position:relative;
+		}
+		.line_in_box .box_text{
+			cursor:pointer;
+			width:100%;
+			position:absolute;
+		}
+		.line_in_box .box_text_cover{
+			height:100%;
+			width:100%;
+			background-color:#FFF;
+			position:relative;
+			filter:alpha(Opacity=60);
+			-moz-opacity:0.6;
+			opacity:0.6;
 		}
 		.outer_selector_box{
 			display:block;
@@ -274,17 +288,21 @@
 			jQuery("#carTypeSelectorBox").css("display","block");
 		}
 		function openCarBrandSelectorBox(){
+			closeAllSubSelectorBox();
 			jQuery("#carBrandSelectorBox").css("display","block");
 		}
 		function chooseCarBrand(carBrandCatId, carBrandName, targetElement){
-			jQuery("#carBrandSelectorResult").text(carBrandName);
+			jQuery("#carBrandSelectorResult .box_text").text(carBrandName);
 			jQuery("#carBrandSelectorResult").attr("cat_id", carBrandCatId);
 			window.currCarCategoryId=carBrandCatId;
 			window.currCarCategoryName=carBrandName;
 			closeSelectorBox(targetElement);
+			clearFollowingSelectedResult(1);
+			jQuery("#carSeriesSelectorResult .box_text_cover").css("display","none");
 			openCarSeriesSelectorBox();
 		}
 		function openCarSeriesSelectorBox(){
+			closeAllSubSelectorBox();
 			jQuery("#carSeriesSelectorBox ul").empty();
 			jQuery("#carSeriesSelectorBox").css("display","block");
 			Ajax.call( 'search.php?act=query_sub_car_series', 'cat_id=' + window.currCarCategoryId, queryCarSeriesCallBack , 'GET', 'JSON', true, true );
@@ -297,14 +315,17 @@
 			}
 		}
 		function chooseCarSeries(carSeriesCatId, carSeriesName, targetElement){
-			jQuery("#carSeriesSelectorResult").text(carSeriesName);
+			jQuery("#carSeriesSelectorResult .box_text").text(carSeriesName);
 			jQuery("#carSeriesSelectorResult").attr("cat_id", carSeriesCatId);
 			window.currCarCategoryId=carSeriesCatId;
 			window.currCarCategoryName=window.currCarCategoryName+" "+carSeriesName;
 			closeSelectorBox(targetElement);
+			clearFollowingSelectedResult(2);
+			jQuery("#carYearSelectorResult .box_text_cover").css("display","none");
 			openCarYearSelectorBox();
 		}
 		function openCarYearSelectorBox(){
+			closeAllSubSelectorBox();
 			jQuery("#carYearSelectorBox ul").empty();
 			jQuery("#carYearSelectorBox").css("display","block");
 			Ajax.call( 'search.php?act=query_sub_car_year', 'cat_id=' + window.currCarCategoryId, queryCarYearCallBack , 'GET', 'JSON', true, true );
@@ -317,11 +338,14 @@
 			}
 		}
 		function chooseCarYear(targetElement){
-			jQuery("#carYearSelectorResult").text(jQuery(targetElement).text());
+			jQuery("#carYearSelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
+			clearFollowingSelectedResult(3);
+			jQuery("#carCapacitySelectorResult .box_text_cover").css("display","none");
 			openCarCapacitySelectorBox();
 		}
 		function openCarCapacitySelectorBox(){
+			closeAllSubSelectorBox();
 			jQuery("#carCapacitySelectorBox ul").empty();
 			jQuery("#carCapacitySelectorBox").css("display","block");
 			//alert('cat_id=' + jQuery("#carSeriesSelectorResult").attr('cat_id')+'&carYear='+jQuery("#carYearSelectorResult").text());
@@ -335,11 +359,14 @@
 			}
 		}
 		function chooseCarCapacity(targetElement){
-			jQuery("#carCapacitySelectorResult").text(jQuery(targetElement).text());
+			jQuery("#carCapacitySelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
+			clearFollowingSelectedResult(4);
+			jQuery("#carFullTypeSelectorResult .box_text_cover").css("display","none");
 			openCarFullTypeSelectorBox();
 		}
 		function openCarFullTypeSelectorBox(){
+			closeAllSubSelectorBox();
 			jQuery("#carFullTypeSelectorBox ul").empty();
 			jQuery("#carFullTypeSelectorBox").css("display","block");
 			Ajax.call( 'search.php?act=query_sub_car_types', 'cat_id=' + window.currCarCategoryId +'&carYear='+jQuery("#carYearSelectorResult").text()+'&carCapacity='+jQuery("#carCapacitySelectorResult").text(), queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
@@ -353,10 +380,26 @@
 		}
 		function chooseCarFullType(targetElement){
 			window.currCarCategoryId=jQuery(targetElement).attr("cat_id");
-			jQuery("#carFullTypeSelectorResult").text(jQuery(targetElement).text());
+			jQuery("#carFullTypeSelectorResult .box_text").text(jQuery(targetElement).text());
 			window.currCarCategoryName=jQuery(targetElement).text();
 			jQuery("#carFullTypeSelectorResult").attr("cat_id", window.currCarCategoryId);
 			closeSelectorBox(targetElement);
+		}
+		function closeAllSubSelectorBox(){
+			jQuery("#carBrandSelectorBox").css("display","none");
+			jQuery("#carSeriesSelectorBox").css("display","none");
+			jQuery("#carYearSelectorBox").css("display","none");
+			jQuery("#carCapacitySelectorBox").css("display","none");
+			jQuery("#carFullTypeSelectorBox").css("display","none");
+		}
+		function clearFollowingSelectedResult(firstEleIndex){
+			var selectorResultIds= new Array("carBrandSelectorResult", "carSeriesSelectorResult",	"carYearSelectorResult", "carCapacitySelectorResult", "carFullTypeSelectorResult");
+			var selectorDefaultTexts= new Array("请选择汽车品牌", "请选择车系",	"请选择年款", "请选择排量", "请选择车型");
+			for(var i=firstEleIndex; i<5; i++){
+				jQuery("#"+selectorResultIds[i]+" .box_text").text(selectorDefaultTexts[i]);
+				jQuery("#"+selectorResultIds[i]+"").attr("cat_id", "-1");
+				jQuery("#"+selectorResultIds[i]+" .box_text_cover").css("display","block");
+			}
 		}
 		function replaceOrInsertUrlParams(myUrl, name, val){
 			var tmps=myUrl.split("?");
@@ -464,7 +507,7 @@
                 <div id="carTypeSelectorBox" class="outer_selector_box bigger_box" style="height:300px; display:none;">
                   <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                   <div style="clear:both"></div>
-                  <div cat_id="-1" id="carBrandSelectorResult" class="line_in_box" onclick="openCarBrandSelectorBox()">请选择汽车品牌</div>
+                  <div cat_id="-1" id="carBrandSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarBrandSelectorBox()">请选择汽车品牌</div></div>
                   <div id="carBrandSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
@@ -473,28 +516,28 @@
                     <li style="background:#efefef; cursor:pointer" cat_id="{$one_car_brand.cat_id}" onclick="chooseCarBrand('{$one_car_brand.cat_id}', '{$one_car_brand.cat_name}', this)">{$one_car_brand.first_letter}. {$one_car_brand.cat_name}</li>
                     {/foreach}<li></li></ul>
                   </div>
-                  <div cat_id="-1" id="carSeriesSelectorResult" class="line_in_box" onclick="openCarSeriesSelectorBox()">请选择车系</div>
+                  <div cat_id="-1" id="carSeriesSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarSeriesSelectorBox()">请选择车系</div><div class="box_text_cover"></div></div>
                   <div id="carSeriesSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carYearSelectorResult" class="line_in_box" onclick="openCarYearSelectorBox()">请选择年款</div>
+                  <div id="carYearSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarYearSelectorBox()">请选择年款</div><div class="box_text_cover"></div></div>
                   <div id="carYearSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carCapacitySelectorResult" class="line_in_box" onclick="openCarCapacitySelectorBox()">请选择排量</div>
+                  <div id="carCapacitySelectorResult" class="line_in_box"><div class="box_text" onclick="openCarCapacitySelectorBox()">请选择排量</div><div class="box_text_cover"></div></div>
                   <div id="carCapacitySelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carFullTypeSelectorResult" class="line_in_box" onclick="openCarFullTypeSelectorBox()">请选择车型</div>
+                  <div id="carFullTypeSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarFullTypeSelectorBox()">请选择车型</div><div class="box_text_cover"></div></div>
                   <div id="carFullTypeSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
@@ -502,7 +545,7 @@
                     <li></li></ul>
                   </div>
                   <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:100px; border:2px solid #ccc; margin-top:15px; float:left;" onclick="filterResultByCarType()">确定</div>
-                  <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:50px; border:2px solid #ccc; margin-top:15px; float:left;">重置</div>
+                  <div style="cursor:pointer; height:30px; width:80px; text-align:center; line-height:30px; vertical-align:middle; margin-left:50px; border:2px solid #ccc; margin-top:15px; float:left;" onclick="clearFollowingSelectedResult(0)">重置</div>
                 </div></td>
             </tr>
             <tr>
