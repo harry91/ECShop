@@ -44,6 +44,11 @@
           </tr>
           <tr>
             <td class="label">
+            <a href="javascript:showNotice('noticeGoodsSN');" title="{$lang.form_notice}"></a>TimerId：</td>
+            <td><input type="text" name="timer_id" value="{$goods.timer_id|escape}" size="20" /></td>
+          </tr>
+          <tr>
+            <td class="label">
             <a href="javascript:showNotice('noticeGoodsSN');" title="{$lang.form_notice}"><img src="images/notice.gif" width="16" height="16" border="0" alt="{$lang.form_notice}"></a> {$lang.lab_goods_sn} </td>
             <td><input type="text" name="goods_sn" value="{$goods.goods_sn|escape}" size="20" onblur="checkGoodsSn(this.value,'{$goods.goods_id}')" /><span id="goods_sn_notice"></span><br />
             <span class="notice-span" {if $help_open}style="display:block" {else} style="display:none" {/if} id="noticeGoodsSN">{$lang.notice_goods_sn}</span></td>
