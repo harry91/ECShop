@@ -192,10 +192,106 @@ function isExistCategory3($mysqli_link, $category1Name) {
 	clearStoredResults($mysqli_link);
 	if($categoryCount >0) {
 		$ret = true;		
-	}
-	echo $categoryCount;
-	
+	}	
 	return $ret;
 }
+/*
+	生成brand
+*/
+function createBrand($mysqli_link, $brandId, $brandName) {    
+	if(isExistBrand($mysqli_link,$brandName)){
+		echo $brandName.'已经存在';
+		return;
+	}
+	$insert_sql = "INSERT INTO ecs_brand ( brand_name, brand_desc)VALUES ( ?, ?)";
+	$stmt = $mysqli_link->prepare($insert_sql);
+	$stmt->bind_param('ss',$brandName, $brandDesc);		
+	$stmt->execute();	
+	clearStoredResults($mysqli_link);
+}
 
+/*
+	check brand existing
+*/
+function isExistBrand($mysqli_link,$brandName){
+	$query_str = 'select count(*) from ecs_brand where brand_name=\''.$brandName.'\'';	
+	$result = $mysqli_link->query($query_str);
+	$ret = false;
+	if($result && $result->num_rows>0){
+		$row = $result-> fetch_array();
+		if($row){			
+			$categoryCount = $row[0];		
+		}
+	}
+	clearStoredResults($mysqli_link);
+	if($categoryCount >0) {
+		$ret = true;		
+	}	
+	return $ret;
+}
+/*
+  return max brand Id to generate new brand id
+*/
+function getMaxBrandId($mysqli_link) {
+	$maxBrandId = 1;
+	$result=$mysqli_link->query('select max(brand_id) from ecs_brand');	
+	if ($result && $result->num_rows>0) {
+		$row = $result-> fetch_array();
+		if ($row) {			
+			$maxBrandId = $row[0];		
+		}
+	}
+	clearStoredResults($mysqli_link);
+	echo 'max brand id is '.$maxBrandId;
+	return $maxBrandId;
+}
+
+/*
+*/
+function getBrandId($mysqli_link, $brandName) {
+	$brandId = 1;
+	$result=$mysqli_link->query('select brand_id from ecs_brand where brand_name = \''.$brandName.'\'');	
+	if ($result && $result->num_rows>0) {
+		$row = $result-> fetch_array();
+		if ($row) {			
+			$brandId = $row[0];		
+		}
+	}
+	clearStoredResults($mysqli_link);	
+	return $brandId;
+}
+
+function createBrand2Category($mysqli_link, $brandName, $categoryName) {
+	$categoryId = getCategory1Id($mysqli_link, $categoryName);
+	$brandId = getBrandId($mysqli_link, $brandName);
+	if(isExistBrand2Category($mysqli_link,$brandId, $categoryId)){
+		echo $brandName.'与'.$categoryName.' 关联已经建立<br/>';
+		return;
+	}
+	$insert_sql = "INSERT INTO ecs_brand2Category ( brand_id, cat_id)VALUES ( ?, ?)";
+	$stmt = $mysqli_link->prepare($insert_sql);
+	$stmt->bind_param('ss',$brandId, $categoryId);		
+	$stmt->execute();	
+	clearStoredResults($mysqli_link);	
+}
+
+/*
+*/
+function isExistBrand2Category($mysqli_link,$brandId, $categoryId){
+	$query_str = 'select count(*) from ecs_brand2category where brand_id='.$brandId.' and cat_id = '.$categoryId;	
+	$result = $mysqli_link->query($query_str);
+	$ret = false;
+	$categoryCount =0;
+	if($result && $result->num_rows>0){
+		$row = $result-> fetch_array();
+		if($row){			
+			$categoryCount = $row[0];		
+		}
+	}
+	clearStoredResults($mysqli_link);
+	if($categoryCount >0) {
+		$ret = true;		
+	}	
+	return $ret;
+}
 ?>
