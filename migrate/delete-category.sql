@@ -1,0 +1,1 @@
+delete from ecs_category  where parent_id > 0
