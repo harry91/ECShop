@@ -300,7 +300,9 @@ function cat_list($cat_id = 0, $selected = 0, $re_type = true, $level = 0, $is_s
         return $re_type ? '' : array();
     }
 
+	$StartTime2 = time();
     $options = cat_options($cat_id, $res); // 获得指定分类下的子分类的数组
+	echo "cat_options Time: ".(time()-$StartTime2)."<br/>";
 
     $children_level = 99999; //大于这个分类的将被删除
     if ($is_show_all == false)

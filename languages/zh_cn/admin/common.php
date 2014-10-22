@@ -149,6 +149,7 @@ $_LANG['16_email_manage'] = '邮件群发管理';
 $_LANG['01_goods_list'] = '商品列表';
 $_LANG['02_goods_add'] = '添加新商品';
 $_LANG['03_category_list'] = '商品分类';
+$_LANG['03_car_category_list'] = '汽车分类';
 $_LANG['04_category_add'] = '添加分类';
 $_LANG['05_comment_manage'] = '用户评论';
 $_LANG['06_goods_brand_list'] = '商品品牌';

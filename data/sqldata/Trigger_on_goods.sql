@@ -1,4 +1,4 @@
-﻿/*插入操作时的Trigger*/
+﻿/*Trigger on INSERT*/
 DROP TRIGGER IF EXISTS t_on_add_goods;
 delimiter //
 CREATE TRIGGER t_on_add_goods AFTER INSERT ON ecs_goods
@@ -21,7 +21,7 @@ BEGIN
 END; //
 delimiter ;
 
-/*更新操作时的Trigger*/
+/*Trigger on UPDATE*/
 DROP TRIGGER IF EXISTS t_on_update_goods;
 delimiter //
 CREATE TRIGGER t_on_update_goods AFTER UPDATE ON ecs_goods

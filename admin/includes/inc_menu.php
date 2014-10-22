@@ -21,6 +21,7 @@ if (!defined('IN_ECS'))
 $modules['02_cat_and_goods']['01_goods_list']       = 'goods.php?act=list';         // 商品列表
 $modules['02_cat_and_goods']['02_goods_add']        = 'goods.php?act=add';          // 添加商品
 $modules['02_cat_and_goods']['03_category_list']    = 'category.php?act=list';
+$modules['02_cat_and_goods']['03_car_category_list']= 'category.php?act=car_list';
 $modules['02_cat_and_goods']['05_comment_manage']   = 'comment_manage.php?act=list';
 $modules['02_cat_and_goods']['06_goods_brand_list'] = 'brand.php?act=list';
 $modules['02_cat_and_goods']['08_goods_type']       = 'goods_type.php?act=manage';
