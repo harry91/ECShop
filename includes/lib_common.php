@@ -900,7 +900,7 @@ function get_goods_bottom_cat_ids($level, $cat_id){
 function get_car_bottom_cat_ids($level, $cat_id){
 	$sql="";
 	if($level == 0){
-		$sql="select cat_id from ecs_category where sort_order =70 ";
+		$sql="select cat_id from ecs_category where sort_order =65 ";
 	}else if($level == 1){
 		$sql="select ecs_c5.cat_id from ecs_category ecs_c5 right join".
 			"((select ecs_c4.cat_id from ecs_category ecs_c4 right join".
