@@ -147,7 +147,7 @@
 	  var items_per_page = 5;
       var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
 	  for(var i = page_index*items_per_page; i < max_elem; i++){
-		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
+		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_cat_level=6&car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
 	  }
 	  
 	  jQuery(".prevPageBtn").css("display", "block");
