@@ -298,6 +298,7 @@
 			window.currCarBrandCatId=carBrandCatId;
 			window.currCarCategoryName=carBrandName;
 			window.currCarBrandName=carBrandName;
+			window.currCarCatLevel=1;
 			closeSelectorBox(targetElement);
 			clearFollowingSelectedResult(1);
 			jQuery("#carSeriesSelectorResult .box_text_cover").css("display","none");
@@ -322,6 +323,7 @@
 			window.currCarCategoryId=carSeriesCatId;
 			window.currCarSeriesCatId=carSeriesCatId;
 			window.currCarSeriesName=carSeriesName;
+			window.currCarCatLevel=2;
 			window.currCarCategoryName=window.currCarBrandName+" "+carSeriesName;
 			closeSelectorBox(targetElement);
 			clearFollowingSelectedResult(2);
@@ -388,6 +390,7 @@
 			window.currCarCategoryId=jQuery(targetElement).attr("cat_id");
 			jQuery("#carFullTypeSelectorResult .box_text").text(jQuery(targetElement).text());
 			window.currCarCategoryName=jQuery(targetElement).text();
+			window.currCarCatLevel=6;
 			jQuery("#carFullTypeSelectorResult").attr("cat_id", window.currCarCategoryId);
 			closeSelectorBox(targetElement);
 		}
@@ -453,6 +456,7 @@
 		function filterResultByCarType(){
 			jQuery("input[name='car_category']").val(window.currCarCategoryId);
 			jQuery("input[name='car_category_for_display']").val(window.currCarCategoryName);
+			jQuery("input[name='car_cat_level']").val(window.currCarCatLevel);
 			document.forms['listform'].submit();
 		}
 		function resetAllSubSelectors(){

@@ -192,7 +192,7 @@ if ($_REQUEST['act'] == 'advanced_search')
     $smarty->assign('helps',      get_shop_help());       // 网店帮助
     $smarty->assign('top_goods',  get_top10());           // 销售排行
     $smarty->assign('promotion_info', get_promotion_info());
-    $smarty->assign('cat_list',   cat_list(0, 0, true, 2, false));
+    //$smarty->assign('cat_list',   cat_list(0, 0, true, 2, false));
     $smarty->assign('brand_list', get_brand_list());
     $smarty->assign('action',     'form');
     $smarty->assign('use_storage', $_CFG['use_storage']);
@@ -209,6 +209,7 @@ else
     $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(trim($_REQUEST['keywords']))     : '';
     $_REQUEST['brand']      = !empty($_REQUEST['brand'])      ? intval($_REQUEST['brand'])      : 0;
 	$_REQUEST['category_level']= !empty($_REQUEST['category_level'])   ? intval($_REQUEST['category_level'])   : 0;
+	$_REQUEST['car_cat_level']= !empty($_REQUEST['car_cat_level'])   ? intval($_REQUEST['car_cat_level'])   : 0;
     $_REQUEST['category']   = !empty($_REQUEST['category'])   ? intval($_REQUEST['category'])   : 2;
 	$_REQUEST['car_category']= !empty($_REQUEST['car_category'])   ? intval($_REQUEST['car_category'])   : 0;//用于搜索扩展分类（车型分类）
 	$_REQUEST['car_category_for_display']   = !empty($_REQUEST['car_category_for_display'])   ? htmlspecialchars(trim($_REQUEST['car_category_for_display']))     : '';//用于在搜索结果页显示扩展分类（车型分类）
@@ -254,7 +255,7 @@ else
         $smarty->assign('goods_type_list',     $attributes['cate']);
         $smarty->assign('goods_attributes',    $attributes['attr']);
         $smarty->assign('goods_type_selected', $_REQUEST['goods_type']);
-        $smarty->assign('cat_list',            cat_list(0, $adv_value['category'], true, 2, false));
+        //$smarty->assign('cat_list',            cat_list(0, $adv_value['category'], true, 2, false));
         $smarty->assign('brand_list',          get_brand_list());
         $smarty->assign('action',              'form');
         $smarty->assign('use_storage',          $_CFG['use_storage']);
@@ -325,16 +326,24 @@ else
         }
     }
 	
+	//echo get_goods_bottom_cat_ids()."<br/>";
+	//die(get_children_str($category));
+	
 	$category_level=!empty($_REQUEST['category_level']) ? intval($_REQUEST['category_level']): 0;
+	$car_cat_level=!empty($_REQUEST['car_cat_level']) ? intval($_REQUEST['car_cat_level']): 0;
     $category   = !empty($_REQUEST['category']) ? intval($_REQUEST['category'])        : 2;
 	/*以下用于搜索扩展分类（车型分类）*/
 	$car_category=!empty($_REQUEST['car_category']) ? intval($_REQUEST['car_category']): 0;
 	if($category > 0 && $car_category == 0){
-		$categories = ' AND ' . get_children($category);
+		$categories = ' AND ' . get_goods_bottom_cat_ids($category_level, $category);
+//		$categories = ' AND ' . get_children($category);
 	}else if($category == 0 && $car_category > 0){
-		$categories = ' AND (' . "g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
+		$categories = ' AND (' . "g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_car_bottom_cat_ids($car_cat_level, $car_category) . " )  )";//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
+		//$categories = ' AND (' . "g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
 	}else if($category > 0 && $car_category > 0){
-		$categories = ' AND (' . get_children($category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";
+		//$categories = ' AND (' . get_goods_bottom_cat_ids($category_level, $category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";
+		$categories = ' AND (' . get_goods_bottom_cat_ids($category_level, $category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_car_bottom_cat_ids($car_cat_level, $car_category) . " )  )";
+		//$categories = ' AND (' . get_children($category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";
 	}else{
 		$categories='';
 	}
@@ -678,6 +687,7 @@ else
         'keywords'   => stripslashes(urlencode($_REQUEST['keywords'])),
         'category'   => $category,
 		'category_level'=>$category_level,//用于搜索扩展分类（车型分类）
+		'car_cat_level'=>$car_cat_level,//用于搜索车型分类（车型分类）
 		'car_category'=> $car_category,//用于搜索扩展分类（车型分类）
 		'car_category_for_display'=>$_REQUEST['car_category_for_display'],//用于在搜索结果页显示扩展分类（车型分类）
         'brand'      => $_REQUEST['brand'],
@@ -708,7 +718,7 @@ else
     $smarty->assign('intromode',      $intromode);
     $smarty->assign('categories', get_categories_tree()); // 分类树
     $smarty->assign('helps',       get_shop_help());      // 网店帮助
-    $smarty->assign('top_goods',  get_top10());           // 销售排行
+    //$smarty->assign('top_goods',  get_top10());           // 销售排行
     $smarty->assign('promotion_info', get_promotion_info());
 	
 	//获得所有汽车品牌

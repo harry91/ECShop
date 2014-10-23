@@ -1657,8 +1657,8 @@ function assign_template($ctype = '', $catlist = array())
     $smarty->assign('ecs_version',   VERSION);
     $smarty->assign('icp_number',    $GLOBALS['_CFG']['icp_number']);
     $smarty->assign('username',      !empty($_SESSION['user_name']) ? $_SESSION['user_name'] : '');
-    $smarty->assign('category_list', cat_list(0, 0, true,  2, false));
-    $smarty->assign('catalog_list',  cat_list(0, 0, false, 1, false));
+    //$smarty->assign('category_list', cat_list(0, 0, true,  2, false));
+    //$smarty->assign('catalog_list',  cat_list(0, 0, false, 1, false));
     $smarty->assign('navigator_list',        get_navigator($ctype, $catlist));  //自定义导航栏
 
     if (!empty($GLOBALS['_CFG']['search_keywords']))
