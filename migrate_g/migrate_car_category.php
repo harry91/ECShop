@@ -82,7 +82,7 @@ if ($brands_ret && $brands_ret->num_rows > 0) {
 											echo "...............begin<br/>";
 											while ( $variant_row = $variant->fetch_array () ) {
 												echo "..............." . $variant_row[2] . "<br/>";
-												insertCarCategory($variant_row[2], $curr_car_capacity_id, "variant");
+												insertCarCategory($variant_row[2], $curr_car_capacity_id, "variant", 65);
 											}
 											echo "...............end<br/>";
 										}
@@ -115,7 +115,7 @@ if ($brands_ret && $brands_ret->num_rows > 0) {
 	echo "end<br/>";
 }
 
-function insertCarCategory($cat_name, $parent_id, $cat_symbol = "category"){
+function insertCarCategory($cat_name, $parent_id, $cat_symbol = "category", $sort_order = 50){
 	$local_conn1 = new mysqli ( "localhost", "root", "sbsbsb", "testecs" );
 	$local_conn1->set_charset ( "utf8" );
 	$local_car_cat = $local_conn1->query("select * from ecs_category where cat_name='".$cat_name."' and parent_id=".$parent_id);
@@ -125,7 +125,7 @@ function insertCarCategory($cat_name, $parent_id, $cat_symbol = "category"){
 		$local_conn1_1->set_charset ( "utf8" );
 		$local_conn1_1->query("INSERT INTO ecs_category".
 				" (cat_name, parent_id, timer_id, keywords, cat_desc, sort_order, template_file, measure_unit, show_in_nav, style, is_show, grade, filter_attr ) ".
-				"VALUES  ('".$cat_name."', '".$parent_id."', '0', '', '', '50', '', '', '0', '', '1', '0', '')");
+				"VALUES  ('".$cat_name."', '".$parent_id."', '0', '', '', '$sort_order', '', '', '0', '', '1', '0', '')");
 		$curr_car_cat_id = $local_conn1_1->insert_id;
 		$local_conn1_1->close();
 		echo "new car ".$cat_symbol." inserted: ".$cat_name." ".$curr_car_cat_id."<br/>";
