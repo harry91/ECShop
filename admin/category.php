@@ -33,13 +33,13 @@ else
 /*------------------------------------------------------ */
 if ($_REQUEST['act'] == 'list')
 {
-	echo "Begin<br/>";
-	$StartTime = time();
+	//echo "Begin<br/>";
+	//$StartTime = time();
     /* 获取分类列表 */
     $cat_list = cat_list(2, 0, false, 0);
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
-	$StartTime = time();
+	//echo "Time: ".(time()-$StartTime)."<br/>";
+	//$StartTime = time();
 
     /* 模板赋值 */
     $smarty->assign('ur_here',      $_LANG['03_category_list']);
@@ -48,18 +48,18 @@ if ($_REQUEST['act'] == 'list')
 
     $smarty->assign('cat_info',     $cat_list);
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
-	$StartTime = time();
+	//echo "Time: ".(time()-$StartTime)."<br/>";
+	//$StartTime = time();
 
     /* 列表页面 */
     assign_query_info();
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
+	//echo "Time: ".(time()-$StartTime)."<br/>";
 
     $smarty->display('category_list.htm');
 	//print_r($cat_list);
 
-	die("End<br/>");
+	//die("End<br/>");
 }
 
 /*------------------------------------------------------ */
@@ -67,13 +67,13 @@ if ($_REQUEST['act'] == 'list')
 /*------------------------------------------------------ */
 if ($_REQUEST['act'] == 'car_list')
 {
-	echo "Begin<br/>";
-	$StartTime = time();
+	//echo "Begin<br/>";
+	//$StartTime = time();
     /* 获取分类列表 */
     $cat_list = cat_list(1, 0, false, 0);
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
-	$StartTime = time();
+	//echo "Time: ".(time()-$StartTime)."<br/>";
+	//$StartTime = time();
 
     /* 模板赋值 */
     $smarty->assign('ur_here',      $_LANG['03_car_category_list']);
@@ -82,18 +82,18 @@ if ($_REQUEST['act'] == 'car_list')
 
     $smarty->assign('cat_info',     $cat_list);
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
-	$StartTime = time();
+	//echo "Time: ".(time()-$StartTime)."<br/>";
+	//$StartTime = time();
 
     /* 列表页面 */
     assign_query_info();
 
-	echo "Time: ".(time()-$StartTime)."<br/>";
+	//echo "Time: ".(time()-$StartTime)."<br/>";
 
     $smarty->display('category_list.htm');
 	//print_r($cat_list);
 
-	die("End<br/>");
+	//die("End<br/>");
 }
 
 /*------------------------------------------------------ */
