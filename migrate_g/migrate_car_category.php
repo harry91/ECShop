@@ -7,10 +7,9 @@ require (dirname ( __FILE__ ) . '/dbconfig.php');
 $timex_conn1 = new mysqli ( "115.29.208.179", "sikubo", "Sikubo@2014!", "td_all" );
 $timex_conn1->set_charset ( "utf8" );
 $brands_ret = $timex_conn1->query ( "call p_searchBrand(@res)" );
+               
 
-$local_conn1 = new mysqli ( "localhost", "root", "sbsbsb", "testecs" );
-$local_conn1->set_charset ( "utf8" );
-$car_brand_root = $local_conn1->query("select * from ecs_category where cat_name='车型' and parent_id=0 and cat_id=1");
+$car_brand_root = $local_conn1->query("select * from ecs_category where cat_name='汽车' and parent_id=0 and cat_id=1");
 if(! ($car_brand_root && $car_brand_root->num_rows > 0) ){
 	echo "error<br/>";
 	return;
@@ -115,13 +114,11 @@ if ($brands_ret && $brands_ret->num_rows > 0) {
 	echo "end<br/>";
 }
 
-function insertCarCategory($cat_name, $parent_id, $cat_symbol = "category", $sort_order = 50){
-	$local_conn1 = new mysqli ( "localhost", "root", "sbsbsb", "testecs" );
-	$local_conn1->set_charset ( "utf8" );
+function insertCarCategory($cat_name, $parent_id, $cat_symbol = "category", $sort_order = 50){	
+	
 	$local_car_cat = $local_conn1->query("select * from ecs_category where cat_name='".$cat_name."' and parent_id=".$parent_id);
 	$curr_car_cat_id='-1';
-	if(!($local_car_cat && $local_car_cat->num_rows>0)){
-		$local_conn1_1 = new mysqli ( "localhost", "root", "sbsbsb", "testecs" );
+	if(!($local_car_cat && $local_car_cat->num_rows>0)){		
 		$local_conn1_1->set_charset ( "utf8" );
 		$local_conn1_1->query("INSERT INTO ecs_category".
 				" (cat_name, parent_id, timer_id, keywords, cat_desc, sort_order, template_file, measure_unit, show_in_nav, style, is_show, grade, filter_attr ) ".

@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.1.49, for Win32 (ia32)
 --
--- Host: localhost    Database: new
+-- Host: localhost    Database: ecomm2
 -- ------------------------------------------------------
 -- Server version	5.1.49-community
 
@@ -160,7 +160,7 @@ CREATE TABLE `ecs_admin_action` (
 
 LOCK TABLES `ecs_admin_action` WRITE;
 /*!40000 ALTER TABLE `ecs_admin_action` DISABLE KEYS */;
-INSERT INTO `ecs_admin_action` VALUES (1,0,'goods',''),(2,0,'cms_manage',''),(3,0,'users_manage',''),(4,0,'priv_manage',''),(5,0,'sys_manage',''),(6,0,'order_manage',''),(7,0,'promotion',''),(8,0,'email',''),(9,0,'templates_manage',''),(10,0,'db_manage',''),(11,0,'sms_manage',''),(21,1,'goods_manage',''),(22,1,'remove_back',''),(23,1,'cat_manage',''),(24,1,'cat_drop','cat_manage'),(25,1,'attr_manage',''),(26,1,'brand_manage',''),(27,1,'comment_priv',''),(84,1,'tag_manage',''),(30,2,'article_cat',''),(31,2,'article_manage',''),(32,2,'shopinfo_manage',''),(33,2,'shophelp_manage',''),(34,2,'vote_priv',''),(35,7,'topic_manage',''),(74,4,'template_manage',''),(73,3,'feedback_priv',''),(38,3,'integrate_users',''),(39,3,'sync_users','integrate_users'),(40,3,'users_manage',''),(41,3,'users_drop','users_manage'),(42,3,'user_rank',''),(85,3,'surplus_manage','account_manage'),(43,4,'admin_manage',''),(44,4,'admin_drop','admin_manage'),(45,4,'allot_priv','admin_manage'),(46,4,'logs_manage',''),(47,4,'logs_drop','logs_manage'),(48,5,'shop_config',''),(49,5,'ship_manage',''),(50,5,'payment',''),(51,5,'shiparea_manage',''),(52,5,'area_manage',''),(53,6,'order_os_edit',''),(54,6,'order_ps_edit','order_os_edit'),(55,6,'order_ss_edit','order_os_edit'),(56,6,'order_edit','order_os_edit'),(57,6,'order_view',''),(58,6,'order_view_finished',''),(59,6,'repay_manage',''),(60,6,'booking',''),(61,6,'sale_order_stats',''),(62,6,'client_flow_stats',''),(78,7,'snatch_manage',''),(83,7,'ad_manage',''),(80,7,'gift_manage',''),(81,7,'card_manage',''),(70,1,'goods_type',''),(82,7,'pack',''),(79,7,'bonus_manage',''),(75,5,'friendlink',''),(76,5,'db_backup',''),(77,5,'db_renew','db_backup'),(86,4,'agency_manage',''),(87,3,'account_manage',''),(88,5,'flash_manage',''),(89,5,'navigator',''),(90,7,'auction',''),(91,7,'group_by',''),(92,7,'favourable',''),(93,7,'whole_sale',''),(94,1,'goods_auto',''),(95,2,'article_auto',''),(96,5,'cron',''),(97,5,'affiliate',''),(98,5,'affiliate_ck',''),(99,8,'attention_list',''),(100,8,'email_list',''),(101,8,'magazine_list',''),(102,8,'view_sendlist',''),(103,1,'virualcard',''),(104,7,'package_manage',''),(105,1,'picture_batch',''),(106,1,'goods_export',''),(107,1,'goods_batch',''),(108,1,'gen_goods_script',''),(109,5,'sitemap',''),(110,5,'file_priv',''),(111,5,'file_check',''),(112,9,'template_select',''),(113,9,'template_setup',''),(114,9,'library_manage',''),(115,9,'lang_edit',''),(116,9,'backup_setting',''),(117,9,'mail_template',''),(118,10,'db_backup',''),(119,10,'db_renew',''),(120,10,'db_optimize',''),(121,10,'sql_query',''),(122,10,'convert',''),(124,11,'sms_send',''),(128,7,'exchange_goods',''),(129,6,'delivery_view',''),(130,6,'back_view',''),(131,5,'reg_fields',''),(132,5,'shop_authorized',''),(133,5,'webcollect_manage',''),(134,4,'suppliers_manage',''),(135,4,'role_manage','');
+INSERT INTO `ecs_admin_action` VALUES (1,0,'goods',''),(2,0,'cms_manage',''),(3,0,'users_manage',''),(4,0,'priv_manage',''),(5,0,'sys_manage',''),(6,0,'order_manage',''),(7,0,'promotion',''),(8,0,'email',''),(9,0,'templates_manage',''),(10,0,'db_manage',''),(11,0,'sms_manage',''),(21,1,'goods_manage',''),(22,1,'remove_back',''),(23,1,'cat_manage',''),(24,1,'cat_drop','cat_manage'),(25,1,'attr_manage',''),(26,1,'brand_manage',''),(27,1,'comment_priv',''),(30,2,'article_cat',''),(31,2,'article_manage',''),(32,2,'shopinfo_manage',''),(33,2,'shophelp_manage',''),(34,2,'vote_priv',''),(35,7,'topic_manage',''),(38,3,'integrate_users',''),(39,3,'sync_users','integrate_users'),(40,3,'users_manage',''),(41,3,'users_drop','users_manage'),(42,3,'user_rank',''),(43,4,'admin_manage',''),(44,4,'admin_drop','admin_manage'),(45,4,'allot_priv','admin_manage'),(46,4,'logs_manage',''),(47,4,'logs_drop','logs_manage'),(48,5,'shop_config',''),(49,5,'ship_manage',''),(50,5,'payment',''),(51,5,'shiparea_manage',''),(52,5,'area_manage',''),(53,6,'order_os_edit',''),(54,6,'order_ps_edit','order_os_edit'),(55,6,'order_ss_edit','order_os_edit'),(56,6,'order_edit','order_os_edit'),(57,6,'order_view',''),(58,6,'order_view_finished',''),(59,6,'repay_manage',''),(60,6,'booking',''),(61,6,'sale_order_stats',''),(62,6,'client_flow_stats',''),(70,1,'goods_type',''),(73,3,'feedback_priv',''),(74,4,'template_manage',''),(75,5,'friendlink',''),(76,5,'db_backup',''),(77,5,'db_renew','db_backup'),(78,7,'snatch_manage',''),(79,7,'bonus_manage',''),(80,7,'gift_manage',''),(81,7,'card_manage',''),(82,7,'pack',''),(83,7,'ad_manage',''),(84,1,'tag_manage',''),(85,3,'surplus_manage','account_manage'),(86,4,'agency_manage',''),(87,3,'account_manage',''),(88,5,'flash_manage',''),(89,5,'navigator',''),(90,7,'auction',''),(91,7,'group_by',''),(92,7,'favourable',''),(93,7,'whole_sale',''),(94,1,'goods_auto',''),(95,2,'article_auto',''),(96,5,'cron',''),(97,5,'affiliate',''),(98,5,'affiliate_ck',''),(99,8,'attention_list',''),(100,8,'email_list',''),(101,8,'magazine_list',''),(102,8,'view_sendlist',''),(103,1,'virualcard',''),(104,7,'package_manage',''),(105,1,'picture_batch',''),(106,1,'goods_export',''),(107,1,'goods_batch',''),(108,1,'gen_goods_script',''),(109,5,'sitemap',''),(110,5,'file_priv',''),(111,5,'file_check',''),(112,9,'template_select',''),(113,9,'template_setup',''),(114,9,'library_manage',''),(115,9,'lang_edit',''),(116,9,'backup_setting',''),(117,9,'mail_template',''),(118,10,'db_backup',''),(119,10,'db_renew',''),(120,10,'db_optimize',''),(121,10,'sql_query',''),(122,10,'convert',''),(124,11,'sms_send',''),(128,7,'exchange_goods',''),(129,6,'delivery_view',''),(130,6,'back_view',''),(131,5,'reg_fields',''),(132,5,'shop_authorized',''),(133,5,'webcollect_manage',''),(134,4,'suppliers_manage',''),(135,4,'role_manage','');
 /*!40000 ALTER TABLE `ecs_admin_action` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +180,7 @@ CREATE TABLE `ecs_admin_log` (
   PRIMARY KEY (`log_id`),
   KEY `log_time` (`log_time`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -189,6 +189,7 @@ CREATE TABLE `ecs_admin_log` (
 
 LOCK TABLES `ecs_admin_log` WRITE;
 /*!40000 ALTER TABLE `ecs_admin_log` DISABLE KEYS */;
+INSERT INTO `ecs_admin_log` VALUES (1,1414073901,1,'添加商品分类: 汽车','127.0.0.1'),(2,1414073977,1,'添加商品分类: 配件分类','127.0.0.1');
 /*!40000 ALTER TABLE `ecs_admin_log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -259,7 +260,7 @@ CREATE TABLE `ecs_admin_user` (
 
 LOCK TABLES `ecs_admin_user` WRITE;
 /*!40000 ALTER TABLE `ecs_admin_user` DISABLE KEYS */;
-INSERT INTO `ecs_admin_user` VALUES (1,'admin','loryhou@126.com','8867e9752680219532e4637ef8af472b','7949',1414070082,1414070487,'127.0.0.1','all','商品列表|goods.php?act=list,订单列表|order.php?act=list,用户评论|comment_manage.php?act=list,会员列表|users.php?act=list,商店设置|shop_config.php?act=list_edit','',0,0,NULL,NULL);
+INSERT INTO `ecs_admin_user` VALUES (1,'admin','loryhou@126.com','8867e9752680219532e4637ef8af472b','7949',1414070082,1414073876,'127.0.0.1','all','商品列表|goods.php?act=list,订单列表|order.php?act=list,用户评论|comment_manage.php?act=list,会员列表|users.php?act=list,商店设置|shop_config.php?act=list_edit','',0,0,NULL,NULL);
 /*!40000 ALTER TABLE `ecs_admin_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -841,7 +842,7 @@ CREATE TABLE `ecs_category` (
   `filter_attr` varchar(255) NOT NULL DEFAULT '0',
   PRIMARY KEY (`cat_id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -850,6 +851,7 @@ CREATE TABLE `ecs_category` (
 
 LOCK TABLES `ecs_category` WRITE;
 /*!40000 ALTER TABLE `ecs_category` DISABLE KEYS */;
+INSERT INTO `ecs_category` VALUES (1,'汽车',0,'','',0,0,'','',0,'',0,0,''),(2,'配件分类',0,'','',0,50,'','',0,'',0,0,'');
 /*!40000 ALTER TABLE `ecs_category` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2140,7 +2142,7 @@ CREATE TABLE `ecs_sessions` (
 
 LOCK TABLES `ecs_sessions` WRITE;
 /*!40000 ALTER TABLE `ecs_sessions` DISABLE KEYS */;
-INSERT INTO `ecs_sessions` VALUES ('00cd460e948699ef2d145f6ef8897618',1414070458,0,0,'127.0.0.1','0',0,'1.00','0','a:3:{s:7:\"from_ad\";i:0;s:7:\"referer\";s:6:\"本站\";s:10:\"login_fail\";i:0;}'),('3e815a83708ebd70edebaf215c205f7a',1414070644,0,1,'127.0.0.1','0',0,'0.00','0','a:4:{s:10:\"admin_name\";s:5:\"admin\";s:11:\"action_list\";s:3:\"all\";s:10:\"last_check\";i:1414070545;s:12:\"suppliers_id\";s:1:\"0\";}');
+INSERT INTO `ecs_sessions` VALUES ('6ecfb5d6a10e2961825c0e1180ab8ec5',1414073977,0,1,'127.0.0.1','0',0,'0.00','0','a:5:{s:12:\"captcha_word\";s:16:\"MDM3ZTkwODRlNA==\";s:10:\"admin_name\";s:5:\"admin\";s:11:\"action_list\";s:3:\"all\";s:10:\"last_check\";i:1414073876;s:12:\"suppliers_id\";s:1:\"0\";}');
 /*!40000 ALTER TABLE `ecs_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2830,4 +2832,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2014-10-23 21:43:12
+-- Dump completed on 2014-10-23 22:21:32

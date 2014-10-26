@@ -19,7 +19,7 @@ if ($result) {
 	echo "成功返回结果<br/>";
 	if($result->num_rows > 0){
 		$newCategoryId = $maxCategoryId +1;
-		$insert_sql = "INSERT INTO ecs_category VALUES (?, ?, '配件分类', '', ?, ?, '', '', '1', '', '1', '0', '0')";
+		$insert_sql = "INSERT INTO ecs_category VALUES (?, ?,0, '配件分类', '', ?, ?, '', '', '1', '', '1', '0', '0')";
 		while($row = $result->fetch_array() ){
 
 			$timex_category1_name = $row[0];
