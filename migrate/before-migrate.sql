@@ -374,7 +374,7 @@ DROP TABLE IF EXISTS `ecs_article`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_article` (
   `article_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_id` smallint(5) NOT NULL DEFAULT '0',
+  `cat_id` mediumint(8) NOT NULL DEFAULT '0',
   `title` varchar(150) NOT NULL DEFAULT '',
   `content` longtext NOT NULL,
   `author` varchar(30) NOT NULL DEFAULT '',
@@ -410,7 +410,7 @@ DROP TABLE IF EXISTS `ecs_article_cat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_article_cat` (
-  `cat_id` smallint(5) NOT NULL AUTO_INCREMENT,
+  `cat_id` mediumint(8) NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(255) NOT NULL DEFAULT '',
   `cat_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `keywords` varchar(255) NOT NULL DEFAULT '',
@@ -444,7 +444,7 @@ DROP TABLE IF EXISTS `ecs_attribute`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_attribute` (
   `attr_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cat_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `attr_name` varchar(60) NOT NULL DEFAULT '',
   `attr_input_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `attr_type` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -805,7 +805,7 @@ DROP TABLE IF EXISTS `ecs_cat_recommend`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_cat_recommend` (
-  `cat_id` smallint(5) NOT NULL,
+  `cat_id` mediumint(8) NOT NULL,
   `recommend_type` tinyint(1) NOT NULL,
   PRIMARY KEY (`cat_id`,`recommend_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -828,7 +828,7 @@ DROP TABLE IF EXISTS `ecs_category`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_category` (
-  `cat_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(90) NOT NULL DEFAULT '',
   `keywords` varchar(255) NOT NULL DEFAULT '',
   `cat_desc` varchar(255) NOT NULL DEFAULT '',
@@ -1260,7 +1260,7 @@ DROP TABLE IF EXISTS `ecs_goods`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_goods` (
   `goods_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `cat_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cat_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   `goods_sn` varchar(60) NOT NULL DEFAULT '',
   `goods_name` varchar(120) NOT NULL DEFAULT '',
   `goods_name_style` varchar(60) NOT NULL DEFAULT '+',
@@ -1419,7 +1419,7 @@ DROP TABLE IF EXISTS `ecs_goods_cat`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_goods_cat` (
   `goods_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
-  `cat_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `cat_id` mediumint(8) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`goods_id`,`cat_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1470,7 +1470,7 @@ DROP TABLE IF EXISTS `ecs_goods_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ecs_goods_type` (
-  `cat_id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
+  `cat_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `cat_name` varchar(60) NOT NULL DEFAULT '',
   `enabled` tinyint(1) unsigned NOT NULL DEFAULT '1',
   `attr_group` varchar(255) NOT NULL,
