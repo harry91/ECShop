@@ -240,6 +240,7 @@ function &init_users()
  */
 function cat_list($cat_id = 0, $selected = 0, $re_type = true, $level = 0, $is_show_all = true)
 {
+
     static $res = NULL;
 
     if ($res === NULL)

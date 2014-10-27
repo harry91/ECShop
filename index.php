@@ -6,6 +6,7 @@ require(dirname(__FILE__) . '/includes/init.php');
 
 //处理AJAX请求
 $act = !empty($_GET['act']) ? $_GET['act'] : '';
+
 if ($act == 'query_sub_car_types')
 {
 	$pageId=!empty($_GET['pageId']) ? $_GET['pageId'] : '1';
@@ -17,8 +18,10 @@ if ($act == 'query_sub_car_types')
 	$carYears = '';
 	$capacities='';
 	$car_types =  getCategorySelection($catId);
+	
 	foreach($car_types as $one_car_type){
 		$car_types_2 =  getCategorySelection($one_car_type['cat_id']);//年款
+		
 		foreach($car_types_2 as $one_car_type_2){
 			if(!strstr($carYears, $one_car_type_2['cat_name'])){
 				$carYears=$carYears.",".$one_car_type_2['cat_name'];
