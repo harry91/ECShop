@@ -231,14 +231,17 @@ function isExistCategory3($mysqli_link, $category1Name) {
 /*
 	生成brand
 */
-function createBrand($mysqli_link, $brandId, $brandName) {    
+function createBrand($mysqli_link,  $brandName) {    
+	
 	if(isExistBrand($mysqli_link,$brandName)){
 		echo $brandName.'已经存在';
 		return;
 	}
 	$insert_sql = "INSERT INTO ecs_brand ( brand_name, brand_desc)VALUES ( ?, ?)";
+	echo $insert_sql;
 	$stmt = $mysqli_link->prepare($insert_sql);
 	$stmt->bind_param('ss',$brandName, $brandDesc);		
+	$brandDesc = $brandName;
 	$stmt->execute();	
 	clearStoredResults($mysqli_link);
 }
@@ -282,13 +285,13 @@ function getMaxBrandId($mysqli_link) {
 /*
 */
 function getBrandId($mysqli_link, $brandName) {
-	$brandId = 1;
-	$result=$mysqli_link->query('select brand_id from ecs_brand where brand_name = \''.$brandName.'\'');	
+	$brandId = 0;
+	$queryStr = "select brand_id from ecs_brand where brand_name = '".$brandName."'";
+	echo $queryStr."<br/>";
+	$result=$mysqli_link->query($queryStr);		
 	if ($result && $result->num_rows>0) {
-		$row = $result-> fetch_array();
-		if ($row) {			
-			$brandId = $row[0];		
-		}
+		$row = $result-> fetch_array();			
+		$brandId = $row[0];						
 	}
 	clearStoredResults($mysqli_link);	
 	return $brandId;
@@ -296,14 +299,23 @@ function getBrandId($mysqli_link, $brandName) {
 
 function createBrand2Category($mysqli_link, $brandName, $categoryName) {
 	$categoryId = getCategory1Id($mysqli_link, $categoryName);
-	$brandId = getBrandId($mysqli_link, $brandName);
-	if(isExistBrand2Category($mysqli_link,$brandId, $categoryId)){
-		echo $brandName.'与'.$categoryName.' 关联已经建立<br/>';
+	if ($categoryId ==0) {
+		echo 'part: '.$categoryName.'does not exist, please migrate part first<br/>';
 		return;
 	}
+	
+	$brandId = getBrandId($mysqli_link, $brandName);
+	if ($brandId == 0) {
+		echo 'brand: '.$brandName .'does not exist, please migrate brand first<br/>';
+		return;
+	}
+	if(isExistBrand2Category($mysqli_link,$brandId, $categoryId)){		
+		return;
+	}
+	
 	$insert_sql = "INSERT INTO ecs_brand2Category ( brand_id, cat_id)VALUES ( ?, ?)";
 	$stmt = $mysqli_link->prepare($insert_sql);
-	$stmt->bind_param('ss',$brandId, $categoryId);		
+	$stmt->bind_param('ii',$brandId, $categoryId);		
 	$stmt->execute();	
 	clearStoredResults($mysqli_link);	
 }
