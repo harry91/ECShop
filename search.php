@@ -77,7 +77,7 @@ require(dirname(__FILE__) . '/includes/init.php');
 
 //处理AJAX请求
 $act = !empty($_GET['act']) ? $_GET['act'] : '';
-if ($act == 'query_sub_car_series')
+if ($act == 'query_sub_car_series' || $act == 'query_sub_car_year' || $act == 'query_sub_car_capacity' || $act == 'query_sub_car_types')
 {
 	$catId=$_GET['cat_id'];
 	$one_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = ".$catId;
@@ -86,85 +86,86 @@ if ($act == 'query_sub_car_series')
 	include_once('includes/cls_json.php');
 	$json = new JSON;
     die($json->encode($car_types));
-}else if ($act == 'query_sub_car_year')
-{
-	$catId=$_GET['cat_id'];
-	$one_sql = "SELECT distinct(cat_year.cat_name) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id";
-	$car_types =  $GLOBALS['db']->getAll($one_sql);
-	
-	include_once('includes/cls_json.php');
-	$json = new JSON;
-    die($json->encode($car_types));
-}else if ($act == 'query_sub_car_capacity'){
-	$catId=$_GET['cat_id'];
-	$carYear=$_GET['carYear'];
-	$one_sql ="select distinct(cat_capacity.cat_name) from ecs_category cat_capacity, ".
-	"(SELECT distinct(cat_year.cat_id) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id and cat_year.cat_name='".$carYear."') as cat_year".
-	" where cat_year.cat_id=cat_capacity.parent_id";
-	
-	$car_types =  $GLOBALS['db']->getAll($one_sql);
-	
-	include_once('includes/cls_json.php');
-	$json = new JSON;
-    die($json->encode($car_types));
-}else if ($act == 'query_sub_car_capacity'){
-	$catId=$_GET['cat_id'];
-	$carYear=$_GET['carYear'];
-	$one_sql ="select distinct(cat_capacity.cat_name) from ecs_category cat_capacity, ".
-	"(SELECT distinct(cat_year.cat_id) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id and cat_year.cat_name='".$carYear."') as cat_year".
-	" where cat_year.cat_id=cat_capacity.parent_id";
-	
-	$car_types =  $GLOBALS['db']->getAll($one_sql);
-	
-	include_once('includes/cls_json.php');
-	$json = new JSON;
-    die($json->encode($car_types));
-}else if ($act == 'query_sub_car_types'){
-	$catId=$_GET['cat_id'];
-	$carYear=$_GET['carYear'];
-	$carCapacity=$_GET['carCapacity'];
-	
-	$resultIndex = 0;
-	$car_types = getCategorySelection($catId);
-	foreach($car_types as $one_car_type){
-		$car_types_2 =  getCategorySelection($one_car_type['cat_id']);//年款
-		foreach($car_types_2 as $one_car_type_2){
-			if(!strstr($carYear, $one_car_type_2['cat_name'])){
-				continue;
-			}
-			$car_types_3 = getCategorySelection($one_car_type_2['cat_id']);//排量
-			foreach($car_types_3 as $one_car_type_3){
-				if(!strstr($carCapacity, $one_car_type_3['cat_name'])){
-					continue;
-				}
-				$car_types_4 = getCategorySelection($one_car_type_3['cat_id']);
-				if(count($car_types_4) == 0){
-					if($one_car_type['cat_name'] == "null_type"){
-						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
-					}else{
-						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
-					}
-					$retTypes[$resultIndex]['cat_id']=$one_car_type_3['cat_id'];
-					$resultIndex++;
-				}else{
-					foreach($car_types_4 as $one_car_type_4){
-						if($one_car_type['cat_name'] == "null_type"){
-							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
-						}else{
-							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
-						}
-						$retTypes[$resultIndex]['cat_id']=$one_car_type_4['cat_id'];
-						$resultIndex++;
-					}
-				}
-			}
-		}
-	}
-	
-	include_once('includes/cls_json.php');
-	$json = new JSON;
-    die($json->encode($retTypes));
 }
+//else if ($act == 'query_sub_car_year')
+//{
+//	$catId=$_GET['cat_id'];
+//	$one_sql = "SELECT distinct(cat_year.cat_name) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id";
+//	$car_types =  $GLOBALS['db']->getAll($one_sql);
+//	
+//	include_once('includes/cls_json.php');
+//	$json = new JSON;
+//    die($json->encode($car_types));
+//}else if ($act == 'query_sub_car_capacity'){
+//	$catId=$_GET['cat_id'];
+//	$carYear=$_GET['carYear'];
+//	$one_sql ="select distinct(cat_capacity.cat_name) from ecs_category cat_capacity, ".
+//	"(SELECT distinct(cat_year.cat_id) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id and cat_year.cat_name='".$carYear."') as cat_year".
+//	" where cat_year.cat_id=cat_capacity.parent_id";
+//	
+//	$car_types =  $GLOBALS['db']->getAll($one_sql);
+//	
+//	include_once('includes/cls_json.php');
+//	$json = new JSON;
+//    die($json->encode($car_types));
+//}else if ($act == 'query_sub_car_capacity'){
+//	$catId=$_GET['cat_id'];
+//	$carYear=$_GET['carYear'];
+//	$one_sql ="select distinct(cat_capacity.cat_name) from ecs_category cat_capacity, ".
+//	"(SELECT distinct(cat_year.cat_id) FROM ecs_category cat_year, (SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId.") as type_before_year where type_before_year.cat_id=cat_year.parent_id and cat_year.cat_name='".$carYear."') as cat_year".
+//	" where cat_year.cat_id=cat_capacity.parent_id";
+//	
+//	$car_types =  $GLOBALS['db']->getAll($one_sql);
+//	
+//	include_once('includes/cls_json.php');
+//	$json = new JSON;
+//    die($json->encode($car_types));
+//}else if ($act == 'query_sub_car_types'){
+//	$catId=$_GET['cat_id'];
+//	$carYear=$_GET['carYear'];
+//	$carCapacity=$_GET['carCapacity'];
+//	
+//	$resultIndex = 0;
+//	$car_types = getCategorySelection($catId);
+//	foreach($car_types as $one_car_type){
+//		$car_types_2 =  getCategorySelection($one_car_type['cat_id']);//年款
+//		foreach($car_types_2 as $one_car_type_2){
+//			if(!strstr($carYear, $one_car_type_2['cat_name'])){
+//				continue;
+//			}
+//			$car_types_3 = getCategorySelection($one_car_type_2['cat_id']);//排量
+//			foreach($car_types_3 as $one_car_type_3){
+//				if(!strstr($carCapacity, $one_car_type_3['cat_name'])){
+//					continue;
+//				}
+//				$car_types_4 = getCategorySelection($one_car_type_3['cat_id']);
+//				if(count($car_types_4) == 0){
+//					if($one_car_type['cat_name'] == "null_type"){
+//						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
+//					}else{
+//						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
+//					}
+//					$retTypes[$resultIndex]['cat_id']=$one_car_type_3['cat_id'];
+//					$resultIndex++;
+//				}else{
+//					foreach($car_types_4 as $one_car_type_4){
+//						if($one_car_type['cat_name'] == "null_type"){
+//							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
+//						}else{
+//							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
+//						}
+//						$retTypes[$resultIndex]['cat_id']=$one_car_type_4['cat_id'];
+//						$resultIndex++;
+//					}
+//				}
+//			}
+//		}
+//	}
+//	
+//	include_once('includes/cls_json.php');
+//	$json = new JSON;
+//    die($json->encode($retTypes));
+//}
 //完成AJAX请求的处理
 
 //$_REQUEST = array_merge($_REQUEST, addslashes_deep($string));//让search的url变简洁
@@ -332,15 +333,18 @@ else
 	$category_level=!empty($_REQUEST['category_level']) ? intval($_REQUEST['category_level']): 0;
 	$car_cat_level=!empty($_REQUEST['car_cat_level']) ? intval($_REQUEST['car_cat_level']): 0;
     $category   = !empty($_REQUEST['category']) ? intval($_REQUEST['category'])        : 2;
+	
 	/*以下用于搜索扩展分类（车型分类）*/
 	$car_category=!empty($_REQUEST['car_category']) ? intval($_REQUEST['car_category']): 0;
-	if($category > 0 && $car_category == 0){
+	
+	if($category > 2 && $car_category <= 1){
 		$categories = ' AND ' . get_goods_bottom_cat_ids($category_level, $category);
 //		$categories = ' AND ' . get_children($category);
-	}else if($category == 0 && $car_category > 0){
+	}else if($category <= 2 && $car_category > 1){
 		$categories = ' AND (' . "g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_car_bottom_cat_ids($car_cat_level, $car_category) . " )  )";//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
+		//print_r($categories);
 		//$categories = ' AND (' . "g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
-	}else if($category > 0 && $car_category > 0){
+	}else if($category > 2 && $car_category > 1){
 		//$categories = ' AND (' . get_goods_bottom_cat_ids($category_level, $category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";
 		$categories = ' AND (' . get_goods_bottom_cat_ids($category_level, $category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_car_bottom_cat_ids($car_cat_level, $car_category) . " )  )";
 		//$categories = ' AND (' . get_children($category) . " and g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($car_category) . " )  )";
@@ -716,7 +720,7 @@ else
     $smarty->assign('page_title', $position['title']);    // 页面标题
     $smarty->assign('ur_here',    $position['ur_here']);  // 当前位置
     $smarty->assign('intromode',      $intromode);
-    $smarty->assign('categories', get_categories_tree()); // 分类树
+    //$smarty->assign('categories', get_categories_tree()); // 分类树
     $smarty->assign('helps',       get_shop_help());      // 网店帮助
     //$smarty->assign('top_goods',  get_top10());           // 销售排行
     $smarty->assign('promotion_info', get_promotion_info());

@@ -301,7 +301,7 @@ function cat_list($cat_id = 0, $selected = 0, $re_type = true, $level = 0, $is_s
         return $re_type ? '' : array();
     }
 
-	$StartTime2 = time();
+	//$StartTime2 = time();
 	//echo "begin cat_options<br/>";
     $options = cat_options($cat_id, $res); // 获得指定分类下的子分类的数组
 	//print_r(debug_backtrace());
@@ -903,19 +903,6 @@ function get_car_bottom_cat_ids($level, $cat_id){
 	if($level == 0){
 		$sql="select cat_id from ecs_category where sort_order =65 ";
 	}else if($level == 1){
-		$sql="select ecs_c5.cat_id from ecs_category ecs_c5 right join".
-			"((select ecs_c4.cat_id from ecs_category ecs_c4 right join".
-			"((select ecs_c3.cat_id from ecs_category ecs_c3 right join".
-		
-			"((select ecs_c2.cat_id from ecs_category ecs_c2 right join".
-			"((select cat_id from ecs_category where parent_id='$cat_id')".
-			"as level2_cat)".
-			"on ecs_c2.parent_id=level2_cat.cat_id) as level3_cat)".
-			
-			"on ecs_c3.parent_id=level3_cat.cat_id) as level4_cat)".
-			"on ecs_c4.parent_id=level4_cat.cat_id) as level5_cat)".
-			"on ecs_c5.parent_id=level5_cat.cat_id";
-	}else if($level == 2){
 		$sql="select ecs_c4.cat_id from ecs_category ecs_c4 right join".
 			"((select ecs_c3.cat_id from ecs_category ecs_c3 right join".
 		
@@ -926,7 +913,26 @@ function get_car_bottom_cat_ids($level, $cat_id){
 			
 			"on ecs_c3.parent_id=level3_cat.cat_id) as level4_cat)".
 			"on ecs_c4.parent_id=level4_cat.cat_id";
-	}else if($level == 6){
+	}else if($level == 2){
+		$sql="select ecs_c3.cat_id from ecs_category ecs_c3 right join".
+		
+			"((select ecs_c2.cat_id from ecs_category ecs_c2 right join".
+			"((select cat_id from ecs_category where parent_id='$cat_id')".
+			"as level2_cat)".
+			"on ecs_c2.parent_id=level2_cat.cat_id) as level3_cat)".
+			
+			"on ecs_c3.parent_id=level3_cat.cat_id";
+		
+
+			"on ecs_c2.parent_id=level2_cat.cat_id";
+	}else if($level == 3){
+		$sql="select ecs_c2.cat_id from ecs_category ecs_c2 right join".
+			"((select cat_id from ecs_category where parent_id='$cat_id')".
+			"as level2_cat)".
+			"on ecs_c2.parent_id=level2_cat.cat_id";
+	}else if($level == 4){
+		$sql="select cat_id from ecs_category where parent_id='$cat_id'";
+	}else if($level == 5){
 		return "IN ('".$cat_id."')";
 	}
 	
