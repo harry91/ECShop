@@ -1,3 +1,6 @@
+DROP DATABASE `ecomm` IF EXISTS `ecomm`;
+CREATE DATABASE `ecomm` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use 'ecomm';
 -- MySQL dump 10.13  Distrib 5.1.49, for Win32 (ia32)
 --
 -- Host: localhost    Database: ecomm
