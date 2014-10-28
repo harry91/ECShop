@@ -26,7 +26,7 @@
 <div class="blank"></div>
 <div class="block clearfix"> 
   <!--left start-->
-  <div class="AreaL"> <!-- TemplateBeginEditable name="左边区域" --> <!-- #BeginLibraryItem "/library/cart.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/category_tree.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_related.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_fittings.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_article.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_attrlinked.lbi" --><!-- #EndLibraryItem --> <!-- TemplateEndEditable --> <!-- TemplateBeginEditable name="左边广告区域（宽200px）" --> <!-- TemplateEndEditable --> 
+  <div class="AreaL"> <!-- TemplateBeginEditable name="左边区域" --> <!-- #BeginLibraryItem "/library/cart.lbi" --><!-- #EndLibraryItem --> <!-- BeginLibraryItem "/library/category_tree.lbi" --><!-- EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_related.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_fittings.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_article.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/goods_attrlinked.lbi" --><!-- #EndLibraryItem --> <!-- TemplateEndEditable --> <!-- TemplateBeginEditable name="左边广告区域（宽200px）" --> <!-- TemplateEndEditable --> 
     <!--AD end--> 
     <!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem --> </div>
   <!--left end--> 
@@ -339,14 +339,18 @@
 		function queryCarYearCallBack(result){
 			var resultLen=Object.keys(result).length;
 			for(var i=0;i<resultLen;i++){
-				var oneResult="<li onclick=\"chooseCarYear(this)\""+">"+result[i+""]["cat_name"]+"</li>";
+				var oneResult="<li onclick=\"chooseCarYear("+result[i+""]["cat_id"]+", \'"+result[i+""]["cat_name"]+"\', this)\""+">"+result[i+""]["cat_name"]+"</li>";
 				jQuery("#carYearSelectorBox").find("ul").prepend(oneResult);
 			}
 		}
-		function chooseCarYear(targetElement){
+		function chooseCarYear(carYearCarId, carYear, targetElement){
 			jQuery("#carYearSelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
-			window.currCarCategoryId=window.currCarSeriesCatId;//window.currCarCategoryId记录当前的车型分类Id，点击汽车品牌、系列、具体型号时都会更新它，点击年份和排量不会更新，但如果在选择具体型号后又更改了排量或年份，则该值需要回退为汽车系列的Id, 所以这么写。后面chooseCarCapacity()中的操作同理。
+			window.currCarCategoryId=carYearCarId;
+			window.currCarYearCatId=carYearCarId;
+			window.currCarYear=carYear;
+			window.currCarCatLevel=3;
+			window.currCarCategoryName=window.currCarBrandName+" "+window.currCarSeriesName+" "+carYear;
 			clearFollowingSelectedResult(3);
 			jQuery("#carCapacitySelectorResult .box_text_cover").css("display","none");
 			openCarCapacitySelectorBox();
@@ -356,19 +360,23 @@
 			jQuery("#carCapacitySelectorBox ul").empty();
 			jQuery("#carCapacitySelectorBox").css("display","block");
 			//alert('cat_id=' + jQuery("#carSeriesSelectorResult").attr('cat_id')+'&carYear='+jQuery("#carYearSelectorResult").text());
-			Ajax.call( 'search.php?act=query_sub_car_capacity', 'cat_id=' + window.currCarSeriesCatId+'&carYear='+jQuery("#carYearSelectorResult").text(), queryCarCapacityCallBack , 'GET', 'JSON', true, true );
+			Ajax.call( 'search.php?act=query_sub_car_capacity', 'cat_id=' + window.currCarYearCatId, queryCarCapacityCallBack , 'GET', 'JSON', true, true );
 		}
 		function queryCarCapacityCallBack(result){
 			var resultLen=Object.keys(result).length;
 			for(var i=0;i<resultLen;i++){
-				var tmpResult="<li onclick="+"\"chooseCarCapacity(this)\""+">"+result[i+""]["cat_name"]+"</li>";
+				var tmpResult="<li onclick="+"\"chooseCarCapacity("+result[i+""]["cat_id"]+", \'"+result[i+""]["cat_name"]+"\', this)\""+">"+result[i+""]["cat_name"]+"</li>";
 				jQuery("#carCapacitySelectorBox").find("ul").prepend(tmpResult);
 			}
 		}
-		function chooseCarCapacity(targetElement){
+		function chooseCarCapacity(carCapacityCatId, carCapacity, targetElement){
 			jQuery("#carCapacitySelectorResult .box_text").text(jQuery(targetElement).text());
 			closeSelectorBox(targetElement);
-			window.currCarCategoryId=window.currCarSeriesCatId;
+			window.currCarCategoryId=carCapacityCatId;
+			window.currCarCapacityCatId=carCapacityCatId;
+			window.currCarCapacity=carCapacity;
+			window.currCarCatLevel=4;
+			window.currCarCategoryName=window.currCarBrandName+" "+window.currCarSeriesName+" "+window.currCarYear+" "+carCapacity;
 			clearFollowingSelectedResult(4);
 			jQuery("#carFullTypeSelectorResult .box_text_cover").css("display","none");
 			openCarFullTypeSelectorBox();
@@ -377,20 +385,20 @@
 			closeAllSubSelectorBox();
 			jQuery("#carFullTypeSelectorBox ul").empty();
 			jQuery("#carFullTypeSelectorBox").css("display","block");
-			Ajax.call( 'search.php?act=query_sub_car_types', 'cat_id=' + window.currCarCategoryId +'&carYear='+jQuery("#carYearSelectorResult").text()+'&carCapacity='+jQuery("#carCapacitySelectorResult").text(), queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
+			Ajax.call( 'search.php?act=query_sub_car_types', 'cat_id=' + window.currCarCapacityCatId, queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
 		}
 		function queryCarFullTypeCallBack(result){
 			var resultLen=Object.keys(result).length;
 			for(var i=0;i<resultLen;i++){
-				var tmpResult="<li cat_id='"+result[i+""]["cat_id"]+"' style=\"width:200px\" onclick="+"\"chooseCarFullType(this)\""+">"+result[i+""]["name"]+"</li>";
+				var tmpResult="<li cat_id='"+result[i+""]["cat_id"]+"' style=\"width:200px\" onclick="+"\"chooseCarFullType(this)\""+">"+result[i+""]["cat_name"]+"</li>";
 				jQuery("#carFullTypeSelectorBox").find("ul").prepend(tmpResult);
 			}
 		}
 		function chooseCarFullType(targetElement){
-			window.currCarCategoryId=jQuery(targetElement).attr("cat_id");
 			jQuery("#carFullTypeSelectorResult .box_text").text(jQuery(targetElement).text());
+			window.currCarCategoryId=jQuery(targetElement).attr("cat_id");
 			window.currCarCategoryName=jQuery(targetElement).text();
-			window.currCarCatLevel=6;
+			window.currCarCatLevel=5;
 			jQuery("#carFullTypeSelectorResult").attr("cat_id", window.currCarCategoryId);
 			closeSelectorBox(targetElement);
 		}

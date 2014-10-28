@@ -1,6 +1,10 @@
 <?php
 //local ecshop databse
+<<<<<<< HEAD
 $local_conn = new mysqli("localhost", "root", "SKBskb99", "ecomm");
+=======
+$local_conn = new mysqli("localhost", "root", "root", "ecomm");
+>>>>>>> bb39da16f235acdc046d8fa9a9b9fc0e87b4036f
 if (!$local_conn)
 {
 	die('Could not connect local database.');

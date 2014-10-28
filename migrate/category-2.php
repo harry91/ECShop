@@ -15,12 +15,12 @@ for ($i = 0; $i < $count; $i++) {
 	$subCatCount =0;
 	while($stmt->fetch()) {		
 		$subCatCount ++;
-		createCategory2($local_conn, $category1Arr[$i]->categoryName, $timxsubCategoryName);
+		createCategory2($local_conn, $category1Arr[$i]->categoryId, $timxsubCategoryName);
 	}				
 	echo 'there are '.$subCatCount.' under '.$category1Arr[$i]->categoryName.'<br/>';
 	$totalSubCategory = $totalSubCategory + $subCatCount;
 	clearStoredResults($timex_conn);
 	
 }
-echo 'there are number of '.$totalSubCategory.' accessories';
+echo 'there are number of '.$totalSubCategory.' sub categories';
 ?>
