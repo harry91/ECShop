@@ -88,8 +88,9 @@
   <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
   <script>
   function clickCarType(targetElement){
-	  //alert(jQuery(targetElement).attr('cat_id'));
-	  Ajax.call( 'carBrand.php?act=query_sub_car_types', 'cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text(), callbackQuerySubCarType , 'GET', 'JSON', true, true );
+	  //queryString='index.php?act=query_sub_car_types', 'cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text();
+	  //alert('cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text());
+	  Ajax.call( 'index.php?act=query_sub_car_types', 'cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text(), callbackQuerySubCarType , 'GET', 'JSON', true, true );
   }
   function callbackQuerySubCarType(result){
 	  if(window.newSubCarTypes){
@@ -123,7 +124,7 @@
 	  var contentLength = Object.keys(window.subCarTypesContentReturned).length;
 	  var newIndex=0;
 	  for(var i = 0; i < contentLength; i++){
-		  if( window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
+		  if( window.subCarTypesContentReturned[i+'']['attributes'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['attributes'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
 			  window.subCarTypesContent[newIndex+'']=jQuery.extend(true, {}, window.subCarTypesContentReturned[i+'']);
 			  newIndex++;
 		  }
@@ -147,7 +148,7 @@
 	  var items_per_page = 5;
       var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
 	  for(var i = page_index*items_per_page; i < max_elem; i++){
-		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_cat_level=6&car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
+		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_cat_level=5&car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
 	  }
 	  
 	  jQuery(".prevPageBtn").css("display", "block");

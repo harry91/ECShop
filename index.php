@@ -17,43 +17,28 @@ if ($act == 'query_sub_car_types')
 	$resultIndex = 0;
 	$carYears = '';
 	$capacities='';
-	$car_types =  getCategorySelection($catId);
+	$car_types =  getCategorySelection($catId);//年款
+	//print_r($car_types);
 	
 	foreach($car_types as $one_car_type){
-		$car_types_2 =  getCategorySelection($one_car_type['cat_id']);//年款
-		
+		if(!strstr($carYears, $one_car_type['cat_name'])){
+			$carYears=$carYears.",".$one_car_type['cat_name'];
+		}
+		$car_types_2 =  getCategorySelection($one_car_type['cat_id']);//排量
 		foreach($car_types_2 as $one_car_type_2){
-			if(!strstr($carYears, $one_car_type_2['cat_name'])){
-				$carYears=$carYears.",".$one_car_type_2['cat_name'];
+			if(!strstr($capacities, $one_car_type_2['cat_name'])){
+				$capacities=$capacities.",".$one_car_type_2['cat_name'];
 			}
-			$car_types_3 = getCategorySelection($one_car_type_2['cat_id']);//排量
+			$car_types_3 = getCategorySelection($one_car_type_2['cat_id']);//车型
 			foreach($car_types_3 as $one_car_type_3){
-				if(!strstr($capacities, $one_car_type_3['cat_name'])){
-					$capacities=$capacities.",".$one_car_type_3['cat_name'];
-				}
-				$car_types_4 = getCategorySelection($one_car_type_3['cat_id']);
-				if(count($car_types_4) == 0){
-					if($one_car_type['cat_name'] == "null_type"){
-						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
-					}else{
-						$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'];
-					}
-					$retTypes[$resultIndex]['cat_id']=$one_car_type_3['cat_id'];
-					$resultIndex++;
-				}else{
-					foreach($car_types_4 as $one_car_type_4){
-						if($one_car_type['cat_name'] == "null_type"){
-							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
-						}else{
-							$retTypes[$resultIndex]['name']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'].' '.$one_car_type_3['cat_name'].' '.$one_car_type_4['cat_name'];
-						}
-						$retTypes[$resultIndex]['cat_id']=$one_car_type_4['cat_id'];
-						$resultIndex++;
-					}
-				}
+				$retTypes[$resultIndex]['attributes']=$catName.' '.$one_car_type['cat_name'].' '.$one_car_type_2['cat_name'];
+				$retTypes[$resultIndex]['name']=$one_car_type_3['cat_name'];
+				$retTypes[$resultIndex]['cat_id']=$one_car_type_3['cat_id'];
+				$resultIndex++;
 			}
 		}
 	}
+	
 	$result['car_types']=$retTypes;
 	$result['carYears']=$carYears;
 	$result['capacities']=$capacities;
