@@ -76,6 +76,19 @@ function getAllGoods($mysqli_link){
 	return $goodsArr;
 }
 
+function isExistGoodsBySn($mysqli_link, $goodsSn ){
+	$queryStr = "select count(*) from ecs_goods where goods_sn='".$goodsSn."'";	
+	$result = $mysqli_link->query($queryStr);
+	$ret = false;
+	if($result && $result->num_rows>0){
+		$row = $result-> fetch_array();		
+		if ($row[0] >0) {
+			$ret = true;	
+		}		
+	}
+	clearStoredResults($mysqli_link);	
+	return $ret;
+}
 
 function updateCategory($mysqli_link, $goodId, $categoryId){
 	
@@ -90,6 +103,12 @@ function updateGoodsBrand($mysqli_link, $goodId, $categoryId){
 }
 
 
+
+function updateGoodsIsCommon($mysqli_link, $goodsSn, $isCommon){	
+	$queryStr = "update ecs_goods set is_common = ".$isCommon." where  goods_sn = '".$goodsSn."'";		
+	echo $queryStr.'<br/>';
+	$queryResult = $mysqli_link->query($queryStr);
+}
 
 function addGoods2Car($mysqli_link, $goodsId, $carIdsArr) {
 	$count = count($carIdsArr) ;

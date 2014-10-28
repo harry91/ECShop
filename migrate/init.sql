@@ -1310,6 +1310,7 @@ CREATE TABLE `ecs_goods` (
   `rank_integral` int(11) NOT NULL DEFAULT '-1',
   `suppliers_id` smallint(5) unsigned DEFAULT NULL,
   `is_check` tinyint(1) unsigned DEFAULT NULL,
+  `is_common` tinyint(1) unsigned DEFAULT NULL,
   PRIMARY KEY (`goods_id`),
   UNIQUE KEY `goods_sn_2` (`goods_sn`),
   KEY `goods_sn` (`goods_sn`),
