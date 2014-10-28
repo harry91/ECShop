@@ -582,7 +582,8 @@ function get_goods_info($goods_id)
         }
 
         /* 是否显示商品库存数量 */
-        $row['goods_number']  = ($GLOBALS['_CFG']['use_storage'] == 1) ? $row['goods_number'] : '';
+        //$row['goods_number']  = ($GLOBALS['_CFG']['use_storage'] == 1) ? $row['goods_number'] : '';
+		$row['goods_number'] = get_goods_number_from_skb($row['goods_sn']);
 
         /* 修正积分：转换为可使用多少积分（原来是可以使用多少钱的积分） */
         $row['integral']      = $GLOBALS['_CFG']['integral_scale'] ? round($row['integral'] * 100 / $GLOBALS['_CFG']['integral_scale']) : 0;
@@ -600,6 +601,23 @@ function get_goods_info($goods_id)
     {
         return false;
     }
+}
+
+function get_goods_number_from_skb($goodsId){
+	$postdata = '{"getStock":{"cInvCode":"'.$goodsId.'"}}';
+	$options = array(
+		'http' => array(
+		'method' => 'POST',
+		'header' => 'Content-type:application/json',
+		'content' => $postdata,
+		'timeout' => 30
+		)
+	);
+	$context = stream_context_create($options);
+	$result = file_get_contents("http://stahlgruber.cn:9765/services/stock/StockService", false, $context);
+	$result = json_decode($result);
+	$retNum= "".$result->Stock->stock->fAvaQuantity;
+	return $retNum;
 }
 
 /**

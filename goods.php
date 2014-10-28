@@ -190,7 +190,7 @@ if (!$smarty->is_cached('goods.dwt', $cache_id))
         $smarty->assign('goods',              $goods);
         $smarty->assign('goods_id',           $goods['goods_id']);
         $smarty->assign('promote_end_time',   $goods['gmt_end_time']);
-        $smarty->assign('categories',         get_categories_tree($goods['cat_id']));  // 分类树
+        //$smarty->assign('categories',         get_categories_tree($goods['cat_id']));  // 分类树
 
         /* meta */
         $smarty->assign('keywords',           htmlspecialchars($goods['keywords']));
