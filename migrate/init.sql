@@ -1,3 +1,7 @@
+DROP DATABASE `ecomm` IF EXISTS `ecomm`;
+CREATE DATABASE `ecomm` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use 'ecomm';
+
 -- MySQL dump 10.13  Distrib 5.1.49, for Win32 (ia32)
 --
 -- Host: localhost    Database: ecomm2
@@ -831,7 +835,7 @@ CREATE TABLE `ecs_category` (
   `timer_id` int(10) unsigned NOT NULL DEFAULT '0',
   `keywords` varchar(255) DEFAULT NULL,
   `cat_desc` varchar(255) NOT NULL DEFAULT '',
-  `parent_id` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `parent_id` int(10) unsigned NOT NULL DEFAULT '0',
   `sort_order` tinyint(1) unsigned NOT NULL DEFAULT '50',
   `template_file` varchar(50) NOT NULL DEFAULT '',
   `measure_unit` varchar(15) NOT NULL DEFAULT '',

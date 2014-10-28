@@ -16,19 +16,20 @@ for ($i = 0; $i < $count; $i++) {
 			"','".$carYearArr[$i]->yearName."',@res)";	
 	$stmt = $timex_conn->prepare($series);			
 	$stmt->execute();
-	$stmt->bind_result($oemName, $oemAbbrivation, $oemBrand, $oemModel, $oemYear, $oemCapcity);		
+	$stmt->bind_result($xid, $timerTypeName, $manufactoryBrandName,$manuafactoryName, $brandName,$tid,
+		$timerTypeId, $timerModelId, $timeModelName, $year, $capacity );		
 	$subCatCount =0;
 	while($stmt->fetch()) {						
 		$subCatCount ++;
-		if(!isExistCarType($local_conn, $carYearArr[$i]->yearId, $oemCapcity)) {							
+		if(!isExistCarType($local_conn, $carYearArr[$i]->yearId, $capacity)) {							
 			$maxCategoryId++;
 			$carTypeId = $maxCategoryId;
-			createCarYear($local_conn,$carTypeId, $oemCapcity,$carYearArr[$i]->yearId,0, 130, 'car-capacity');				
+			createCarYear($local_conn,$carTypeId, $capacity,$carYearArr[$i]->yearId,0, 130, 'car-capacity');				
 		}					
 	}				
 	echo 'there are '.$subCatCount.' capacity type  under '.$carYearArr[$i]->brandName.
 		" \ ".$carYearArr[$i]->seriesName.
-		" \ ".$carYearArr[$i]->yearName.'<br/>';
+		" \ ".$carYearArr[$i]->yearName.", id is: ".$carYearArr[$i]->yearId."<br/>";
 	$totalSubCategory = $totalSubCategory + $subCatCount;
 	clearStoredResults($timex_conn);
 	

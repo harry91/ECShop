@@ -27,7 +27,8 @@ function updateGoodsCategory($local_conn, $timex_conn){
 		}
 		$accessoryId = getCatIdByAccessoryAndSubPart($local_conn, $timexCategory->subPart, $timexCategory->accessory);
 		if($accessoryId == -1) {
-			echo 'local database does not exist subpart '. $timexCategory->subPart.', and accessory:'.$timexCategory->accessory.'<br/>' ;
+			echo 'local database does not exist subpart '. $timexCategory->subPart.', and accessory:'.$timexCategory->accessory. 
+					' for goods which brand code is: '.$goodsArr[$i]->brandCode.', and brand name is:'.$goodsArr[$i]->brandName.'<br/>' ;
 			continue;
 		}
 		

@@ -45,7 +45,7 @@ for ($i = 2; $i <= $data->sheets[0]['numRows']; $i++) {
 	" ('$goods_sn','$provider_name','$goods_name','$stock_code','$shop_price','$brand_name','$unit_name','$unit_format',0,'$tmp_goods_cat_id',".
 	"'', '', '', '', '', '', '', '' )";
 	
-	echo $insert_query.'<br/>';
+	
 	
  	$local_conn->query($insert_query);
  	

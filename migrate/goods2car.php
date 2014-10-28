@@ -1,4 +1,4 @@
-	<?php
+<?php
 $StartTime = time();
 
 header ( "Content-type: text/html; charset=utf-8" );
@@ -27,14 +27,16 @@ function mapGoodstoCar($local_conn, $timex_conn){
 		}
 		
 		if(is_null($tidArr)) {
-			echo 'timex api dooes not return available cars';
+			echo 'timex api dooes not return available cars for goods, brand code: '
+				.$goodsArr[$i]->brandCode.', name: '.$goodsArr[$i]->brandName.'<br/>';
 			continue;
 		}
 		$carIdArr = null;
 		$carIdArr = getCarIdByTimexId($local_conn, $tidArr);
 		
 		if(is_null($carIdArr)) {
-			echo 'local database does not exist car data '.arrToStr($tidArr) .'<br/>' ;
+			echo 'local database does not exist car data '.arrToStr($tidArr) . ' for goods, brand code:'.
+			$goodsArr[$i]->brandCode.', name: '.$goodsArr[$i]->brandName.'<br/>' ;
 			continue;
 		}
 		
@@ -44,14 +46,13 @@ function mapGoodstoCar($local_conn, $timex_conn){
 }
 
 function getOemItem2Car($timex_conn, $brandCode){
-	$queryStr =  "CALL p_searchTidByKpsCode('". $brandCode ."', @res)";
-	$queryStr =  "CALL p_searchTidByKpsCodeDealer( '". $brandCode."', @res)";	
+	$queryStr =  "CALL p_searchTidByKpsCode('". $brandCode ."', @res)";	
 	$queryResult = $timex_conn->query($queryStr);	
 	
 	if ($queryResult && $queryResult->num_rows > 0){				
 		$index = 0;
 		while($row = $queryResult->fetch_array() ){
-			$tidArr[$index] = $row[0];		
+			$tidArr[$index] = $row[2];		
 			$index++;		
 		}	
 	}
@@ -63,11 +64,11 @@ function getBrandItem2Car($timex_conn, $brandName, $brandCode){
 	// need to ask timex to add brand name, so far is not use
 	$queryStr =  "CALL p_searchTidByKpsCodeDealer( '". $brandCode."', @res)";	
 	$queryResult = $timex_conn->query($queryStr);	
-	
+	$tidArr = null;
 	if ($queryResult && $queryResult->num_rows > 0){				
 		$index = 0;
 		while($row = $queryResult->fetch_array() ){
-			$tidArr[$index] = $row[0];		
+			$tidArr[$index] = $row[2];		
 			$index++;		
 		}	
 	}
