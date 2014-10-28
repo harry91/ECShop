@@ -103,21 +103,15 @@ function getEcshopCategory2($mysqli_link) {
 	return $category2Arr;
 }
 
-function createCategory2($mysqli_link, $category, $subCategory){
-	if(isExistCategory2($mysqli_link,$subCategory)){
+function createCategory2($mysqli_link, $parentId, $subCategory){
+	if(isExistCategory2($mysqli_link,$parentId, $subCategory)){
 		echo $subCategory.'已经存在';
 		return;
 	}
 	$insert_sql = "INSERT INTO ecs_category VALUES (?, ?, 0, '配件分类', '', ?, 60, '', '', '2', '', '1', '0', '0')";
 	$stmt = $mysqli_link->prepare($insert_sql);
-	$stmt->bind_param('isi',$cat_id, $cat_name, $cat_parent_id );
-	$currentCategoryId = getMaxCategoryId($mysqli_link) +1;
-	$cat_id = $currentCategoryId;
-	$cat_name = $subCategory;
-	$cat_parent_id = getCategory1Id($mysqli_link, $category);
-	if($cat_parent_id == 0) {
-		echo "the parent category doesn't exist for category ".$subCategory;
-	}
+	$stmt->bind_param('isi',$cat_id, $subCategory, $parentId );	
+	$cat_id = getMaxCategoryId($mysqli_link) + 1;	
 	$stmt->execute();
 	clearStoredResults($mysqli_link);		
 }
@@ -193,8 +187,8 @@ function isExistCategory1($mysqli_link, $category1Name) {
 	return $ret;
 }
 
-function isExistCategory2($mysqli_link, $category2Name) {
-	$query_str = 'select count(*) from ecs_category where cat_name=\''.$category2Name.'\' and show_in_nav=2';	
+function isExistCategory2($mysqli_link, $parentId,  $category2Name) {
+	$query_str = 'select count(*) from ecs_category where cat_name=\''.$category2Name.'\' and parent_id='.$parentId;	
 	$result = $mysqli_link->query($query_str);
 	$ret = false;
 	if($result && $result->num_rows>0){
@@ -238,7 +232,6 @@ function createBrand($mysqli_link,  $brandName) {
 		return;
 	}
 	$insert_sql = "INSERT INTO ecs_brand ( brand_name, brand_desc)VALUES ( ?, ?)";
-	echo $insert_sql;
 	$stmt = $mysqli_link->prepare($insert_sql);
 	$stmt->bind_param('ss',$brandName, $brandDesc);		
 	$brandDesc = $brandName;
@@ -277,8 +270,7 @@ function getMaxBrandId($mysqli_link) {
 			$maxBrandId = $row[0];		
 		}
 	}
-	clearStoredResults($mysqli_link);
-	echo 'max brand id is '.$maxBrandId;
+	clearStoredResults($mysqli_link);	
 	return $maxBrandId;
 }
 
@@ -286,8 +278,7 @@ function getMaxBrandId($mysqli_link) {
 */
 function getBrandId($mysqli_link, $brandName) {
 	$brandId = 0;
-	$queryStr = "select brand_id from ecs_brand where brand_name = '".$brandName."'";
-	echo $queryStr."<br/>";
+	$queryStr = "select brand_id from ecs_brand where brand_name = '".$brandName."'";	
 	$result=$mysqli_link->query($queryStr);		
 	if ($result && $result->num_rows>0) {
 		$row = $result-> fetch_array();			

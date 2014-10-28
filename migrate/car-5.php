@@ -15,9 +15,9 @@ for ($i = 1; $i < $count; $i++) {
 			"','".$carSeriesArr[$i]->seriesName."',  @res)";	
 	$stmt = $timex_conn->prepare($series);			
 	$stmt->execute();
-	$stmt->bind_result($variantName, $tid, $xid, $timerModelId,$timerTypeId, $timerModelName,$timerTypeName,
-	        $manufactory, $brandName, $series, $subSeries, $seriesYear,	$modelStartYear, $modelEndYear, $typeStartYear, $typeEndYear, 
-				$egine, $outputVolumeML, $outputVolumL, $power, $transmissionType, $driveType);
+	$stmt->bind_result($tid, $xid, $timerModelId,$timerTypeId, $timerModelName,$timerTypeName,
+	    $manufactoryBrandName,$manufactory, $brandName, $series, $subSeries, $seriesYear,$modelStartYear, $modelEndYear, $typeStartYear, 
+		$typeEndYear, $egine, $outputVolumeML, $outputVolumL, $power, $transmissionType, $driveType);
 		
 	$subCatCount =0;
 	
@@ -30,11 +30,9 @@ for ($i = 1; $i < $count; $i++) {
 			// keywords	: car-brand, car-series, car-year, car-type, car-model	
 				
 			$carYearId = getCarYearId($local_conn, $carSeriesArr[$i]->seriesId, $seriesYear);	
-			
-			
+						
 			$carTypeId = getCarTypeId($local_conn, $carYearId, $outputVolumL);					
-			
-			
+						
 			createCarModel($local_conn, $timerModelName, $carTypeId,$tid, 140, 'car-model');				
 		}	
 		$local_conn->commit();
@@ -43,7 +41,8 @@ for ($i = 1; $i < $count; $i++) {
 		$local_conn->rollBack();
 	}	
 	
-	echo 'there are '.$subCatCount.' under '.$carSeriesArr[$i]->brandName." \ ".$carSeriesArr[$i]->seriesName.'<br/>';
+	echo 'there are '.$subCatCount.' under '.$carSeriesArr[$i]->brandName." \ "
+		.$carSeriesArr[$i]->seriesName.' <br/>';
 	$totalSubCategory = $totalSubCategory + $subCatCount;
 	clearStoredResults($timex_conn);
 	
