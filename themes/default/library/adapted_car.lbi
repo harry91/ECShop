@@ -1,0 +1,32 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<div class="box">
+    <style>
+	dl dd a{
+		color:#3B5998;
+		font-size:12px;
+		text-decoration:none;
+		font-family:Microsoft YaHei;
+	}
+	dl dd a:hover{
+		text-decoration:underline;
+	}
+	dl dd{
+		margin-top:8px;
+		width:235px;
+		display:block;
+		float:left;
+	}
+    </style>
+  <div class="box_1">
+    <h3><span class="text">适配车型</span></h3>
+    <div class="boxCenterList clearfix">
+      <dl style="width:728px;display:block; margin-left:3px;">
+      <!--{foreach from=$adapted_cars item=one_adapted_car}-->
+      <dd><a href="search.php?car_cat_level=5&car_category={$one_adapted_car.cat_id}&car_category_for_display={$one_adapted_car.cat_name}">{$one_adapted_car.cat_name}</a></dd>
+      <!--{/foreach}-->
+      <div style="clear:both;"></div>
+      </dl>
+    </div>
+  </div>
+</div>
+<div class="blank5"></div>

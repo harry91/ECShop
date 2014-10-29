@@ -246,6 +246,10 @@ if (!$smarty->is_cached('goods.dwt', $cache_id))
         //获取tag
         $tag_array = get_tags($goods_id);
         $smarty->assign('tags',                $tag_array);                                       // 商品的标记
+		
+		$queryAdaptedCarsSql="select cats.cat_id, cats.cat_name from (ecs_category cats right join ((select cat_id from ecs_goods_cat where goods_id=".$goods_id.") as cat_ids) on cats.cat_id=cat_ids.cat_id)";
+		$adapted_cars = $db->getAll($queryAdaptedCarsSql);//适配车型
+		$smarty->assign('adapted_cars', $adapted_cars);
 
         //获取关联礼包
         $package_goods_list = get_package_goods_list($goods['goods_id']);
