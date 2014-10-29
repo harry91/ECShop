@@ -238,6 +238,10 @@ function reg(str){
           {$goods.goods_number} {$goods.measure_unit}
         <!-- {/if} -->
       <!-- {/if} -->
+	    <!-- {if $goods.goods_number eq "" and $cfg.show_goodsnumber} 商品库存--> 
+			<strong>{$lang.goods_number}</strong>
+          <font color='red'>{$lang.stock_up}</font>
+		<!-- {/if} -->
        </dd>
       </li>
       <li class="clearfix">
