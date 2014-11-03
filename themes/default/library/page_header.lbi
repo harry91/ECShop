@@ -49,7 +49,7 @@ var process_request = "{$lang.process_request}";
     }
 	function goSearch(){
 		if(jQuery("#searchTypeSelect").val()){
-			window.location="search?goods_sn="+jQuery("#searchValue").val();
+			window.location="search.php?goods_sn="+jQuery("#searchValue").val();
 		}
 	}
     -->
