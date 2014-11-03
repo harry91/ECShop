@@ -28,6 +28,8 @@
 		  jQuery("#sub_header_2").addClass("act");
 	  }else if(window.location.pathname.indexOf("goodsCategory") >= 0){
 		  jQuery("#sub_header_1").addClass("act");
+	  }else if(window.location.pathname.indexOf("goodsOfBrand") >= 0){
+		  jQuery("#sub_header_3").addClass("act");
 	  }else{
 		  jQuery("#sub_header_0").addClass("act");
 	  }
@@ -38,7 +40,8 @@
     <ul class="fl nav clearfix" id="headerNav" style="width: 960px;height: 50px;background: url(themes/default/az_images/bg9.gif) repeat-x;float:left">
       <li id="sub_header_0"><a href="index.php">汽车品牌</a></li>
       <li id="sub_header_1"><a href="goodsCategory.php">配件分类</a></li>
-	  <li id="sub_header_2"><a href="goodsBrand.php">配件品牌</a></li>            
+	  <li id="sub_header_2"><a href="goodsBrand.php">配件品牌</a></li> 
+      <li id="sub_header_3"><a href="goodsOfBrand.php">配件品牌</a></li>            
     </ul>
     <a href="#" target="_blank" class="fl book_service" style="display:none;">汽车服务网</a> </div>
 </div>

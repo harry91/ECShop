@@ -62,12 +62,6 @@
 	}
 	</style>
     <div style="height:30px; background:#EDEDF0; display:block;">
-      <select onchange="filterCarTypes()" class="carYear" name="carYear" style="margin-top:4px; margin-left:10px;">
-        <option value="">全部年款</option>
-      </select>
-      <select onchange="filterCarTypes()" class="capacity" name="capacity" style="margin-top:4px;margin-left:5px;">
-        <option value="">全部排量</option>
-      </select>
       <div class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
       </div>
     <div style="position: relative; min-height:60px;">
@@ -87,67 +81,62 @@
   <div id="optionBarHidden" style="display:none;height: 34px"> </div>
   <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
   <script>
-  function clickCarType(targetElement){
+  function clickBrand(targetElement){
 	  //alert(jQuery(targetElement).attr('cat_id'));
-	  Ajax.call( 'carBrand.php?act=query_sub_car_types', 'cat_id=' + jQuery(targetElement).attr('cat_id')+"&cat_name="+jQuery(targetElement).text(), callbackQuerySubCarType , 'GET', 'JSON', true, true );
+	  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_brand', 'brand_id=' + jQuery(targetElement).attr('brand_id'), callbackQueryGoods , 'GET', 'JSON', true, true );
   }
-  function callbackQuerySubCarType(result){
-	  if(window.newSubCarTypes){
-		  window.newSubCarTypes.remove();
+  function callbackQueryGoods(result){
+	  if(window.goodsOfBrand){
+		  window.goodsOfBrand.remove();
 	  }
 	  
-	  window.newSubCarTypes=jQuery("#templates .sub_car_types").clone(true);
+	  window.goodsOfBrand=jQuery("#templates .sub_car_types").clone(true);
 	  
-	  jQuery("[cat_id='"+result['cat_id']+"']").closest(".brand-panel").append(window.newSubCarTypes);
-	  var carYears = result['carYears'].split(',');
-	  for(var i = 0; i < carYears.length; i++){
-		  if(carYears[i] != ''){
-			  window.newSubCarTypes.find(".carYear").append("<option value=\""+carYears[i]+"\">"+carYears[i]+"</option>");
-		  }
-	  }
+	  jQuery("[brand_id='"+result['brand_id']+"']").closest(".brand-panel").append(window.goodsOfBrand);
 	  
-	  var capacities = result['capacities'].split(',');
-	  for(var i = 0; i < capacities.length; i++){
-		  if(capacities[i] != ''){
-			  window.newSubCarTypes.find(".capacity").append("<option value=\""+capacities[i]+"\">"+capacities[i]+"</option>");
-		  }
-	  }
+	  window.goodsContentReturned=result['goods'];
+	  contentLength = Object.keys(window.goodsContentReturned).length;	  
 	  
-	  window.subCarTypesContentReturned=result['car_types'];
-	  
-	  filterCarTypes();
-  }
-  function filterCarTypes(){
-	  delete window.subCarTypesContent;
-	  window.subCarTypesContent={};
-	  var contentLength = Object.keys(window.subCarTypesContentReturned).length;
-	  var newIndex=0;
-	  for(var i = 0; i < contentLength; i++){
-		  if( window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
-			  window.subCarTypesContent[newIndex+'']=jQuery.extend(true, {}, window.subCarTypesContentReturned[i+'']);
-			  newIndex++;
-		  }
-	  }
-	  
-	  contentLength = Object.keys(window.subCarTypesContent).length;	  
-	  
-	  window.newSubCarTypes.find(".pagination").pagination(contentLength,
+	  window.goodsOfBrand.find(".pagination").pagination(contentLength,
 	  {
 		  callback:callbackPagination,
-		  items_per_page: 6,//若修改此项，则下方函数中的同名变量也要做相应修改
+		  items_per_page: 21,//若修改此项，则下方函数中的同名变量也要做相应修改
 		  num_display_entries: 8,
 		  num_edge_entries: 2,
 		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
 	  });
   }
+//  function filterCarTypes(){
+//	  delete window.subCarTypesContent;
+//	  window.subCarTypesContent={};
+//	  var contentLength = Object.keys(window.subCarTypesContentReturned).length;
+//	  var newIndex=0;
+//	  for(var i = 0; i < contentLength; i++){
+//		  if( window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
+//			  window.subCarTypesContent[newIndex+'']=jQuery.extend(true, {}, window.subCarTypesContentReturned[i+'']);
+//			  newIndex++;
+//		  }
+//	  }
+//	  
+//	  contentLength = Object.keys(window.subCarTypesContent).length;	  
+//	  
+//	  window.newSubCarTypes.find(".pagination").pagination(contentLength,
+//	  {
+//		  callback:callbackPagination,
+//		  items_per_page: 5,//若修改此项，则下方函数中的同名变量也要做相应修改
+//		  num_display_entries: 8,
+//		  num_edge_entries: 2,
+//		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
+//	  });
+//  }
   function callbackPagination(page_index, jq){
-	  window.newSubCarTypes.find("dd").remove();
+	  window.goodsOfBrand.find("dd").remove();
 	  
-	  var contentLength = Object.keys(window.subCarTypesContent).length;
-	  var items_per_page = 5;
+	  var contentLength = Object.keys(window.goodsContentReturned).length;
+	  var items_per_page = 21;
       var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
 	  for(var i = page_index*items_per_page; i < max_elem; i++){
-		 window.newSubCarTypes.find("dl").find("div").eq(0).before("<dd><a cat_id=\""+window.subCarTypesContent[i+""]['cat_id']+"\" href=\"search.php?car_cat_level=6&car_category="+window.subCarTypesContent[i+""]['cat_id']+"&car_category_for_display="+window.subCarTypesContent[i+""]['name']+"\">"+window.subCarTypesContent[i+""]['name']+"</a></dd>");
+		 window.goodsOfBrand.find("dl").find("div").eq(0).before("<dd><a href=\"goods.php?id="+window.goodsContentReturned[i+""]['goods_id']+"\">"+window.goodsContentReturned[i+""]['goods_name']+"</a></dd>");
 	  }
 	  
 	  jQuery(".prevPageBtn").css("display", "block");
@@ -232,16 +221,15 @@
       <div style="clear:both;"></div>
     </div>
   </div>-->
-  {foreach from=$all_car_brands item=one_car_brand}
+  {foreach from=$all_goods_brands item=one_goods_brand}
   <div class="brand-panel clearfix">
     <div class="car-brand-panel clearfix no_line"  id="47">
       <div class="thumbnail"></div>
       <div class="car-brand-list" >
         <div class="car-series-list">
           <div class="car-brand-title">
-            <h4>{$one_car_brand.cat_name}</h4>
+            <h4 style="cursor:pointer;" brand_id="{$one_goods_brand.brand_id}" onclick="clickBrand(this);">{$one_goods_brand.brand_name}</h4>
           </div>
-          {foreach from=$one_car_brand.car_types item=one_car_type} <a class="link car-type-button" cat_id="{$one_car_type.cat_id}"  href="javascript:void(0);" onclick="clickCarType(this);">{$one_car_type.cat_name}</a> {/foreach}
           <div class="car-type-list" style="display: none;"></div>
         </div>
       </div>
@@ -251,13 +239,6 @@
 <input id="pageIndex" type="hidden" value="4"/>
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
 <script>
-function test(){
-	var x='x1';
-	var xyz={'x':x, 'y':'y1'}
-	var xyz2 = jQuery.extend(true, {}, xyz); 
-	xyz2['x']='x2';
-	//alert(xyz['x']);
-}
 </script>
 </body>
 </html>

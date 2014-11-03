@@ -219,6 +219,8 @@ else
     $_REQUEST['goods_type'] = !empty($_REQUEST['goods_type']) ? intval($_REQUEST['goods_type']) : 0;
     $_REQUEST['sc_ds']      = !empty($_REQUEST['sc_ds']) ? intval($_REQUEST['sc_ds']) : 0;
     $_REQUEST['outstock']   = !empty($_REQUEST['outstock']) ? 1 : 0;
+	
+	$_REQUEST['goods_sn']   = !empty($_REQUEST['goods_sn']) ? intval($_REQUEST['goods_sn']) : 0;
 
     $action = '';
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'form')
@@ -359,6 +361,7 @@ else
 	//$categories = ($category > 0)               ? ' AND (' . get_children($category) . " or g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($category) . " )  )"   : '';//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
 	
     $brand      = $_REQUEST['brand']            ? " AND brand_id = '$_REQUEST[brand]'" : '';
+	$goods_sn   = $_REQUEST['goods_sn']         ? " AND goods_sn = '$_REQUEST[goods_sn]'" : '';
     $outstock   = !empty($_REQUEST['outstock']) ? " AND g.goods_number > 0 "           : '';
 
     $min_price  = $_REQUEST['min_price'] != 0                               ? " AND g.shop_price >= '$_REQUEST[min_price]'" : '';
@@ -498,7 +501,7 @@ else
     /* 获得符合条件的商品总数 */
     $sql   = "SELECT COUNT(*) FROM " .$ecs->table('goods'). " AS g ".
         "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )";
+        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )";
     $count = $db->getOne($sql);
 
     $max_page = ($count> 0) ? ceil($count / $size) : 1;
@@ -515,7 +518,7 @@ else
             "LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
                     "ON mp.goods_id = g.goods_id AND mp.user_rank = '$_SESSION[user_rank]' ".
             "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-                "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . " ) ".$tag_where." ) " .
+                "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." ) " .
             "ORDER BY $sort $order";
 	
     $res = $db->SelectLimit($sql, $size, ($page - 1) * $size);
@@ -592,7 +595,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )) as goods ".
 		
 			"where ecs_category_1.cat_id = goods.cat_id) as ecs_category_1 ".
 			"where ecs_category_1.parent_id = ecs_category_2.cat_id) as ecs_category_2 ".
@@ -609,7 +612,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )) as goods ".
 		
 			"where ecs_category_1.cat_id = goods.cat_id) as ecs_category_1 ".
 			"where ecs_category_1.parent_id = ecs_category_2.cat_id";
@@ -623,7 +626,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." )) as goods ".
 
 			"where goods.cat_id = ecs_category_1.cat_id";
 			
@@ -647,7 +650,7 @@ else
 		"select ecs_brand.brand_id, ecs_brand.brand_name from ecs_brand, ".
 		"(SELECT distinct(g.brand_id) FROM " .$ecs->table('goods'). " AS g ".
         "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock ." ) ".$tag_where." )) as goods ".
+        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." )) as goods ".
 		"where goods.brand_id=ecs_brand.brand_id";
 		$brands = $GLOBALS['db']->getAll($getBrandSql);
 		$smarty->assign('brands', $brands);
