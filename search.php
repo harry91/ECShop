@@ -267,6 +267,8 @@ else
     /* 初始化搜索条件 */
     $keywords  = '';
     $tag_where = '';
+	
+	
     if (!empty($_REQUEST['keywords']))
     {
         $arr = array();

@@ -22,6 +22,8 @@ $cookie_domain    = "";
 
 $session = "1440";
 
+ini_set('memory_limit', '1024M');
+
 define('EC_CHARSET','utf-8');
 
 define('ADMIN_PATH','admin');
@@ -30,6 +32,6 @@ define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
 
-define('API_TIME', '2014-10-29 12:32:18');
+define('API_TIME', '2014-11-03 05:51:04');
 
 ?>

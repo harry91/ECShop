@@ -55,7 +55,7 @@ var process_request = "{$lang.process_request}";
     {foreach from=$searchkeywords item=val} <a href="search.php?keywords={$val|escape:url}">{$val}</a> {/foreach}
     {/if} </div>
   <form id="searchForm" name="searchForm" method="get" action="search.php" onSubmit="return checkSearchForm()" class="f_r"  style="_position:relative; top:5px;">
-    <select name="category" id="category" class="B_input">
+    <select name="keyWordsType" id="keyWordsType" class="B_input">
       <option value="0">{$lang.all_category}</option>
       
       
@@ -73,7 +73,9 @@ var process_request = "{$lang.process_request}";
 <script type="text/javascript">
 function onChangeSearchSelector(){
 	jQuery("#searchTypeSpan").text(jQuery("option[value='" + jQuery("#searchTypeSelect").val() + "']").text());
-	if(jQuery("#searchTypeSelect").val() == "OEM"){
+	if(jQuery("#searchTypeSelect").val() == "stock"){
+		jQuery("#searchValue").attr("placeholder", "请输入商品编号");
+	}else if(jQuery("#searchTypeSelect").val() == "OEM"){
 		jQuery("#searchValue").attr("placeholder", "请输入OEM");
 	}else if(jQuery("#searchTypeSelect").val() == "VIN"){
 		jQuery("#searchValue").attr("placeholder", "请输入VIN");
@@ -91,6 +93,7 @@ function onChangeSearchSelector(){
         <option value="KEYWORDS" selected="selected">关键字</option>
         <option value="VIN">VIN</option>
         <option value="OEM">OEM</option>
+		<option value="stock">商品编号</option>
       </select>
       <span style="float:left; margin-top:10px; width:1px; height:30px; background:#999"></span>
       <input id="searchValue" name="searchValue" style="float:left; height:28px; border:none; margin-top:10px; width:250px; padding-left:5px;" placeholder="请输入车型、商品名称、品牌、规格型号"/>

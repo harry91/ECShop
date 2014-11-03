@@ -285,7 +285,7 @@ function cat_list($cat_id = 0, $selected = 0, $re_type = true, $level = 0, $is_s
                 $res[$k]['goods_num'] = !empty($newres[$v['cat_id']]) ? $newres[$v['cat_id']] : 0;
             }
             //如果数组过大，不采用静态缓存方式
-            if (count($res) <= 1000)
+            if (count($res) <= 3000)
             {
                 write_static_cache('cat_pid_releate', $res);
             }
