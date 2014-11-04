@@ -631,10 +631,19 @@ function get_package_goods_list($goods_id)
 }
 
 function convert_ur_here($ur_here){
-	$posi = strpos($ur_here, "<a href=\"category.php?id=2");
-	$ret_str = substr($ur_here, $posi);
-	$posi = strpos($ret_str, "category.php?id=2");
-	$ret_str = substr_replace($ret_str, "goodsCategory.php", $posi, strlen("category.php?id=2"));
+	$ret_str =$ur_here;
+	if(strstr($ret_str, "category.php?id=2")){
+		$posi = strpos($ret_str, "<a href=\"category.php?id=2");
+	}else{
+		$posi = strpos($ret_str, ">汽车<");
+		$ret_str = substr_replace($ret_str, ">配件分类<", $posi, strlen(">汽车<"));
+		$posi = strpos($ret_str, "<a href=\"category.php?id=1");
+	}
+	
+	$ret_str = substr($ret_str, $posi);
+	$posi = strpos($ret_str, "category.php?id=1");
+	$ret_str = substr_replace($ret_str, "goodsCategory.php", $posi, strlen("category.php?id=1"));
+	
 	$pattern = '/\"category\.php\?id=(.*?)\"/i';
 	preg_match_all($pattern, $ret_str, $matches, PREG_SET_ORDER);
 	

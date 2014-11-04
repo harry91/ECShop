@@ -610,13 +610,16 @@ function get_goods_number_from_skb($goodsId){
 		'method' => 'POST',
 		'header' => 'Content-type:application/json',
 		'content' => $postdata,
-		'timeout' => 30
+		'timeout' => 15
 		)
 	);
 	$context = stream_context_create($options);
 	$result = file_get_contents("http://stahlgruber.cn:9765/services/stock/StockService", false, $context);
 	$result = json_decode($result);
 	$retNum= "".$result->Stock->stock->fAvaQuantity;
+	if($retNum==""){
+		$retNum="0";
+	}
 	return $retNum;
 }
 
