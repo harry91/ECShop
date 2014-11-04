@@ -22,7 +22,7 @@ if ($act == 'query_goods_of_brand')
 
 assign_template();
 
-$my_sql = "SELECT brand_name, brand_id FROM ecs_brand";
+$my_sql = "select brand_id, brand_name from ecs_brand where brand_id IN(select distinct(brand_id) from ecs_goods where is_common = 1)";
 $all_goods_brands =  $GLOBALS['db']->getAll($my_sql);
 
 //for($i=0; $i<count($all_car_brands); $i++){
