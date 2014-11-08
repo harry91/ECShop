@@ -114,8 +114,9 @@
 	  }
 	  
 	  window.goodsCats=result['goodsCats'];
-
-	  //filterGoodsPart();
+	  
+	  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
+	  + "&cat_level=3", callbackQueryGoods , 'GET', 'JSON', true, true );
   }
   function callbackQueryGoods(result){
 	  window.goodsContentFiltered=result['goods'];

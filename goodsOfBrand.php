@@ -23,8 +23,6 @@ if ($act == 'query_cats_of_brand')
 					"and  accessory.cat_id in (select distinct cat_id from ecs_goods where brand_id = '$brand_id')";
 	$result['goodsCats']=$GLOBALS['db']->getAll($queryCatsSql);
 	
-	//print_r($queryCatsSql);
-	
 	include_once('includes/cls_json.php');
 	$json = new JSON;
     die($json->encode($result));
@@ -39,6 +37,8 @@ if ($act == 'query_cats_of_brand')
 		$queryGoodsSql="select goods_name, goods_id from ecs_goods where brand_id = '$brand_id' AND cat_id IN ( SELECT cat_id FROM ecs_category WHERE parent_id = '$cat_id')";
 	}else if($cat_level == '2'){
 		$queryGoodsSql="select goods_name, goods_id from ecs_goods where brand_id = '$brand_id' AND cat_id = '$cat_id'";
+	}else if($cat_level == '3'){
+		$queryGoodsSql="select goods_name, goods_id from ecs_goods where brand_id = '$brand_id'";
 	}
 	
 	$result['goods']=$GLOBALS['db']->getAll($queryGoodsSql);
