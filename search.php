@@ -86,6 +86,15 @@ if ($act == 'query_sub_car_series' || $act == 'query_sub_car_year' || $act == 'q
 	include_once('includes/cls_json.php');
 	$json = new JSON;
     die($json->encode($car_types));
+}else if ($act == 'query_sub_car_types_by_series')
+{
+	$catId=$_GET['cat_id'];
+	$one_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id IN ( SELECT cat_id FROM ecs_category WHERE parent_id IN( SELECT cat_id FROM ecs_category WHERE parent_id = ".$catId." ))";
+	$car_types =  $GLOBALS['db']->getAll($one_sql);
+	
+	include_once('includes/cls_json.php');
+	$json = new JSON;
+    die($json->encode($car_types));
 }
 //else if ($act == 'query_sub_car_year')
 //{

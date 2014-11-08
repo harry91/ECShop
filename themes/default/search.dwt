@@ -257,6 +257,20 @@
 			background-image:url(images/close_blue.png);
 			cursor:pointer;
 		}
+		.direct_search_button{
+			float: left;
+			margin-left: 180px;
+			margin-top: 2px;
+			height: 23px;
+			width: 138px;
+			background-color: #888;
+			cursor: pointer;
+			color: #FFF;
+			line-height: 23px;
+			padding-left: 10px;
+			font-weight: bold;
+			font-size: 15px;
+		}
 		.outer_selector_box ul li{
 			width:150px;
 			height:20px;
@@ -379,18 +393,31 @@
 			window.currCarCategoryName=window.currCarBrandName+" "+window.currCarSeriesName+" "+window.currCarYear+" "+carCapacity;
 			clearFollowingSelectedResult(4);
 			jQuery("#carFullTypeSelectorResult .box_text_cover").css("display","none");
-			openCarFullTypeSelectorBox();
+			openCarFullTypeSelectorBox(false);
 		}
-		function openCarFullTypeSelectorBox(){
+		function openCarFullTypeSelectorBox(byCarSeries){
 			closeAllSubSelectorBox();
 			jQuery("#carFullTypeSelectorBox ul").empty();
 			jQuery("#carFullTypeSelectorBox").css("display","block");
-			Ajax.call( 'search.php?act=query_sub_car_types', 'cat_id=' + window.currCarCapacityCatId, queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
+			if(byCarSeries == false){
+				Ajax.call( 'search.php?act=query_sub_car_types', 'cat_id=' + window.currCarCapacityCatId, queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
+			}else{
+				jQuery("#carYearSelectorResult .box_text").text("请选择年款");
+				jQuery("#carYearSelectorResult").attr("cat_id", "-1");
+				
+				jQuery("#carCapacitySelectorResult .box_text").text("请选择排量");
+				jQuery("#carCapacitySelectorResult").attr("cat_id", "-1");
+				jQuery("#carCapacitySelectorResult .box_text_cover").css("display","block");
+				
+				jQuery("#carFullTypeSelectorResult .box_text_cover").css("display","none");
+				
+				Ajax.call( 'search.php?act=query_sub_car_types_by_series', 'cat_id=' + window.currCarSeriesCatId, queryCarFullTypeCallBack , 'GET', 'JSON', true, true );
+			}
 		}
 		function queryCarFullTypeCallBack(result){
 			var resultLen=Object.keys(result).length;
 			for(var i=0;i<resultLen;i++){
-				var tmpResult="<li cat_id='"+result[i+""]["cat_id"]+"' style=\"width:200px\" onclick="+"\"chooseCarFullType(this)\""+">"+result[i+""]["cat_name"]+"</li>";
+				var tmpResult="<li cat_id='"+result[i+""]["cat_id"]+"' style=\"width:300px\" onclick="+"\"chooseCarFullType(this)\""+">"+result[i+""]["cat_name"]+"</li>";
 				jQuery("#carFullTypeSelectorBox").find("ul").prepend(tmpResult);
 			}
 		}
@@ -547,7 +574,7 @@
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carYearSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarYearSelectorBox()">请选择年款</div><div class="box_text_cover"></div></div>
+                  <div id="carYearSelectorResult" class="line_in_box"><div class="direct_search_button" onclick="openCarFullTypeSelectorBox(true)">依据车系搜索车型</div><div class="box_text" style="width:175px;" onclick="openCarYearSelectorBox()">请选择年款</div><div style="width:30px; height:27px; float:right; cursor:pointer;" onclick="openCarYearSelectorBox()"></div><div class="box_text_cover"></div></div>
                   <div id="carYearSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
@@ -561,7 +588,7 @@
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carFullTypeSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarFullTypeSelectorBox()">请选择车型</div><div class="box_text_cover"></div></div>
+                  <div id="carFullTypeSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarFullTypeSelectorBox(false)">请选择车型</div><div class="box_text_cover"></div></div>
                   <div id="carFullTypeSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
