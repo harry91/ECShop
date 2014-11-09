@@ -6,10 +6,10 @@ $db_host   = "localhost:3306";
 $db_name   = "ecomm2";
 
 // database username
-$db_user   = "testecs";
+$db_user   = "root";
 
 // database password
-$db_pass   = "testecs";
+$db_pass   = "SKBskb99";
 
 // table prefix
 $prefix    = "ecs_";
@@ -32,6 +32,6 @@ define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
 
-define('API_TIME', '2014-11-09 15:02:10');
+define('API_TIME', '2014-11-03 05:51:04');
 
 ?>
