@@ -28,34 +28,306 @@
     })();
 </script>
 <link href="http://www.autozi.com:80/resources/themes/default/css/theme.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/pagination-plugin.css" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
 {insert_scripts files='common.js,index.js'}
 </head>
 <body>
-<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
-<div class="car-brand-bg2">
-  <ul class="car_brand_tab2 clearfix" >
-    {foreach from=$allCategories item=one_category}
-    <li > <a href="#{$one_category.cat_name}">{$one_category.cat_name}</a> </li>
-    {/foreach}
-  </ul>
-</div>
-<div class="main clearfix" style="margin-top:10px">
-  <div id="optionBarHidden" style="display:none;height:100px"> </div>
-  <div class="fixture_box"> {foreach from=$allCategories item=one_category}
-    <h3 class="fixture_title event-index" id="{$one_category.cat_name}" name="{$one_category.cat_name}" style="margin-top:-1px; text-align:left;">{$one_category.cat_name}</h3>
-    <div class="brand_list clearfix">
-      <ul>
-      {foreach from=$one_category.brands item=one_brand}
-        <li class="brand_list_item"><a href="search.php?brand={$one_brand.brand_id}&brandName={$one_brand.brand_name}" class="brand_logo_pic"><img src="data/brandlogo/{$one_brand.brand_logo}">
-          <h4>{$one_brand.brand_name}</h4>
-          </a>
-        </li>
-       {/foreach}
-      </ul>
+<div id="templates" style="display:none;">
+  <div class="clearfix sub_car_types" style="height:auto; clear:both; margin-left:93px; margin-right:50px; padding-bottom:10px; display:block;">
+    <style>
+	dl dd a{
+		color:#3B5998;
+		font-size:12px;
+		text-decoration:none;
+		font-family:Microsoft YaHei;
+	}
+	dl dd a:hover{
+		text-decoration:underline;
+	}
+	dl dd{
+		margin-top:8px;
+		width:250px;
+		display:block;
+		float:left;
+	}
+	.prevPageBtn, .nextPageBtn{
+		position:absolute;
+		height:100%;
+		width:40px;
+		cursor:pointer;
+	}
+	a.next, span.next, a.prev, span.prev{
+		display:none;
+	}
+	</style>
+    <div style="height:30px; background:#EDEDF0; display:block;">
+      <select onchange="chooseGoodsPart()" class="goodsParts" name="carYear" style="margin-top:4px; margin-left:10px;">
+        <option value="">全部配件分类</option>
+      </select>
+      <select onchange="chooseGoodsSubPart()" class="goodsSubParts" name="capacity" style="margin-top:4px;margin-left:5px;">
+        <option value="">全部子分类</option>
+      </select>
+	  <select onchange="chooseGoodsAccessories()" class="goodsAccessories" name="capacity" style="margin-top:4px;margin-left:5px;">
+        <option value="">全部配件</option>
+      </select>
+      <div class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
+      </div>
+    <div style="position: relative; min-height:60px;">
+      <div class="prevPageBtn" style="float:left;background:url(images/tinyArrowLeft.png) center no-repeat;" onclick="clickPrevBtn()"></div>
+      <dl style="width:755px;display:block; margin-left:50px;">
+        <div class="nextPageBtn" style="clear:both; background:url(images/tinyArrowRight.png) center no-repeat; margin-left:730px;"  onclick="clickNextBtn()"></div>
+        <div style="clear:both;"></div>
+      </dl>
     </div>
-    {/foreach} </div>
+    <div style="clear:both;"></div>
+  </div>
 </div>
-<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
+<input type="hidden" id="anchorPoint" value=""/>
+<div class="main" style="margin-top:10px">
+  <div class="option-bar" id="optionBar"> <a href="#A" class="border all">全部</a> <a href="#A" class="border">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border disabled">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border disabled">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border disabled">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border disabled">T</a> <a href="#U" class="border disabled">U</a> <a href="#V" class="border disabled">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
+  <div id="optionBarHidden" style="display:none;height: 34px"> </div>
+  <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
+  <script>
+  function clickBrand(targetElement){
+	  //alert(jQuery(targetElement).attr('cat_id'));
+	  window.currBrandId=jQuery(targetElement).attr('brand_id');
+	  Ajax.call( 'goodsBrand.php?act=query_cats_of_brand', 'brand_id=' + window.currBrandId, callbackQueryCategories , 'GET', 'JSON', true, true );
+  }
+  function callbackQueryCategories(result){
+	  if(window.goodsBrand){
+		  window.goodsBrand.remove();
+	  }
+	  
+	  window.goodsBrand=jQuery("#templates .sub_car_types").clone(true);
+	  
+	  jQuery("[brand_id='"+result['brand_id']+"']").closest(".brand-panel").append(window.goodsBrand);
+	  
+	  var goodsParts = {};
+	  for(var i = 0; i < Object.keys(result['goodsCats']).length; i++){
+		  insertIfNotExistsInArray(goodsParts, result['goodsCats'][i+'']['partId'], result['goodsCats'][i+'']['partName']);
+	  }
+	  
+	  for(var i = 0; i < Object.keys(goodsParts).length; i++){
+	  	  window.goodsBrand.find(".goodsParts").append("<option value=\""+goodsParts[i+'']["cat_id"]+"\">"+goodsParts[i+'']["cat_name"]+"</option>");
+	  }
+	  
+	  window.goodsCats=result['goodsCats'];
+	  
+	  Ajax.call( 'goodsBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
+	  + "&cat_level=3", callbackQueryGoods , 'GET', 'JSON', true, true );
+  }
+  function callbackQueryGoods(result){
+	  window.goodsContentFiltered=result['goods'];
+	  updatePaginationContent();
+  }
+  function insertIfNotExistsInArray(myArray, cat_id, cat_name){
+	  var i;
+	  for(i = 0; i < Object.keys(myArray).length; i++){
+		  if(myArray[i+'']["cat_id"] == cat_id){
+			  return;
+		  }
+	  }
+	  myArray[i+'']={};
+	  myArray[i+'']["cat_name"]=cat_name;
+	  myArray[i+'']["cat_id"]=cat_id;
+  }
+  function chooseGoodsPart(){
+	  window.goodsBrand.find(".goodsSubParts").html("");
+	  window.goodsBrand.find(".goodsSubParts").append("<option value=\"\">全部子分类</option>");
+	  var goodsPartId=window.goodsBrand.find(".goodsParts").val();
+	  if(goodsPartId != ""){
+		  window.goodsSubParts = {};
+	  	  for(var i = 0; i < Object.keys(window.goodsCats).length; i++){
+			  if(goodsPartId==window.goodsCats[i+'']['partId']){
+				  insertIfNotExistsInArray(goodsSubParts, window.goodsCats[i+'']['subPartId'], window.goodsCats[i+'']['subPartName']);
+			  }
+	  	  }
+
+		  for(var i = 0; i < Object.keys(goodsSubParts).length; i++){
+		      window.goodsBrand.find(".goodsSubParts").append("<option value=\""+goodsSubParts[i+'']["cat_id"]+"\">"+goodsSubParts[i+'']["cat_name"]+"</option>");
+	  	  }
+		  Ajax.call( 'goodsBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
+		  + "&cat_level=0&" + "cat_id=" + goodsPartId, callbackQueryGoods , 'GET', 'JSON', true, true );
+	  }
+	  window.goodsBrand.find(".goodsAccessories").html("");
+	  window.goodsBrand.find(".goodsAccessories").append("<option value=\"\">全部配件</option>");
+  }
+  function chooseGoodsSubPart(){
+	  window.goodsBrand.find(".goodsAccessories").html("");
+	  window.goodsBrand.find(".goodsAccessories").append("<option value=\"\">全部配件</option>");
+	  var goodsSubPartId=window.goodsBrand.find(".goodsSubParts").val();
+	  if(goodsSubPartId != ""){
+		  var goodsAccessories = {};
+	  	  for(var i = 0; i < Object.keys(window.goodsCats).length; i++){
+			  if(goodsSubPartId==window.goodsCats[i+'']['subPartId']){
+				  insertIfNotExistsInArray(goodsAccessories, window.goodsCats[i+'']['accessoryId'], window.goodsCats[i+'']['accessoryName']);
+			  }
+	  	  }
+
+		  for(var i = 0; i < Object.keys(goodsAccessories).length; i++){
+		      window.goodsBrand.find(".goodsAccessories").append("<option value=\""+goodsAccessories[i+'']["cat_id"]+"\">"+goodsAccessories[i+'']["cat_name"]+"</option>");
+	  	  }
+		  Ajax.call( 'goodsBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
+		  + "&cat_level=1&" + "cat_id=" + goodsSubPartId, callbackQueryGoods , 'GET', 'JSON', true, true );
+	  }else{
+		  chooseGoodsPart();
+	  }
+  }
+  function chooseGoodsAccessories(){
+	  var goodsAccessoryId=window.goodsBrand.find(".goodsAccessories").val();
+	  if(goodsAccessoryId != ""){
+		  Ajax.call( 'goodsBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
+		  + "&cat_level=2&" + "cat_id=" + goodsAccessoryId, callbackQueryGoods , 'GET', 'JSON', true, true );
+	  }else{
+		  chooseGoodsSubPart();
+	  }
+  }
+  function filterGoodsPart(){
+	  //delete window.goodsContentFiltered;
+	  //window.goodsContentFiltered={};
+	  
+	  if(jQuery(".goodsParts").val()==""){
+		  
+		  //window.goodsContentFiltered=jQuery.extend(true, {}, window.goodsContentReturned);
+	  }else{
+		  var contentLength = Object.keys(window.goodsContentReturned).length;
+		  var newIndex=0;
+	  	  for(var i = 0; i < contentLength; i++){
+			  if( window.goodsContentReturned[i+'']['cat_id'] == accessoryId){
+				  window.goodsContentFiltered[newIndex+'']=jQuery.extend(true, {}, window.goodsContentReturned[i+'']);
+				  newIndex++;
+			  }
+		  }
+	  }
+	  //updatePaginationContent();
+  }
+  function filterGoodsSubPart(){
+	  filterGoods();
+  }
+  function updatePaginationContent(){
+	  contentLength = Object.keys(window.goodsContentFiltered).length;	  
+	  
+	  window.goodsBrand.find(".pagination").pagination(contentLength,
+	  {
+		  callback:callbackPagination,
+		  items_per_page: 21,//若修改此项，则下方函数中的同名变量也要做相应修改
+		  num_display_entries: 8,
+		  num_edge_entries: 2,
+		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
+	  });
+  }
+  function callbackPagination(page_index, jq){
+	  window.goodsBrand.find("dd").remove();
+	  
+	  var contentLength = Object.keys(window.goodsContentFiltered).length;
+	  var items_per_page = 21;
+      var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
+	  for(var i = page_index*items_per_page; i < max_elem; i++){
+		 window.goodsBrand.find("dl").find("div").eq(0).before("<dd><a href=\"goods.php?id="+window.goodsContentFiltered[i+""]['goods_id']+"\">"+window.goodsContentFiltered[i+""]['goods_name']+"</a></dd>");
+	  }
+	  
+	  jQuery(".prevPageBtn").css("display", "block");
+	  jQuery(".nextPageBtn").css("display", "block");
+	  if(page_index==0){
+		  jQuery(".prevPageBtn").css("display", "none");
+	  }else if(contentLength==max_elem){
+		  jQuery(".nextPageBtn").css("display", "none");
+	  }
+  }
+  function clickPrevBtn(){
+	  jQuery("a.prev").trigger("click");
+  }
+  function clickNextBtn(){
+	  jQuery("a.next").trigger("click");
+  }
+  </script>
+  <!--<div class="brand-panel clearfix">
+    <div class="car-brand-panel clearfix no_line"  id="47">
+      <div class="thumbnail"></div>
+      <div class="car-brand-list" >
+        <div class="car-series-list">
+          <div class="car-brand-title">
+            <h4>广汽乘用车</h4>
+          </div>
+          <a class="link car-type-button" cat_id="8" href="javascript:void(0);" onclick="clickCarType(this);">广汽乘用车传祺</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GS5</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GA5</a> <a class="link car-type-button" href="javascript:void(0);" s_href="">广汽乘用车传祺GA3</a>
+          <div class="car-type-list" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+    <div class="clearfix sub_car_types" style="height:auto; clear:both; margin-left:93px; margin-right:50px; padding-bottom:10px; display:block;">
+      <style>
+	dl dd a{
+		color:#3B5998;
+		font-size:12px;
+		text-decoration:none;
+		font-family:Microsoft YaHei;
+	}
+	dl dd a:hover{
+		text-decoration:underline;
+	}
+	dl dd{
+		margin-top:8px;
+		width:250px;
+		display:block;
+		float:left;
+	}
+	</style>
+      <div style="height:30px; background:#EDEDF0; display:block;">
+        <select id="carYear" name="carYear" style="margin-top:4px; margin-left:10px; float:left;">
+          <option value="">全部年款</option>
+          <option value="1992">1992款</option>
+          <option value="1993">1993款</option>
+          <option value="1994">1994款</option>
+          <option value="1995">1995款</option>
+          <option value="1996">1996款</option>
+          <option value="1997">1997款</option>
+        </select>
+        <select id="capacity" name="capacity" style="margin-top:4px;margin-left:5px; float:left;">
+          <option value="">全部排量</option>
+          <option value="1.8L">1.8L</option>
+          <option value="2.0L">2.0L</option>
+          <option value="2.2L">2.2L</option>
+          <option value="2.6L">2.6L</option>
+        </select>
+        <div id="demo123" class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
+      </div>
+      <div style="position: relative; min-height:60px;">
+        <div style="float:left; position:absolute; height:100%; width:40px;background:url(images/tinyArrowLeft.png) center no-repeat;"></div>
+        <dl style="width:755px;display:block; margin-left:65px;">
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <dd><a href="#">一汽奥迪100 1997款 2.2L AT</a></dd>
+          <div style="clear:both; position:absolute; height:100%; width:40px;background:url(images/tinyArrowRight.png) center no-repeat; margin-left:695px;"></div>
+          <div style="clear:both;"></div>
+        </dl>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+  </div>-->
+  {foreach from=$all_goods_brands item=one_goods_brand}
+  <div class="brand-panel clearfix">
+    <div class="car-brand-panel clearfix no_line"  id="47">
+      <div class="thumbnail"></div>
+      <div class="car-brand-list" >
+        <div class="car-series-list">
+          <div class="car-brand-title">
+            <h4 style="cursor:pointer;" brand_id="{$one_goods_brand.brand_id}" onclick="clickBrand(this);">{$one_goods_brand.brand_name}</h4>
+          </div>
+          <div class="car-type-list" style="display: none;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {/foreach} </div>
+<input id="pageIndex" type="hidden" value="4"/>
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
+<script>
+</script>
 </body>
 </html>

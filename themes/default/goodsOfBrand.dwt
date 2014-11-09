@@ -62,15 +62,6 @@
 	}
 	</style>
     <div style="height:30px; background:#EDEDF0; display:block;">
-      <select onchange="chooseGoodsPart()" class="goodsParts" name="carYear" style="margin-top:4px; margin-left:10px;">
-        <option value="">全部配件分类</option>
-      </select>
-      <select onchange="chooseGoodsSubPart()" class="goodsSubParts" name="capacity" style="margin-top:4px;margin-left:5px;">
-        <option value="">全部子分类</option>
-      </select>
-	  <select onchange="chooseGoodsAccessories()" class="goodsAccessories" name="capacity" style="margin-top:4px;margin-left:5px;">
-        <option value="">全部配件</option>
-      </select>
       <div class="pagination" style="margin-top:4px;margin-left:55px; float:right;"></div>
       </div>
     <div style="position: relative; min-height:60px;">
@@ -92,10 +83,9 @@
   <script>
   function clickBrand(targetElement){
 	  //alert(jQuery(targetElement).attr('cat_id'));
-	  window.currBrandId=jQuery(targetElement).attr('brand_id');
-	  Ajax.call( 'goodsOfBrand.php?act=query_cats_of_brand', 'brand_id=' + window.currBrandId, callbackQueryCategories , 'GET', 'JSON', true, true );
+	  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_brand', 'brand_id=' + jQuery(targetElement).attr('brand_id'), callbackQueryGoods , 'GET', 'JSON', true, true );
   }
-  function callbackQueryCategories(result){
+  function callbackQueryGoods(result){
 	  if(window.goodsOfBrand){
 		  window.goodsOfBrand.remove();
 	  }
@@ -104,110 +94,8 @@
 	  
 	  jQuery("[brand_id='"+result['brand_id']+"']").closest(".brand-panel").append(window.goodsOfBrand);
 	  
-	  var goodsParts = {};
-	  for(var i = 0; i < Object.keys(result['goodsCats']).length; i++){
-		  insertIfNotExistsInArray(goodsParts, result['goodsCats'][i+'']['partId'], result['goodsCats'][i+'']['partName']);
-	  }
-	  
-	  for(var i = 0; i < Object.keys(goodsParts).length; i++){
-	  	  window.goodsOfBrand.find(".goodsParts").append("<option value=\""+goodsParts[i+'']["cat_id"]+"\">"+goodsParts[i+'']["cat_name"]+"</option>");
-	  }
-	  
-	  window.goodsCats=result['goodsCats'];
-	  
-	  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
-	  + "&cat_level=3", callbackQueryGoods , 'GET', 'JSON', true, true );
-  }
-  function callbackQueryGoods(result){
-	  window.goodsContentFiltered=result['goods'];
-	  updatePaginationContent();
-  }
-  function insertIfNotExistsInArray(myArray, cat_id, cat_name){
-	  var i;
-	  for(i = 0; i < Object.keys(myArray).length; i++){
-		  if(myArray[i+'']["cat_id"] == cat_id){
-			  return;
-		  }
-	  }
-	  myArray[i+'']={};
-	  myArray[i+'']["cat_name"]=cat_name;
-	  myArray[i+'']["cat_id"]=cat_id;
-  }
-  function chooseGoodsPart(){
-	  window.goodsOfBrand.find(".goodsSubParts").html("");
-	  window.goodsOfBrand.find(".goodsSubParts").append("<option value=\"\">全部子分类</option>");
-	  var goodsPartId=window.goodsOfBrand.find(".goodsParts").val();
-	  if(goodsPartId != ""){
-		  window.goodsSubParts = {};
-	  	  for(var i = 0; i < Object.keys(window.goodsCats).length; i++){
-			  if(goodsPartId==window.goodsCats[i+'']['partId']){
-				  insertIfNotExistsInArray(goodsSubParts, window.goodsCats[i+'']['subPartId'], window.goodsCats[i+'']['subPartName']);
-			  }
-	  	  }
-
-		  for(var i = 0; i < Object.keys(goodsSubParts).length; i++){
-		      window.goodsOfBrand.find(".goodsSubParts").append("<option value=\""+goodsSubParts[i+'']["cat_id"]+"\">"+goodsSubParts[i+'']["cat_name"]+"</option>");
-	  	  }
-		  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
-		  + "&cat_level=0&" + "cat_id=" + goodsPartId, callbackQueryGoods , 'GET', 'JSON', true, true );
-	  }
-	  window.goodsOfBrand.find(".goodsAccessories").html("");
-	  window.goodsOfBrand.find(".goodsAccessories").append("<option value=\"\">全部配件</option>");
-  }
-  function chooseGoodsSubPart(){
-	  window.goodsOfBrand.find(".goodsAccessories").html("");
-	  window.goodsOfBrand.find(".goodsAccessories").append("<option value=\"\">全部配件</option>");
-	  var goodsSubPartId=window.goodsOfBrand.find(".goodsSubParts").val();
-	  if(goodsSubPartId != ""){
-		  var goodsAccessories = {};
-	  	  for(var i = 0; i < Object.keys(window.goodsCats).length; i++){
-			  if(goodsSubPartId==window.goodsCats[i+'']['subPartId']){
-				  insertIfNotExistsInArray(goodsAccessories, window.goodsCats[i+'']['accessoryId'], window.goodsCats[i+'']['accessoryName']);
-			  }
-	  	  }
-
-		  for(var i = 0; i < Object.keys(goodsAccessories).length; i++){
-		      window.goodsOfBrand.find(".goodsAccessories").append("<option value=\""+goodsAccessories[i+'']["cat_id"]+"\">"+goodsAccessories[i+'']["cat_name"]+"</option>");
-	  	  }
-		  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
-		  + "&cat_level=1&" + "cat_id=" + goodsSubPartId, callbackQueryGoods , 'GET', 'JSON', true, true );
-	  }else{
-		  chooseGoodsPart();
-	  }
-  }
-  function chooseGoodsAccessories(){
-	  var goodsAccessoryId=window.goodsOfBrand.find(".goodsAccessories").val();
-	  if(goodsAccessoryId != ""){
-		  Ajax.call( 'goodsOfBrand.php?act=query_goods_of_cat_brand', 'brand_id=' + window.currBrandId 
-		  + "&cat_level=2&" + "cat_id=" + goodsAccessoryId, callbackQueryGoods , 'GET', 'JSON', true, true );
-	  }else{
-		  chooseGoodsSubPart();
-	  }
-  }
-  function filterGoodsPart(){
-	  //delete window.goodsContentFiltered;
-	  //window.goodsContentFiltered={};
-	  
-	  if(jQuery(".goodsParts").val()==""){
-		  
-		  //window.goodsContentFiltered=jQuery.extend(true, {}, window.goodsContentReturned);
-	  }else{
-		  var contentLength = Object.keys(window.goodsContentReturned).length;
-		  var newIndex=0;
-	  	  for(var i = 0; i < contentLength; i++){
-			  if( window.goodsContentReturned[i+'']['cat_id'] == accessoryId){
-				  window.goodsContentFiltered[newIndex+'']=jQuery.extend(true, {}, window.goodsContentReturned[i+'']);
-				  newIndex++;
-			  }
-		  }
-	  }
-	  //updatePaginationContent();
-  }
-  function filterGoodsSubPart(){
-	  filterGoods();
-  }
-  function updatePaginationContent(){
-	  contentLength = Object.keys(window.goodsContentFiltered).length;	  
+	  window.goodsContentReturned=result['goods'];
+	  contentLength = Object.keys(window.goodsContentReturned).length;	  
 	  
 	  window.goodsOfBrand.find(".pagination").pagination(contentLength,
 	  {
@@ -218,14 +106,37 @@
 		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
 	  });
   }
+//  function filterCarTypes(){
+//	  delete window.subCarTypesContent;
+//	  window.subCarTypesContent={};
+//	  var contentLength = Object.keys(window.subCarTypesContentReturned).length;
+//	  var newIndex=0;
+//	  for(var i = 0; i < contentLength; i++){
+//		  if( window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".capacity").val()) >=0 && window.subCarTypesContentReturned[i+'']['name'].indexOf(window.newSubCarTypes.find(".carYear").val()) >=0 ){
+//			  window.subCarTypesContent[newIndex+'']=jQuery.extend(true, {}, window.subCarTypesContentReturned[i+'']);
+//			  newIndex++;
+//		  }
+//	  }
+//	  
+//	  contentLength = Object.keys(window.subCarTypesContent).length;	  
+//	  
+//	  window.newSubCarTypes.find(".pagination").pagination(contentLength,
+//	  {
+//		  callback:callbackPagination,
+//		  items_per_page: 5,//若修改此项，则下方函数中的同名变量也要做相应修改
+//		  num_display_entries: 8,
+//		  num_edge_entries: 2,
+//		  link_to:"javascript:void(0);",//原本为符号#，但那样会导致点击下一页后页面跳到最上面，所以改成现在这样
+//	  });
+//  }
   function callbackPagination(page_index, jq){
 	  window.goodsOfBrand.find("dd").remove();
 	  
-	  var contentLength = Object.keys(window.goodsContentFiltered).length;
+	  var contentLength = Object.keys(window.goodsContentReturned).length;
 	  var items_per_page = 21;
       var max_elem = Math.min((page_index+1) * items_per_page, contentLength);
 	  for(var i = page_index*items_per_page; i < max_elem; i++){
-		 window.goodsOfBrand.find("dl").find("div").eq(0).before("<dd><a href=\"goods.php?id="+window.goodsContentFiltered[i+""]['goods_id']+"\">"+window.goodsContentFiltered[i+""]['goods_name']+"</a></dd>");
+		 window.goodsOfBrand.find("dl").find("div").eq(0).before("<dd><a href=\"goods.php?id="+window.goodsContentReturned[i+""]['goods_id']+"\">"+window.goodsContentReturned[i+""]['goods_name']+"</a></dd>");
 	  }
 	  
 	  jQuery(".prevPageBtn").css("display", "block");
