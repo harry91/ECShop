@@ -556,7 +556,7 @@
               <td width="15%" height="50px" style="background-color:#EBEBEB; text-align:center; font-size:14px; color:#535353;">配件车型</td>
               <td width="85%" height="50px" style="background-color:#F5F5F5"><input id="clearCarTypeFilterStr" style="float:left; margin-left:25px; height:18px; {if not $car_category_for_display}display:none;{/if}" onclick="clearCarTypeFilterStr()" type="checkbox" checked="checked"><div id="carTypeFilterStr" style="float:left;display:block;line-height:25px;height:25px;{if not $car_category_for_display}margin-left:25px;{/if}">{if $car_category_for_display}{$car_category_for_display}{else}尚未选择任何车型{/if}</div>
                 <div style="height:25px; width:40px; background-color:#F93; color:#FFF; display:block;float:left;text-align:center; vertical-align:middle;line-height:25px; margin-left:20px; cursor:pointer;" onclick="openCarTypeSelectorBox()">选择</div>
-                <div id="carTypeSelectorBox" class="outer_selector_box bigger_box" style="height:220px; display:none;">
+                <div id="carTypeSelectorBox" class="outer_selector_box bigger_box" style="height:300px; display:none;">
                   <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                   <div style="clear:both"></div>
                   <div cat_id="-1" id="carBrandSelectorResult" class="line_in_box"><div class="box_text" onclick="openCarBrandSelectorBox()">请选择汽车品牌</div></div>
@@ -575,14 +575,14 @@
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carYearSelectorResult" class="line_in_box" style="display:none"><div class="direct_search_button" onclick="openCarFullTypeSelectorBox(true)">依据车系搜索车型</div><div class="box_text" style="width:175px;" onclick="openCarYearSelectorBox()">请选择年款</div><div style="width:30px; height:27px; float:right; cursor:pointer;" onclick="openCarYearSelectorBox()"></div><div class="box_text_cover"></div></div>
+                  <div id="carYearSelectorResult" class="line_in_box"><div class="direct_search_button" onclick="openCarFullTypeSelectorBox(true)">依据车系搜索车型</div><div class="box_text" style="width:175px;" onclick="openCarYearSelectorBox()">请选择年款</div><div style="width:30px; height:27px; float:right; cursor:pointer;" onclick="openCarYearSelectorBox()"></div><div class="box_text_cover"></div></div>
                   <div id="carYearSelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
                     <ul style="width:375px; overflow:auto;margin-top:7px;">
                     <li></li></ul>
                   </div>
-                  <div id="carCapacitySelectorResult" class="line_in_box" style="display:none"><div class="box_text" onclick="openCarCapacitySelectorBox()">请选择排量</div><div class="box_text_cover"></div></div>
+                  <div id="carCapacitySelectorResult" class="line_in_box"><div class="box_text" onclick="openCarCapacitySelectorBox()">请选择排量</div><div class="box_text_cover"></div></div>
                   <div id="carCapacitySelectorBox" class="outer_selector_box smaller_box" style="display:none;">
                     <div class="close_blue_img" onclick="closeSelectorBox(this)"></div>
                     <div style="clear:both"></div>
