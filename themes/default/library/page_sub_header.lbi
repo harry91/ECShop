@@ -30,7 +30,7 @@
 		  jQuery("#sub_header_1").addClass("act");
 	  }else if(window.location.pathname.indexOf("goodsOfBrand") >= 0){
 		  jQuery("#sub_header_3").addClass("act");
-	  }else{
+	  }else if(window.location.pathname.indexOf("index") >= 0){
 		  jQuery("#sub_header_0").addClass("act");
 	  }
   });
