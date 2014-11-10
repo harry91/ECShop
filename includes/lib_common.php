@@ -412,6 +412,8 @@ function cat_options($spec_cat_id, $arr)
         {
             while (!empty($arr))
             {
+				//debug_print_backtrace();
+				//die("<br/>End");
                 foreach ($arr AS $key => $value)
                 {
                     $cat_id = $value['cat_id'];
@@ -493,10 +495,10 @@ function cat_options($spec_cat_id, $arr)
                 }
             }
             //如果数组过大，不采用静态缓存方式
-            if (count($options) <= 2000)
-            {
+            //if (count($options) <= 2000)
+            //{
                 write_static_cache('cat_option_static', $options);
-            }
+            //}
         }
         else
         {
