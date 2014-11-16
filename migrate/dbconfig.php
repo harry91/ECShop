@@ -1,7 +1,7 @@
 <?php
 //local ecshop databse
 
-$local_conn = new mysqli("localhost", "root", "SKBskb99", "ecomm2");
+$local_conn = new mysqli("localhost", "root", "SKBskb99", "ecomm");
 
 if (!$local_conn)
 {

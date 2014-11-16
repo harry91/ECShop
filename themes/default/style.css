@@ -1,4 +1,4 @@
-/*
+﻿/*
 Template Name: ECSHOP Default
 Template URI: http://www.ecshop.com/
 Description: 默认升级版.
@@ -19,7 +19,7 @@ h1,h2,h3,h4,h5,h6,ul,li,dl,dt,dd,form,img,p{
 margin:0; padding:0; border:none; list-style-type:none;
 }
 .block{
-  width:960px; height:auto;
+  width:1200px; height:auto;
 }
 .f_l{float:left;}
 .f_r{float:right;}

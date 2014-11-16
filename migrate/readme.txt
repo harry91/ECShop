@@ -14,3 +14,8 @@ goods2category.php
 goods2car.php
 goods2brand.php
 goods-markcommon.php
+
+----
+reset goods
+delete from ecs_goods_cat;
+delete from ecs_goods;

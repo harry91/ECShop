@@ -14,10 +14,10 @@
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
 <link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
-<link href="http://www.autozi.com:80/resources/common/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
-<link href="http://www.autozi.com:80/resources/common/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/header.css" />
-<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/main.css" />
+<link href="themes/default/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="themes/default/css/header.css" />
+<link rel="stylesheet" type="text/css" href="themes/default/css/main.css" />
 <script>
     var _hmt = _hmt || [];
     (function() {
@@ -27,7 +27,7 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<link href="http://www.autozi.com:80/resources/themes/default/css/theme.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/theme.css" rel="stylesheet" type="text/css" />
 <link href="themes/default/css/pagination-plugin.css" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
 {insert_scripts files='common.js,index.js'}
@@ -83,7 +83,7 @@
 <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
 <input type="hidden" id="anchorPoint" value=""/>
 <div class="main" style="margin-top:10px">
-  <div class="option-bar" id="optionBar" style="padding-left:30px; width:928px"><a href="#A" class="border">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border">T</a> <a href="#U" class="border">U</a> <a href="#V" class="border">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
+  <div class="option-bar" id="optionBar" style="padding-center; width:1000px"><a href="#A" class="border">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border">T</a> <a href="#U" class="border">U</a> <a href="#V" class="border">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
   <div id="optionBarHidden" style="display:none;height: 34px"> </div>
   <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
   <script>

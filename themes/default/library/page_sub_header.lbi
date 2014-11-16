@@ -1,4 +1,4 @@
-<div class="ac w978 clearfix" style="height:60px;_overflow:hidden;font: 12px simsun; width:960px; color: #333333;display: block; margin-top:-5px; background:none;">
+<div class="ac w978 clearfix" style="height:60px;_overflow:hidden;font: 12px simsun; width:1200px; color: #333333;display: block; margin-top:-5px; background:none;">
   <style>
   div.fl.main_nav.clearfix ul.fl.nav.clearfix li a{
 	  display: block;
@@ -36,8 +36,8 @@
   });
   </script>
   
-  <div class="fl main_nav clearfix"   style="padding-top: 10px;width: 960px;background: url(themes/default/az_images/bg10.gif) repeat-x left top;font-family: Microsoft YaHei; float:right;">    
-    <ul class="fl nav clearfix" id="headerNav" style="width: 960px;height: 50px;background: url(themes/default/az_images/bg9.gif) repeat-x;float:left">
+  <div class="fl main_nav clearfix"   style="padding-top: 10px;width: 1200px;background: url(themes/default/az_images/bg10.gif) repeat-x left top;font-family: Microsoft YaHei; float:right;">    
+    <ul class="fl nav clearfix" id="headerNav" style="width: 1200px;height: 50px;background: url(themes/default/az_images/bg9.gif) repeat-x;float:left">
       <li id="sub_header_0"><a href="index.php">汽车品牌</a></li>
       <li id="sub_header_1"><a href="goodsCategory.php">配件分类</a></li>
 	  <li id="sub_header_2"><a href="goodsBrand.php">配件品牌</a></li> 
