@@ -14,10 +14,10 @@
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
 <link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
-<link href="http://www.autozi.com:80/resources/common/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
-<link href="http://www.autozi.com:80/resources/common/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/header.css" />
-<link rel="stylesheet" type="text/css" href="http://www.autozi.com:80/resources/themes/new/css/main.css" />
+<link href="themes/default/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="themes/default/css/header.css" />
+<link rel="stylesheet" type="text/css" href="themes/default/css/main.css" />
 <script>
     var _hmt = _hmt || [];
     (function() {
@@ -27,7 +27,7 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
-<link href="http://www.autozi.com:80/resources/themes/default/css/theme.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/theme.css" rel="stylesheet" type="text/css" />
 <link href="themes/default/css/pagination-plugin.css" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
 {insert_scripts files='common.js,index.js'}
@@ -47,7 +47,7 @@
 	}
 	dl dd{
 		margin-top:8px;
-		width:250px;
+		width:236px;
 		display:block;
 		float:left;
 	}
@@ -66,8 +66,8 @@
       </div>
     <div style="position: relative; min-height:60px;">
       <div class="prevPageBtn" style="float:left;background:url(images/tinyArrowLeft.png) center no-repeat;" onclick="clickPrevBtn()"></div>
-      <dl style="width:755px;display:block; margin-left:50px;">
-        <div class="nextPageBtn" style="clear:both; background:url(images/tinyArrowRight.png) center no-repeat; margin-left:730px;"  onclick="clickNextBtn()"></div>
+      <dl style="width:1000px;display:block; margin-left:50px;">
+        <div class="nextPageBtn" style="clear:both; background:url(images/tinyArrowRight.png) center no-repeat; margin-left:965px;"  onclick="clickNextBtn()"></div>
         <div style="clear:both;"></div>
       </dl>
     </div>

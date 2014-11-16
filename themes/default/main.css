@@ -1,7 +1,7 @@
 ﻿/* CSS Document */
 /* az_inserted */
 .local i{display:inline-block;vertical-align:middle;background-image:url(../images/msg.gif);background-repeat:no-repeat;}
-.main{margin:15px auto;width:960px;}
+.main{margin:15px auto;width:1200px;}
 .local{margin-bottom:15px;}
 .local i{margin-right:5px;width:15px;height:7px;background-position:-267px -1px;vertical-align:1px;}
 /*no good */
@@ -1034,7 +1034,7 @@ h4.section-title{font-size:12px;}
 .tip em{color:#ca1407;}
 /*9-13*/
 /*fixture_brand*/
-.fixture_box{width:958px;border:1px solid #eaeaea;background:#ffffff;}
+.fixture_box{width:1195px;border:1px solid #eaeaea;background:#ffffff;}
 .fixture_box h2{position:relative;height:40px;border-bottom:2px solid #eaeaea;}
 .fixture_box h2 span{position:absolute;bottom:-2px;display:block;width:117px;height:40px;border-bottom:2px solid #be110d;background:url(../images/title.gif) no-repeat;}
 #fixture_title{background-position:20px 12px;}
@@ -1043,7 +1043,7 @@ h4.section-title{font-size:12px;}
 .brand_list{margin:10px auto;width:942px;}
 .fixture_table td.odd{background:#F9F9F9;}
 .fixture_category{padding-bottom:10px;}
-.fixture_category li{position:relative;right:-5px;padding:5px 14px 0;display:inline-block;*display:inline;zoom:1;width:448px;vertical-align:top;}
+.fixture_category li{position:relative;right:-5px;padding:5px 14px 0;display:inline-block;*display:inline;zoom:1;width:550px;vertical-align:top;}
 .fixture_category h3{float:left;margin:10px 15px 8px 0;font-size:16px;font-family:Microsoft YaHei;}
 .f_sub_category{line-height:20px;color:#666666;}
 .f_sub_category a{display:inline-block;margin:0 10px 8px 0;color:#666666;font-size:14px;}
@@ -1337,7 +1337,7 @@ li.fs_logo{width:110px;padding-top:18px;text-align:center;}
 .car_brand_tab li a{font-family:Microsoft YaHei;}
 .car_brand_tab li.act{border:1px solid #e2e2e2;background:#ffffff;}
 .car_brand_tab li.act a{color:#fb6f00;}
-.car_brand_tab2{margin:0 auto;padding:8px 0 5px;width:960px;}
+.car_brand_tab2{margin:0 auto;padding:8px 0 5px;width:1200px;}
 .car_brand_tab2 li{float:left;margin-right:8px;margin-bottom:8px;padding:5px 12px;border:1px solid #d1d1d1;background:#fbfbfb;border-radius:3px;box-shadow:0 0 5px rgba(179,179,179,0.4);}
 .car_brand_tab2 li a{color:#484848;font:16px Microsoft YaHei;}
 .car_brand_tab2 li a:hover{text-decoration:none;color:#f67003;}

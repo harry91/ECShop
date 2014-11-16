@@ -170,17 +170,17 @@ function reg(str){
   </div>
   <!--left end-->
   <!--right start-->
-  <div class="AreaR" style="width:950px;">
+  <div class="AreaR" style="width:1200px;">
    <!--商品详情start-->
    <div id="goodsInfo" class="clearfix">
      <!--商品图片和相册 start-->
-     <div class="imgInfo" style="width:430px;">
+     <div class="imgInfo" style="width:670px;height:635px;">
      <!-- {if $pictures}-->
      <a href="javascript:;" onclick="window.open('gallery.php?id={$goods.goods_id}'); return false;">
-      <img src="{$goods.goods_img}" alt="{$goods.goods_name|escape:html}" width="420px"/>
+      <img src="{$goods.goods_img}" alt="{$goods.goods_name|escape:html}" width="665px" height="573px"/>
      </a>
          <!-- {else} -->
-         <img src="{$goods.goods_img}" alt="{$goods.goods_name|escape:html}"/>
+         <img src="{$goods.goods_img}" alt="{$goods.goods_name|escape:html}" width="665px" height="573px"/>
          <!-- {/if}-->
      <div class="blank5"></div>
      <!--相册 START-->

@@ -1,6 +1,6 @@
 /* CSS Document */
 .local i{display:inline-block;vertical-align:middle;background-image:url(../images/msg.gif);background-repeat:no-repeat;}
-.main{margin:15px auto;width:960px;}
+.main{margin:15px auto;width:1200px;}
 .local{margin-bottom:15px;}
 .local i{margin-right:5px;width:15px;height:7px;background-position:-267px -1px;vertical-align:1px;}
 /*no good */
