@@ -164,7 +164,7 @@ function callbackQuerySubCats(result){
 	}
 	ulBox.append("<div class=\"buttonMore\">更多...</div>");
 	
-	jQuery(".cat_left_box li").removeClass("active_cat");
+	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").closest(".cat_outer_box").find(".cat_left_box li").removeClass("active_cat");
 	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").addClass("active_cat");
 }
 
