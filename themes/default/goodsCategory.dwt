@@ -128,21 +128,20 @@ table.cat_table tr{
 }
 </style>
 <table class="cat_table" style="margin:40px auto auto auto;" width="1200px" border="0">
-  <tr>
-    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">变速机构</div><ul class="fewElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
-    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">车身内部结构</div><ul class="fewElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+<td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">变速机构</div><ul class="fewElements"><li cat_uid="0" class="active_cat">变速箱</li><li cat_uid="1">换挡机构</li><li cat_uid="2">离合器</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="manyElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=76&quot;)">手动变速箱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=77&quot;)">双离合变速器</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=78&quot;)">双离合变速箱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=79&quot;)">无级变速箱(CVT)</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=80&quot;)">自动变速箱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=81&quot;)">自动机械式变速箱(AMT)</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=82&quot;)">变速器油冷却器及油管</li><div class="buttonMore">更多...</div></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">车身内部结构</div><ul class="manyElements"><li cat_uid="3" class="active_cat">操纵台</li><li cat_uid="4">车身地板</li><li cat_uid="5">车身及内部结构</li><li cat_uid="6">车身内饰</li><li cat_uid="7">防滚杆</li><li cat_uid="8">防溅板</li><li cat_uid="9">仪表台</li><li cat_uid="10">座椅及调节机构</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="fewElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=83&quot;)">中央扶手箱</li><div class="buttonMore">更多...</div></ul></div></div></td>
   </tr>
   <tr>
-    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">车身外部结构</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
-    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">底盘</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">车身外部结构</div><ul class="lotsOfElements"><li cat_uid="11" class="active_cat">侧车身</li><li cat_uid="12">侧滑门</li><li cat_uid="13">侧开门</li><li cat_uid="14">侧围板</li><li cat_uid="15">敞篷软顶</li><li cat_uid="16">敞篷硬顶</li><li cat_uid="17">车顶</li><li cat_uid="18">车架</li><li cat_uid="19">车壳</li><li cat_uid="20">发动机盖</li><li cat_uid="21">发动机盖板</li><li cat_uid="22">发动机罩</li><li cat_uid="23">后保险杠</li><li cat_uid="24">后侧围板</li><li cat_uid="25">后车门</li><li cat_uid="26">后视镜</li><li cat_uid="27">后行李箱盖</li><li cat_uid="28">货箱</li><li cat_uid="29">驾驶室</li><li cat_uid="30">进气格栅</li><li cat_uid="31">举升车门</li><li cat_uid="32">前保险杠</li><li cat_uid="33">前车门</li><li cat_uid="34">前面板</li><li cat_uid="35">前行李箱盖</li><li cat_uid="36">前翼子板</li><li cat_uid="37">全车玻璃</li><li cat_uid="38">全车锁机构</li><li cat_uid="39">天窗</li><li cat_uid="40">外饰</li><li cat_uid="41">尾门</li><li cat_uid="42">行李厢</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="manyElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=84&quot;)">侧车身框架</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=85&quot;)">后立柱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=86&quot;)">门槛</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=87&quot;)">内饰</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=88&quot;)">前立柱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=89&quot;)">中立柱</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=90&quot;)">外饰</li><div class="buttonMore">更多...</div></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">底盘</div><ul class="manyElements"><li cat_uid="43" class="active_cat">车轮</li><li cat_uid="44">传动系</li><li cat_uid="45">后悬挂</li><li cat_uid="46">前悬挂</li><li cat_uid="47">制动系统</li><li cat_uid="48">转向系统</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="fewElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=257&quot;)">车轮</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=258&quot;)">轮罩及饰件</li><div class="buttonMore">更多...</div></ul></div></div></td>
   </tr>
   <tr>
-    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">电器</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
-    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">发动机</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">电器</div><ul class="lotsOfElements"><li cat_uid="49" class="active_cat">电器</li><li cat_uid="50">辅助安全系统</li><li cat_uid="51">开关</li><li cat_uid="52">空调系统</li><li cat_uid="53">空气净化系统</li><li cat_uid="54">清洗系统</li><li cat_uid="55">行车控制安全系统</li><li cat_uid="56">照明系统</li><li cat_uid="57">智能辅助系统</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="manyElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=113&quot;)">发电机</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=114&quot;)">控制模块及传感器</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=115&quot;)">线束</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=116&quot;)">蓄电池</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=117&quot;)">防盗报警系统</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=118&quot;)">点火系</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=119&quot;)">喇叭</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=120&quot;)">起动机</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=121&quot;)">尾灯</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=122&quot;)">保险丝和继电器</li><div class="buttonMore">更多...</div></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">发动机</div><ul class="manyElements"><li cat_uid="58" class="active_cat">发动机</li><li cat_uid="59">进气系统</li><li cat_uid="60">冷却系</li><li cat_uid="61">排放系统</li><li cat_uid="62">排气系统</li><li cat_uid="63">全车水管</li><li cat_uid="64">燃油系</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="manyElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=123&quot;)">发动机本体</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=124&quot;)">发动机装饰件</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=125&quot;)">润滑系统</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=126&quot;)">涡轮增压器及组件</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=127&quot;)">正时及传动机构</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=128&quot;)">发动机和变速器悬置</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=129&quot;)">发动机装饰罩</li><div class="buttonMore">更多...</div></ul></div></div></td>
   </tr>
   <tr>
-    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">混动电机</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
-    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">其他</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">混动电机</div><ul class="fewElements"><li cat_uid="65" class="active_cat">混合动力组件</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="fewElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=153&quot;)">动力电池组件</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=154&quot;)">动力控制单元</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=155&quot;)">混动电池冷却组件</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=156&quot;)">混动电机冷却组件</li><li onclick="window.open(&quot;search.php?category_level=2&amp;category=157&quot;)">驱动电动机</li><div class="buttonMore">更多...</div></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">其他</div><ul class="fewElements"><li cat_uid="66" class="active_cat">标签</li><li cat_uid="67">辅料及油液</li><li cat_uid="68">工具及附件</li><div class="buttonMore">更多...</div></ul></div><div class="cat_right_box"><ul class="fewElements"><li onclick="window.open(&quot;search.php?category_level=2&amp;category=73&quot;)">标签</li><div class="buttonMore">更多...</div></ul></div></div></td>
   </tr>
 </table>
 <!--main e--> 
@@ -164,10 +163,11 @@ function callbackQuerySubCats(result){
 	}
 	ulBox.append("<div class=\"buttonMore\">更多...</div>");
 	
-	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").closest(".cat_outer_box").find(".cat_left_box li").removeClass("active_cat");
+	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").closest(".cat_outer_box").find(".cat_left_box").find("li").removeClass("active_cat");
 	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").addClass("active_cat");
 }
 
+function initSubCategories(){
 var allCategories = new Object();
 allCategories["变速机构"]=["变速箱", "换挡机构", "离合器"];
 allCategories["车身内部结构"]=["操纵台", "车身地板", "车身及内部结构", "车身内饰", "防滚杆", "防溅板", "仪表台", "座椅及调节机构"];
@@ -194,6 +194,10 @@ jQuery(".cat_left_box").each(function(){
 	jQuery(this).find("ul").append("<div class=\"buttonMore\">更多...</div>");
 });
 
+}
+
+//initSubCategories();
+
 var catUid=0;
 jQuery(".cat_left_box li").each(function(){
 	jQuery(this).attr("cat_uid", catUid);
@@ -202,5 +206,6 @@ jQuery(".cat_left_box li").each(function(){
 	});
 	catUid++;
 });
+
 </script>
 </html>
