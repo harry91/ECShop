@@ -14,20 +14,11 @@
 <link rel="icon" href="animated_favicon.gif" type="image/gif" />
 <link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
 <link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
-<link href="http://www.autozi.com:80/resources/common/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
-<link href="http://www.autozi.com:80/resources/common/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
 <link href="header.css" rel="stylesheet" type="text/css" />
 <link href="main.css" rel="stylesheet" type="text/css" />
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "//hm.baidu.com/hm.js?039d115effb1a43fa3c66e592c74aa5e";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-<link href="theme.css" rel="stylesheet" type="text/css" />
+<link href="themes/default/css/theme.css" rel="stylesheet" type="text/css" />
 {* 包含脚本文件 *}
 {insert_scripts files='common.js,index.js'}
 </head>
@@ -35,45 +26,181 @@
 <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem --> 
 <!--header e-->
 
-<div class="car-brand-bg2">
-  <ul class="car_brand_tab2 clearfix" >
-    {foreach from=$all_gd_cate item=one_gd_cate}
-    <li class="goods_category"> <a href="#{$one_gd_cate.cat_name}">{$one_gd_cate.cat_name}</a> </li>
-    {/foreach}
-  </ul>
-</div>
+
 <!--main s-->
 <style>
 td ul.fixture_category.clearfix li {
 	float:left;
 }
+.cat_outer_box {
+	float: left;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	border: 1px solid #d1d1d1;
+	background-image:url(images/cats_box_background.png);
+	background-position:top;
+	background-repeat:repeat-y;
+	background-size:contain;
+	border-radius: 3px;
+	box-shadow: 0 0 5px rgba(179,179,179,0.4);
+	
+	min-height:180px;
+	width:550px;
+	position:relative;
+}
+table.cat_table tr{
+	height:100px;
+}
+.cat_left_box{
+	width:275px;
+	height:inherit;
+	min-height:inherit;
+	float:left;
+	padding-bottom:5px;
+}
+.cat_right_box{
+	width:270px;
+	height:inherit;
+	float:left;
+}
+.cat_left_box ul{
+	width:170;
+	font-size:16px;
+	padding-left:45px;
+	padding-top:15px;
+	padding-bottom:10px;
+}
+.cat_left_box ul li,
+.cat_left_box ul .buttonMore,
+.cat_right_box ul .buttonMore{
+	width:150px;
+	padding:3px 0px 3px 0px;
+	cursor:pointer;
+	float:left;
+}
+.cat_right_box ul{
+	width:170;
+	font-size:16px;
+	padding-left:35px;
+	padding-top:15px;
+	padding-bottom:10px;
+}
+.cat_right_box ul li{
+	width:180px;
+	padding:3px 0px 3px 0px;
+	cursor:pointer;
+	float:left;
+}
+.cat_outer_box li.active_cat, .cat_outer_box li.active_cat:hover{
+	color:#F60;
+}
+.cat_outer_box:hover .cat_left_box ul.lotsOfElements li,
+.cat_outer_box:hover .cat_right_box ul.lotsOfElements li{
+	width:110px;
+}
+.cat_outer_box:hover{
+	position:absolute;
+	z-index:10;
+	margin-top:-97px;
+}
+.cat_outer_box li:hover{
+	text-decoration:underline;
+	color:#000;
+}
+.cat_left_box .cat_title{
+	font-size:20px;
+	padding-left:40px;
+	padding-top:20px;
+	cursor:pointer;
+}
+.cat_outer_box .cat_left_box ul li:nth-of-type(n+5),
+.cat_outer_box .cat_right_box ul li:nth-of-type(n+7){
+	display:none;
+}
+.cat_outer_box:hover .cat_left_box ul li:nth-of-type(n+5),
+.cat_outer_box:hover .cat_right_box ul li:nth-of-type(n+7){
+	display:block;
+}
+.cat_outer_box:hover .cat_left_box .buttonMore,
+.cat_outer_box:hover .cat_right_box .buttonMore,
+.fewElements .buttonMore{
+	display:none;
+}
 </style>
-{foreach from=$all_gd_cate item=one_gd_cate name=gd_cates}
-{if $smarty.foreach.gd_cates.iteration mod 2}
-<div class="main clearfix" style="margin-top:10px">
-  <div id="optionBarHidden" style="display:none;height:100px"> </div>
-  <div class="fixture_box">
-    <table class="fixture_table">
-      <tr >
-        <td ><ul class="fixture_category clearfix">
-            {/if}
-            <li> <a name="{$one_gd_cate.cat_name}"></a>
-              <div class="clearfix event_scroll" name="{$one_gd_cate.cat_name}">
-                <h3><a href="search.php?category={$one_gd_cate.cat_id}&category_level=1" target="_blank">{$one_gd_cate.cat_name}</a></h3>
-              </div>
-              {foreach from=$one_gd_cate.gd_types item=one_gd_type}
-              <div class="f_sub_category"> <a href="search.php?category={$one_gd_type.cat_id}&category_level=2" target="_blank" >{$one_gd_type.cat_name}</a> </div>
-              {/foreach} </li>
-            {if $smarty.foreach.gd_cates.iteration mod 2 && $smarty.foreach.gd_cates.last == FALSE}
-            {else}
-          </ul></td>
-      </tr>
-    </table>
-  </div>
-</div>
-{/if}
-{/foreach} 
+<table class="cat_table" style="margin:40px auto auto auto;" width="1200px" border="0">
+  <tr>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">变速机构</div><ul class="fewElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">车身内部结构</div><ul class="fewElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+  </tr>
+  <tr>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">车身外部结构</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">底盘</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+  </tr>
+  <tr>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">电器</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">发动机</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+  </tr>
+  <tr>
+    <td style="width:600px;"><div class="cat_outer_box outer_left"><div class="cat_left_box"><div class="cat_title">混动电机</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+    <td style="width:600px;"><div class="cat_outer_box outer_right"><div class="cat_left_box"><div class="cat_title">其他</div><ul class="manyElements"></ul></div><div class="cat_right_box"><ul></ul></div></div></td>
+  </tr>
+</table>
 <!--main e--> 
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
 </body>
+<script>
+function callbackQuerySubCats(result){
+	var retCatUid=result['cat_uid'];
+	var ulBox=jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").closest(".cat_outer_box").find(".cat_right_box").find("ul");
+	ulBox.children().remove()
+	var cats_num=Object.keys(result['all_cats']).length;
+	for(var i=0; i<cats_num;i++){
+		ulBox.append("<li onclick=window.open(\"search.php?category_level=2&category="+result['all_cats'][i+""]["cat_id"]+"\")>"+result['all_cats'][i+""]["cat_name"]+"</li>");
+	}
+	if(cats_num <= 6){
+		ulBox.attr("class", "fewElements");
+	}else{
+		ulBox.attr("class", "manyElements");
+	}
+	ulBox.append("<div class=\"buttonMore\">更多...</div>");
+	
+	jQuery(".cat_left_box li").removeClass("active_cat");
+	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").addClass("active_cat");
+}
+
+var allCategories = new Object();
+allCategories["变速机构"]=["变速箱", "换挡机构", "离合器"];
+allCategories["车身内部结构"]=["操纵台", "车身地板", "车身及内部结构", "车身内饰", "防滚杆", "防溅板", "仪表台", "座椅及调节机构"];
+allCategories["车身外部结构"]=["侧车身", "侧滑门", "侧开门", "侧围板", "敞篷软顶", "敞篷硬顶", "车顶", "车架", "车壳", "发动机盖", "发动机盖板", "发动机罩", "后保险杠", "后侧围板", "后车门", "后视镜", "后行李箱盖", "货箱", "驾驶室", "进气格栅", "举升车门", "前保险杠", "前车门", "前面板", "前行李箱盖", "前翼子板", "全车玻璃", "全车锁机构", "天窗", "外饰", "尾门", "行李厢"];
+allCategories["底盘"]=["车轮", "传动系", "后悬挂", "前悬挂", "制动系统", "转向系统"];
+allCategories["电器"]=["电器", "辅助安全系统", "开关", "空调系统", "空气净化系统", "清洗系统", "行车控制安全系统", "照明系统", "智能辅助系统"];
+allCategories["发动机"]=["发动机", "进气系统", "冷却系", "排放系统", "排气系统", "全车水管", "燃油系"];
+allCategories["混动电机"]=["混合动力组件"];
+allCategories["其他"]=["标签", "辅料及油液", "工具及附件"];
+
+jQuery(".cat_left_box").each(function(){
+	var cat_title=jQuery(this).find(".cat_title").text();
+	for(var i=0;i<Object.keys(allCategories[cat_title]).length; i++){
+		//alert(allCategories[cat_title][i]);
+		jQuery(this).find("ul").append("<li>"+allCategories[cat_title][i]+"</li>");
+	}
+	if(Object.keys(allCategories[cat_title]).length <= 4){
+		jQuery(this).find("ul").attr("class", "fewElements");
+	}else if(Object.keys(allCategories[cat_title]).length > 8){
+		jQuery(this).find("ul").attr("class", "lotsOfElements");
+	}else{
+		jQuery(this).find("ul").attr("class", "manyElements");
+	}
+	jQuery(this).find("ul").append("<div class=\"buttonMore\">更多...</div>");
+});
+
+var catUid=0;
+jQuery(".cat_left_box li").each(function(){
+	jQuery(this).attr("cat_uid", catUid);
+	jQuery(this).click(function(){
+		Ajax.call( 'goodsCategory.php?act=get_cats_by_cat_name', 'cat_name=' + jQuery(this).text()+"&cat_uid="+jQuery(this).attr("cat_uid"), callbackQuerySubCats , 'GET', 'JSON', true, true );
+	});
+	catUid++;
+});
+</script>
 </html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Keywords" content="{$keywords}" />
+<meta name="Description" content="{$description}" />
+<!-- az_inserted -->
+<!-- TemplateBeginEditable name="doctitle" -->
+<title>{$page_title}</title>
+<!-- TemplateEndEditable -->
+<!-- TemplateBeginEditable name="head" -->
+<!-- TemplateEndEditable -->
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="icon" href="animated_favicon.gif" type="image/gif" />
+<link href="{$ecs_css_path}" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS|{$page_title}" href="{$feed_url}" />
+<link href="http://www.autozi.com:80/resources/common/css/jquery-ui-custom.css" rel="stylesheet" type="text/css" />
+<link href="http://www.autozi.com:80/resources/common/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+<link href="header.css" rel="stylesheet" type="text/css" />
+<link href="main.css" rel="stylesheet" type="text/css" />
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?039d115effb1a43fa3c66e592c74aa5e";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+<link href="theme.css" rel="stylesheet" type="text/css" />
+{* 包含脚本文件 *}
+{insert_scripts files='common.js,index.js'}
+</head>
+<body>
+<!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem --> 
+<!--header e-->
+
+<div class="car-brand-bg2">
+  <ul class="car_brand_tab2 clearfix" >
+    {foreach from=$all_gd_cate item=one_gd_cate}
+    <li class="goods_category"> <a href="#{$one_gd_cate.cat_name}">{$one_gd_cate.cat_name}</a> </li>
+    {/foreach}
+  </ul>
+</div>
+<!--main s-->
+<style>
+td ul.fixture_category.clearfix li {
+	float:left;
+}
+</style>
+{foreach from=$all_gd_cate item=one_gd_cate name=gd_cates}
+{if $smarty.foreach.gd_cates.iteration mod 2}
+<div class="main clearfix" style="margin-top:10px">
+  <div id="optionBarHidden" style="display:none;height:100px"> </div>
+  <div class="fixture_box">
+    <table class="fixture_table">
+      <tr >
+        <td ><ul class="fixture_category clearfix">
+            {/if}
+            <li> <a name="{$one_gd_cate.cat_name}"></a>
+              <div class="clearfix event_scroll" name="{$one_gd_cate.cat_name}">
+                <h3><a href="search.php?category={$one_gd_cate.cat_id}&category_level=1" target="_blank">{$one_gd_cate.cat_name}</a></h3>
+              </div>
+              {foreach from=$one_gd_cate.gd_types item=one_gd_type}
+              <div class="f_sub_category"> <a href="search.php?category={$one_gd_type.cat_id}&category_level=2" target="_blank" >{$one_gd_type.cat_name}</a> </div>
+              {/foreach} </li>
+            {if $smarty.foreach.gd_cates.iteration mod 2 && $smarty.foreach.gd_cates.last == FALSE}
+            {else}
+          </ul></td>
+      </tr>
+    </table>
+  </div>
+</div>
+{/if}
+{/foreach} 
+<!--main e--> 
+<!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+</body>
+</html>
