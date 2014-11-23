@@ -41,14 +41,14 @@ if ($act == 'get_cats_by_cat_name')
 	die($json->encode($result));
 }
 
-$my_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = 2";
-$all_gd_cate =  $GLOBALS['db']->getAll($my_sql);
-
-for($i=0; $i<count($all_gd_cate); $i++){
-	$one_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = ".$all_gd_cate[$i]['cat_id'];
-	$gd_types =  $GLOBALS['db']->getAll($one_sql);
-	$all_gd_cate[$i]['gd_types']=$gd_types;
-}
+//$my_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = 2";
+//$all_gd_cate =  $GLOBALS['db']->getAll($my_sql);
+//
+//for($i=0; $i<count($all_gd_cate); $i++){
+//	$one_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = ".$all_gd_cate[$i]['cat_id'];
+//	$gd_types =  $GLOBALS['db']->getAll($one_sql);
+//	$all_gd_cate[$i]['gd_types']=$gd_types;
+//}
 
 $smarty->assign('all_gd_cate', $all_gd_cate);
 
