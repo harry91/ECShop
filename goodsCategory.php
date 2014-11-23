@@ -50,7 +50,7 @@ if ($act == 'get_cats_by_cat_name')
 //	$all_gd_cate[$i]['gd_types']=$gd_types;
 //}
 
-$smarty->assign('all_gd_cate', $all_gd_cate);
+//$smarty->assign('all_gd_cate', $all_gd_cate);
 
 $smarty->display('goodsCategory.dwt');
 
