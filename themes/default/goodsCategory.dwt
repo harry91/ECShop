@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -25,13 +25,12 @@
 <body>
 <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem --> 
 <!--header e-->
-
-
 <!--main s-->
 <style>
 td ul.fixture_category.clearfix li {
 	float:left;
 }
+
 .cat_outer_box {
 	float: left;
 	margin-right: 8px;
@@ -58,6 +57,7 @@ table.cat_table tr{
 	float:left;
 	padding-bottom:5px;
 }
+
 .cat_right_box{
 	width:270px;
 	height:inherit;
@@ -146,6 +146,7 @@ table.cat_table tr{
 </table>
 <!--main e--> 
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem -->
+abcdefghij
 </body>
 <script>
 function callbackQuerySubCats(result){
@@ -166,37 +167,6 @@ function callbackQuerySubCats(result){
 	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").closest(".cat_outer_box").find(".cat_left_box").find("li").removeClass("active_cat");
 	jQuery(".cat_left_box li[cat_uid='"+retCatUid+"']").addClass("active_cat");
 }
-
-function initSubCategories(){
-var allCategories = new Object();
-allCategories["变速机构"]=["变速箱", "换挡机构", "离合器"];
-allCategories["车身内部结构"]=["操纵台", "车身地板", "车身及内部结构", "车身内饰", "防滚杆", "防溅板", "仪表台", "座椅及调节机构"];
-allCategories["车身外部结构"]=["侧车身", "侧滑门", "侧开门", "侧围板", "敞篷软顶", "敞篷硬顶", "车顶", "车架", "车壳", "发动机盖", "发动机盖板", "发动机罩", "后保险杠", "后侧围板", "后车门", "后视镜", "后行李箱盖", "货箱", "驾驶室", "进气格栅", "举升车门", "前保险杠", "前车门", "前面板", "前行李箱盖", "前翼子板", "全车玻璃", "全车锁机构", "天窗", "外饰", "尾门", "行李厢"];
-allCategories["底盘"]=["车轮", "传动系", "后悬挂", "前悬挂", "制动系统", "转向系统"];
-allCategories["电器"]=["电器", "辅助安全系统", "开关", "空调系统", "空气净化系统", "清洗系统", "行车控制安全系统", "照明系统", "智能辅助系统"];
-allCategories["发动机"]=["发动机", "进气系统", "冷却系", "排放系统", "排气系统", "全车水管", "燃油系"];
-allCategories["混动电机"]=["混合动力组件"];
-allCategories["其他"]=["标签", "辅料及油液", "工具及附件"];
-
-jQuery(".cat_left_box").each(function(){
-	var cat_title=jQuery(this).find(".cat_title").text();
-	for(var i=0;i<Object.keys(allCategories[cat_title]).length; i++){
-		//alert(allCategories[cat_title][i]);
-		jQuery(this).find("ul").append("<li>"+allCategories[cat_title][i]+"</li>");
-	}
-	if(Object.keys(allCategories[cat_title]).length <= 4){
-		jQuery(this).find("ul").attr("class", "fewElements");
-	}else if(Object.keys(allCategories[cat_title]).length > 8){
-		jQuery(this).find("ul").attr("class", "lotsOfElements");
-	}else{
-		jQuery(this).find("ul").attr("class", "manyElements");
-	}
-	jQuery(this).find("ul").append("<div class=\"buttonMore\">更多...</div>");
-});
-
-}
-
-//initSubCategories();
 
 var catUid=0;
 jQuery(".cat_left_box li").each(function(){
