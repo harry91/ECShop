@@ -229,7 +229,7 @@ else
     $_REQUEST['sc_ds']      = !empty($_REQUEST['sc_ds']) ? intval($_REQUEST['sc_ds']) : 0;
     $_REQUEST['outstock']   = !empty($_REQUEST['outstock']) ? 1 : 0;
 	
-	$_REQUEST['goods_sn']   = !empty($_REQUEST['goods_sn']) ? intval($_REQUEST['goods_sn']) : 0;
+	$_REQUEST['goods_sn']   = !empty($_REQUEST['goods_sn']) ? $_REQUEST['goods_sn'] : 0;
 
     $action = '';
     if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'form')
