@@ -29,7 +29,7 @@ $smarty->assign('affiliate', $affiliate);
 //-- INPUT
 /*------------------------------------------------------ */
 
-$goods_id = isset($_REQUEST['id'])  ? intval($_REQUEST['id']) : 0;
+$goods_id = isset($_REQUEST['id'])  ? $_REQUEST['id'] : 0;
 
 /*------------------------------------------------------ */
 //-- 改变属性、数量时重新计算商品价格
@@ -80,7 +80,7 @@ if (!empty($_REQUEST['act']) && $_REQUEST['act'] == 'gotopage')
     $json   = new JSON;
     $res    = array('err_msg' => '', 'result' => '');
 
-    $goods_id   = isset($_REQUEST['id']) ? intval($_REQUEST['id']) : 0;
+    $goods_id   = isset($_REQUEST['id']) ? $_REQUEST['id'] : 0;
     $page    = (isset($_REQUEST['page'])) ? intval($_REQUEST['page']) : 1;
 
     if (!empty($goods_id))
