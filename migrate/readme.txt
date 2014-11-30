@@ -9,7 +9,7 @@ car-2.php
 car-3.php
 car-4.php
 car-5.php
-goods.php
+goods-from-u8.php
 goods2category.php
 goods2car.php
 goods2brand.php

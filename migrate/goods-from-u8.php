@@ -5,16 +5,12 @@ require_once(dirname(__FILE__) . '/db_release.php');
 require_once(dirname(__FILE__) . '/ecshop_category.php');
 
 $u8ServiceUrl = "http://stahlgruber.cn:9765/services/stock/StockService";
-
-
-$goodsResult = getGoodsFromU8('1000000', $u8ServiceUrl);
-	echo $goodsResult->goodsList->goods->goods_name;
 	
 $result = getAllGoodsIds($u8ServiceUrl);
 $goodsIds = $result->Stock->stock;
 $count = count($goodsIds);
 
-for ($i = 0; $i < 1; $i++) {
+for ($i = 0; $i < $count; $i++) {
 	$goodsResult = getGoodsFromU8($goodsIds[$i]->cInvCode, $u8ServiceUrl);
 	
 	$goodsPriceResult = getGoodsPriceFromU8($goodsIds[$i]->cInvCode, $u8ServiceUrl);
@@ -27,6 +23,7 @@ for ($i = 0; $i < 1; $i++) {
 			$goodsResult->goodsList->goods->brand_name,
 			$goodsResult->goodsList->goods->stock_code, 
 			$goodsPriceResult->goodsList->goods->price, $local_conn);
+			
 	}		
 }	
 
