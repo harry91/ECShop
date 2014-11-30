@@ -52,6 +52,8 @@ var process_request = "{$lang.process_request}";
 			window.location="search.php?goods_sn="+jQuery("#searchValue").val();
 		}else if(jQuery("#searchTypeSelect").val()=="KEYWORDS"){
 			window.location="search.php?keywords="+jQuery("#searchValue").val();
+		}else if(jQuery("#searchTypeSelect").val()=="VIN"){
+			window.location="searchCar.php?vinCode="+jQuery("#searchValue").val();
 		}
 	}
     -->
