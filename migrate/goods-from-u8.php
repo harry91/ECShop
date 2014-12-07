@@ -9,22 +9,30 @@ $u8ServiceUrl = "http://stahlgruber.cn:9765/services/stock/StockService";
 $result = getAllGoodsIds($u8ServiceUrl);
 $goodsIds = $result->Stock->stock;
 $count = count($goodsIds);
+echo 'total goods '.$count.'<br/>';
 
-for ($i = 0; $i < $count; $i++) {
+for ($i = 0; $i < $count ; $i++) {
+	echo 'goods id: '.$goodsIds[$i]->cInvCode.'<br/>';
 	$goodsResult = getGoodsFromU8($goodsIds[$i]->cInvCode, $u8ServiceUrl);
 	
 	$goodsPriceResult = getGoodsPriceFromU8($goodsIds[$i]->cInvCode, $u8ServiceUrl);
 	
-	if ($goodsResult->goodsList->goods not null) {
+	$price =0;
+	if($goodsPriceResult->goodsList) {
+		$price = $goodsPriceResult->goodsList->goods->price;
+	}
 	
-		createGoods($goodsIds[$i]->cInvCode, $goodsIds[$i]->cInvCode,
+	if ($goodsResult->goodsList) {
+	
+		createOrUpdateGoods($goodsIds[$i]->cInvCode, $goodsIds[$i]->cInvCode,
 				$goodsResult->goodsList->goods->provider_name, 
 			$goodsResult->goodsList->goods->goods_name,
 			$goodsResult->goodsList->goods->brand_name,
 			$goodsResult->goodsList->goods->stock_code, 
-			$goodsPriceResult->goodsList->goods->price, $local_conn);
+			$price, $local_conn);
 			
-	}		
+	}
+
 }	
 
 function migrateGoodsId($local_conn, $u8ServiceUrl){
@@ -91,18 +99,22 @@ function getAllGoodsIds($u8ServiceUrl){
 	return $result;
 }
 
-function createGoods($goods_id, $goods_sn,$provider_name, $goods_name,$brand_name,
+function createOrUpdateGoods($goods_id, $goods_sn,$provider_name, $goods_name,$brand_name,
 			$stock_code, $shop_price, $local_conn){
 			$tmp_goods_cat_id = 1;
+	
+		
 	$queryStr="INSERT INTO ecs_goods".
 	" (goods_id, goods_sn,  provider_name,  goods_name,  stock_code,  shop_price,  brand_name,  unit_name, unit_format, goods_number, cat_id, ".
 	"keywords, goods_brief, goods_desc, goods_thumb, goods_img, original_img, extension_code, seller_note )".
 	"VALUES".
 	" ($goods_id, '$goods_sn','$provider_name','$goods_name','$stock_code','$shop_price','$brand_name','','',0,'$tmp_goods_cat_id',".
 	"'', '', '', '', '', '', '', '' )";
-	echo $queryStr;
+	
+	//echo $queryStr;
 	$local_conn->query($queryStr);
 	clearStoredResults($local_conn);
+	
 	
 }
 
