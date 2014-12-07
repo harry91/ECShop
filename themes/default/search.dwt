@@ -200,7 +200,7 @@
           <!--{/if}--> 
         </h3>
         <!--{if $goods_list}-->
-        <div class="result_filter" style="height:170px;">
+        <div class="result_filter">
         <style>
 		.line_in_box{
 			margin-left:10px;
