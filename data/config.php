@@ -3,7 +3,7 @@
 $db_host   = "localhost:3306";
 
 // database name
-$db_name   = "ecomm";
+$db_name   = "ecomm2";
 
 // database username
 $db_user   = "root";
@@ -32,6 +32,6 @@ define('AUTH_KEY', 'this is a key');
 
 define('OLD_AUTH_KEY', '');
 
-define('API_TIME', '2014-12-05 15:11:04');
+define('API_TIME', '2014-12-07 14:25:14');
 
 ?>
