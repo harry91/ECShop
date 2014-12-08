@@ -490,10 +490,11 @@
 			return retUrl;
 		}
 		function filterResultByCarType(){
-			jQuery("input[name='car_category']").val(window.currCarCategoryId);
-			jQuery("input[name='car_category_for_display']").val(window.currCarCategoryName);
-			jQuery("input[name='car_cat_level']").val(window.currCarCatLevel);
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "car_category", window.currCarCategoryId);
+			setValueByName(copiedForm, "input", "car_category_for_display", window.currCarCategoryName);
+			setValueByName(copiedForm, "input", "car_cat_level", window.currCarCatLevel);
+			copiedForm.submit();
 		}
 		function resetAllSubSelectors(){
 			window.currCarCategoryId="";
@@ -525,29 +526,43 @@
 			}
 		}
 		function chooseSubType(targetElement){
-			jQuery("input[name='category']").val(jQuery(targetElement).attr("cat_id"));
-			jQuery("input[name='category_level']").val(parseInt(jQuery("input[name='category_level']").val())+1);
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "category", jQuery(targetElement).attr("cat_id"));
+			setValueByName(copiedForm, "input", "category_level", parseInt(jQuery("input[name='category_level']").val())+1);
+			copiedForm.submit();
 		}
 		function clearSubTypes(){
-			jQuery("input[name='category']").val(0);
-			jQuery("input[name='category_level']").val(0);
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "category", 0);
+			setValueByName(copiedForm, "input", "category_level", 0);
+			copiedForm.submit();
 		}
 		function clearCarTypeFilterStr(){
-			jQuery("input[name='car_category_for_display']").val("");
-			jQuery("input[name='car_category']").val(0);
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "car_category_for_display", "");
+			setValueByName(copiedForm, "input", "car_category", 0);
+			copiedForm.submit();
 		}
 		function chooseBrand(targetElement){
-			jQuery("input[name='brand']").val(jQuery(targetElement).attr("brand_id"));
-			jQuery("input[name='brandName']").val(jQuery(targetElement).text());
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "brand", jQuery(targetElement).attr("brand_id"));
+			setValueByName(copiedForm, "input", "brandName", jQuery(targetElement).text());
+			copiedForm.submit();
 		}
 		function clearBrand(){
-			jQuery("input[name='brand']").val(0);
-			jQuery("input[name='brandName']").val(0);
-			document.forms['listform'].submit();
+			var copiedForm=jQuery("form[name='listform']").clone(true);
+			setValueByName(copiedForm, "input", "brand", 0);
+			setValueByName(copiedForm, "input", "brandName", 0);
+			copiedForm.submit();
+		}
+		function setValueByName(jQueryEle, tagType, targetName, value){
+			jQuery(jQueryEle).find(tagType).each(function(index, element) {
+                //alert(jQuery(jQuery(element)).attr("name"));
+				if(jQuery(element).attr("name") == targetName){
+					jQuery(element).val(value);
+					//alert("set " + targetName + " to "+ value);
+				}
+            });
 		}
         </script>
         {/literal}
