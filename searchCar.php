@@ -53,10 +53,17 @@ $result = file_get_contents("http://115.29.208.179/DataFunc?grantCode=is9krw6b&v
 include_once('includes/cls_json.php');
 $result=substr($result, 9, strlen($result) - 10);
 $result=iconv('GBK', 'UTF-8', $result);
+
 $result=json_decode($result, true);
 
 $carTypeIndex=0;
+$hasResult = "yes";
 foreach($result as $oneResult){
+	if($oneResult["retCode"] == "-1"){
+		$hasResult = "no";
+		break;
+	}
+	
 	$options = array(
 		'http' => array(
 		'method' => 'GET',
@@ -68,6 +75,7 @@ foreach($result as $oneResult){
 	$context = stream_context_create($options);
 
 	$imgResult = file_get_contents("http://112.124.115.17:8088/Web/Handler.ashx?name=picture&tid=".$oneResult["TID"] , false, $context);
+	
 	$imgResult=json_decode($imgResult, true);
 
 	$oneResult["imgUrl"]="http://112.124.115.17:8088/车型图片/".$imgResult[1][2].".jpg";
@@ -78,6 +86,7 @@ foreach($result as $oneResult){
 
 }
 
+$smarty->assign('hasResult', $hasResult);
 $smarty->assign('carTypes', $result);
 $smarty->display('searchCar.dwt');
 exit;
