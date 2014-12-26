@@ -573,7 +573,7 @@ else
         $arr[$row['goods_id']]['goods_id']      = $row['goods_id'];
         if($display == 'grid')
         {
-            $arr[$row['goods_id']]['goods_name']    = sub_str($row['goods_name'], 15);//$GLOBALS['_CFG']['goods_name_length'] > 0 ? sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
+            $arr[$row['goods_id']]['goods_name']    = sub_str($row['goods_name'], 35);//$GLOBALS['_CFG']['goods_name_length'] > 0 ? sub_str($row['goods_name'], $GLOBALS['_CFG']['goods_name_length']) : $row['goods_name'];
         }
         else
         {
