@@ -319,7 +319,7 @@
           <div class="car-brand-title">
             <a name="{$one_goods_brand.first_char}"></a>
             <h4 style="cursor:pointer;" brand_id="{$one_goods_brand.brand_id}" onclick="clickBrand(this);">{$one_goods_brand.brand_name}</h4>
-			<img src="data/brandlogo/{$one_goods_brand.brand_logo}" alt="{$one_goods_brand.brand_name}" />
+			<img src="data/brandlogo/{$one_goods_brand.brand_logo}" alt="{$one_goods_brand.brand_name}" style="margin-top: -18px;" />
           </div>
           <div class="car-type-list" style="display: none;"></div>
         </div>
