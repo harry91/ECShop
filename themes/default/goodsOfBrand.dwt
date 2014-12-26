@@ -77,7 +77,7 @@
 <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem --> <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
 <input type="hidden" id="anchorPoint" value=""/>
 <div class="main" style="margin-top:10px">
-  <div class="option-bar" id="optionBar"> <a href="#A" class="border all">全部</a> <a href="#A" class="border">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border disabled">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border disabled">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border disabled">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border disabled">T</a> <a href="#U" class="border disabled">U</a> <a href="#V" class="border disabled">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
+  <div class="option-bar" id="optionBar" style="padding-center; width:1200px; "><a href="#A" class="border" style="margin-left:90px;">A</a> <a href="#B" class="border">B</a> <a href="#C" class="border">C</a> <a href="#D" class="border">D</a> <a href="#E" class="border">E</a> <a href="#F" class="border">F</a> <a href="#G" class="border">G</a> <a href="#H" class="border">H</a> <a href="#I" class="border">I</a> <a href="#J" class="border">J</a> <a href="#K" class="border">K</a> <a href="#L" class="border">L</a> <a href="#M" class="border">M</a> <a href="#N" class="border">N</a> <a href="#O" class="border">O</a> <a href="#P" class="border">P</a> <a href="#Q" class="border">Q</a> <a href="#R" class="border">R</a> <a href="#S" class="border">S</a> <a href="#T" class="border">T</a> <a href="#U" class="border">U</a> <a href="#V" class="border">V</a> <a href="#W" class="border">W</a> <a href="#X" class="border">X</a> <a href="#Y" class="border">Y</a> <a href="#Z" class="border">Z</a> </div>
   <div id="optionBarHidden" style="display:none;height: 34px"> </div>
   <script type="text/javascript" src="/ecshop/js/jquery.pagination.js"></script>
   <script>
@@ -228,6 +228,7 @@
       <div class="car-brand-list" >
         <div class="car-series-list">
           <div class="car-brand-title">
+            <a name="{$one_goods_brand.first_char}"></a>
             <h4 style="cursor:pointer;" brand_id="{$one_goods_brand.brand_id}" onclick="clickBrand(this);">{$one_goods_brand.brand_name}</h4>
           </div>
           <div class="car-type-list" style="display: none;"></div>
@@ -239,6 +240,15 @@
 <input id="pageIndex" type="hidden" value="4"/>
 <!-- #BeginLibraryItem "/library/page_footer.lbi" --><!-- #EndLibraryItem --> 
 <script>
+function modify_a_z_option_bar(){
+	var allCharacters= new Array('A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z');
+	for(var i=0; i<26;i++){
+		if(jQuery("a[name='"+allCharacters[i]+"']").length<=0){
+			jQuery("a[href='#"+allCharacters[i]+"']").addClass("disabled");
+		}
+	}
+}
+modify_a_z_option_bar();
 </script>
 </body>
 </html>
