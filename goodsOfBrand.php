@@ -11,7 +11,7 @@ if ($act == 'query_goods_of_brand')
 	$brand_id=!empty($_GET['brand_id']) ? $_GET['brand_id'] : '1';
 	$result['brand_id']=$brand_id;
 	
-	$querySql="select goods_name, goods_id from ecs_goods where brand_id='$brand_id'";
+	$querySql="select goods_name, goods_id from ecs_goods where brand_id='$brand_id' and is_common = 1";
 	$result['goods']=$GLOBALS['db']->getAll($querySql);
 	
 	include_once('includes/cls_json.php');
