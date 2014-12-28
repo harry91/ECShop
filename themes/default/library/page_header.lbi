@@ -54,6 +54,8 @@ var process_request = "{$lang.process_request}";
 			window.location="search.php?keywords="+jQuery("#searchValue").val();
 		}else if(jQuery("#searchTypeSelect").val()=="VIN"){
 			window.location="searchCar.php?vinCode="+jQuery("#searchValue").val();
+		}else if(jQuery("#searchTypeSelect").val()=="CODE"){
+			window.location="search.php?related_stock_code="+jQuery("#searchValue").val();
 		}
 	}
     -->
@@ -82,7 +84,9 @@ var process_request = "{$lang.process_request}";
 <script type="text/javascript">
 function onChangeSearchSelector(){
 	jQuery("#searchTypeSpan").text(jQuery("option[value='" + jQuery("#searchTypeSelect").val() + "']").text());
-	if(jQuery("#searchTypeSelect").val() == "stock"){
+	if(jQuery("#searchTypeSelect").val() == "CODE"){
+		jQuery("#searchValue").attr("placeholder", "请输入商品件号");
+	}else if(jQuery("#searchTypeSelect").val() == "stock"){
 		jQuery("#searchValue").attr("placeholder", "请输入商品编号");
 	}else if(jQuery("#searchTypeSelect").val() == "OEM"){
 		jQuery("#searchValue").attr("placeholder", "请输入OEM");
@@ -97,15 +101,16 @@ function onChangeSearchSelector(){
   <div style="float:left; width:250px; height:50px;"></div>
   <div style="float:left; width:500px; height:50px;">
     <form action="javascript:goSearch()" name="AzSearchGoods" method="get">
-      <span id="searchTypeSpan" style="float:left; display:block; height:30px; margin-top:10px; width:75px; font-size:15px; background:url(../az_images/search_arrow.png) no-repeat; padding-left:5px; line-height:30px;">关键字</span>
+      <span id="searchTypeSpan" style="float:left; display:block; height:30px; margin-top:10px; width:75px; font-size:15px; background:url(../az_images/search_arrow.png) no-repeat; padding-left:5px; line-height:30px;">件号</span>
       <select id="searchTypeSelect" style="float:left; border:none; height:30px; margin-top:10px; margin-left:-80px; width:80px; font-size:15px; opacity:0; background:#FFF;" onChange="onChangeSearchSelector()">
-        <option value="KEYWORDS" selected="selected">关键字</option>
+        <option value="CODE" selected="selected">件号</option>
+        <option value="KEYWORDS">关键字</option>
         <option value="VIN">VIN</option>
         <option value="OEM">OEM</option>
 		<option value="stock">商品编号</option>
       </select>
       <span style="float:left; margin-top:10px; width:1px; height:30px; background:#999"></span>
-      <input id="searchValue" name="searchValue" style="float:left; height:28px; border:none; margin-top:10px; width:250px; padding-left:5px;" placeholder="请输入车型、商品名称、品牌、规格型号"/>
+      <input id="searchValue" name="searchValue" style="float:left; height:28px; border:none; margin-top:10px; width:250px; padding-left:5px;" placeholder="请输入商品件号"/>
       <input type="submit" style="height:30px; width:85px; background:#DD7715; border:none; margin-top:10px; font-size:17px; font-family:SimHei;" value="搜 索"/>
     </form>
   </div>

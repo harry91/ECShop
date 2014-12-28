@@ -217,12 +217,13 @@ if ($_REQUEST['act'] == 'advanced_search')
 else
 {
     $_REQUEST['keywords']   = !empty($_REQUEST['keywords'])   ? htmlspecialchars(trim($_REQUEST['keywords']))     : '';
+	$_REQUEST['related_stock_code']   = !empty($_REQUEST['related_stock_code'])   ? htmlspecialchars(trim($_REQUEST['related_stock_code']))     : '';
     $_REQUEST['brand']      = !empty($_REQUEST['brand'])      ? intval($_REQUEST['brand'])      : 0;
 	$_REQUEST['category_level']= !empty($_REQUEST['category_level'])   ? intval($_REQUEST['category_level'])   : 0;
 	$_REQUEST['car_cat_level']= !empty($_REQUEST['car_cat_level'])   ? intval($_REQUEST['car_cat_level'])   : 0;
     $_REQUEST['category']   = !empty($_REQUEST['category'])   ? intval($_REQUEST['category'])   : 2;
 	$_REQUEST['car_category']= !empty($_REQUEST['car_category'])   ? intval($_REQUEST['car_category'])   : 0;//用于搜索扩展分类（车型分类）
-	$_REQUEST['car_category_for_display']   = !empty($_REQUEST['car_category_for_display'])   ? htmlspecialchars(trim($_REQUEST['car_category_for_display']))     : '';//用于在搜索结果页显示扩展分类（车型分类）
+	$_REQUEST['car_category_for_display'] = !empty($_REQUEST['car_category_for_display'])   ? htmlspecialchars(trim($_REQUEST['car_category_for_display']))     : '';//用于在搜索结果页显示扩展分类（车型分类）
     $_REQUEST['min_price']  = !empty($_REQUEST['min_price'])  ? intval($_REQUEST['min_price'])  : 0;
     $_REQUEST['max_price']  = !empty($_REQUEST['max_price'])  ? intval($_REQUEST['max_price'])  : 0;
     $_REQUEST['goods_type'] = !empty($_REQUEST['goods_type']) ? intval($_REQUEST['goods_type']) : 0;
@@ -369,6 +370,14 @@ else
     //$categories = ($category > 0)               ? ' AND ' . get_children($category)    : '';
 	//$categories = ($category > 0)               ? ' AND (' . get_children($category) . " or g.goods_id in (select goods_id from ecs_goods_cat where cat_id  " . get_children_str($category) . " )  )"   : '';//添加的这一行和上面注释的这一行是为了对扩展分类进行搜索
 	
+	
+	//以下根据stock_code搜索同类产品的sock_code
+	$related_stock_code=!empty($_REQUEST['related_stock_code']) ? $_REQUEST['related_stock_code'] : '';
+	$stock_codes="";
+	if($related_stock_code != ''){
+		$stock_codes=getRelatedStockCodes($related_stock_code);
+	}
+		
     $brand      = $_REQUEST['brand']            ? " AND brand_id = '$_REQUEST[brand]'" : '';
 	$goods_sn   = $_REQUEST['goods_sn']         ? " AND goods_sn = '$_REQUEST[goods_sn]'" : '';
     $outstock   = !empty($_REQUEST['outstock']) ? " AND g.goods_number > 0 "           : '';
@@ -510,7 +519,7 @@ else
     /* 获得符合条件的商品总数 */
     $sql   = "SELECT COUNT(*) FROM " .$ecs->table('goods'). " AS g ".
         "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )";
+        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." )";
     $count = $db->getOne($sql);
 
     $max_page = ($count> 0) ? ceil($count / $size) : 1;
@@ -527,7 +536,7 @@ else
             "LEFT JOIN " . $GLOBALS['ecs']->table('member_price') . " AS mp ".
                     "ON mp.goods_id = g.goods_id AND mp.user_rank = '$_SESSION[user_rank]' ".
             "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-                "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." ) " .
+                "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." ) " .
             "ORDER BY $sort $order";
 	
     $res = $db->SelectLimit($sql, $size, ($page - 1) * $size);
@@ -686,6 +695,7 @@ else
 	if($_REQUEST['car_category_for_display'] != ''){
 		$smarty->assign('car_category_for_display',  $_REQUEST['car_category_for_display']);
 	}
+	$smarty->assign('related_stock_code', $_REQUEST['related_stock_code']);
 
     /* 分页 */
     $url_format = "search.php?category=$category&amp;car_category=$car_category&amp;keywords=" . urlencode(stripslashes($_REQUEST['keywords'])) . "&amp;brand=" . $_REQUEST['brand']."&amp;action=".$action."&amp;goods_type=" . $_REQUEST['goods_type'] . "&amp;sc_ds=" . $_REQUEST['sc_ds'];//添加car_category=$car_category&amp;用于搜索扩展分类（车型分类）
@@ -708,6 +718,7 @@ else
 		'car_cat_level'=>$car_cat_level,//用于搜索车型分类（车型分类）
 		'car_category'=> $car_category,//用于搜索扩展分类（车型分类）
 		'car_category_for_display'=>$_REQUEST['car_category_for_display'],//用于在搜索结果页显示扩展分类（车型分类）
+		'related_stock_code'=>$_REQUEST['related_stock_code'],//用于在搜索结果页显示扩展分类（车型分类）
         'brand'      => $_REQUEST['brand'],
 		'brandName'  => $_REQUEST['brandName'],
         'sort'       => $sort,
@@ -842,6 +853,41 @@ function get_seachable_attributes($cat_id = 0)
     }
 
     return $attributes;
+}
+
+function getRelatedStockCodes($stockId){
+	$timex_conn = new mysqli("115.29.208.179", "sikubo", "Sikubo@2014!", "td_all");
+	if (!$timex_conn)
+	{
+		die('Could not connect timex database.');
+	}
+	$timex_conn->set_charset("utf8");
+	$query =  "call p_GetPartCodeByCode('$stockId', @res)";
+
+	$result = $timex_conn->query($query);
+	
+	$retStr="";
+	
+	if ($result) {
+		//echo "成功返回结果<br/>";
+		if($result->num_rows > 0){
+			$retStr=" AND stock_code IN( ";
+			$i=0;
+			while($row = $result->fetch_array() ){
+				if($i>0){
+					$retStr=$retStr.", ";
+				}
+				$curr_stock_code = $row[1];
+				$retStr=$retStr."'$curr_stock_code'";
+				$i++;
+			}
+			$retStr=$retStr.") ";
+		}
+	}else {
+		//echo "未返回结果";
+	}
+	//echo $retStr."</br>";
+	return $retStr;
 }
 
 //return the first letter of chinese in pinyin
