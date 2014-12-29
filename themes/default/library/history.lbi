@@ -27,12 +27,12 @@ function clear_history_Response(res)
 document.getElementById('history_list').innerHTML = '{$lang.no_history}';
 }
 function onClickHistory(){
-	if(jQuery(".box .box_1").css("display")!="none"){
-		jQuery(".box .box_1").css("display", "none");
-		jQuery("#imgRightOfBox1").css("background", "url(themes/default/images/expand_btn.png) no-repeat");
+	if(jQuery("#history_div.box .box_1").css("display")!="none"){
+		jQuery("#history_div.box .box_1").css("display", "none");
+		jQuery("#history_div #imgRightOfBox1").css("background", "url(themes/default/images/expand_btn.png) no-repeat");
 	}else {
-		jQuery(".box .box_1").css("display", "block");
-		jQuery("#imgRightOfBox1").css("background", "url(themes/default/images/hide_btn.png) no-repeat");
+		jQuery("#history_div.box .box_1").css("display", "block");
+		jQuery("#history_div #imgRightOfBox1").css("background", "url(themes/default/images/hide_btn.png) no-repeat");
 	}
 }
 </script>
