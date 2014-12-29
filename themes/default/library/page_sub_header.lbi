@@ -36,7 +36,7 @@
   });
   </script>
   
-  <div class="fl main_nav clearfix"   style="padding-top: 10px;width: 1200px;background: url(themes/default/az_images/bg10.gif) repeat-x left top;font-family: Microsoft YaHei; float:right;">    
+  <div class="fl main_nav clearfix"   style="padding-top: 3px;width: 1200px;/*background: url(themes/default/az_images/bg10.gif) repeat-x left top;*/font-family: Microsoft YaHei; float:right;">    
     <ul class="fl nav clearfix" id="headerNav" style="width: 1200px;height: 50px;background: url(themes/default/az_images/bg9.gif) repeat-x;float:left">
       <li id="sub_header_0"><a href="index.php">汽车品牌</a></li>
       <li id="sub_header_1"><a href="goodsCategory.php">配件分类</a></li>

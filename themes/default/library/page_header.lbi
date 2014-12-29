@@ -114,5 +114,13 @@ function onChangeSearchSelector(){
       <input type="submit" style="height:30px; width:85px; background:#DD7715; border:none; margin-top:10px; font-size:17px; font-family:SimHei;" value="搜 索"/>
     </form>
   </div>
+  <div id="cart" style="float:right; width:250px; height:50px; margin-right:20px;"><style> #cart a{
+	  color:#FFF;
+	  font-size:12px;
+	  margin-top:7px;
+	  display:block;
+	  float:left;
+	  width:150px;
+  }</style><img src="../images/cart_img.png" style="height:30px;width:30px;float:left;display:block;margin-top:7px;margin-right:10px;cursor:pointer;" onClick="location.href='flow.php';">{insert name='cart_info'}</div>
 </div>
 <!--az_search end-->
