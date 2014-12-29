@@ -613,7 +613,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." )) as goods ".
 		
 			"where ecs_category_1.cat_id = goods.cat_id) as ecs_category_1 ".
 			"where ecs_category_1.parent_id = ecs_category_2.cat_id) as ecs_category_2 ".
@@ -630,7 +630,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn ." ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." )) as goods ".
 		
 			"where ecs_category_1.cat_id = goods.cat_id) as ecs_category_1 ".
 			"where ecs_category_1.parent_id = ecs_category_2.cat_id";
@@ -644,7 +644,7 @@ else
 		
 			"(SELECT distinct(g.cat_id) FROM " .$ecs->table('goods'). " AS g ".
         	"WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." )) as goods ".
+        	"AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." )) as goods ".
 
 			"where goods.cat_id = ecs_category_1.cat_id";
 			
