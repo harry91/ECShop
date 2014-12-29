@@ -39,6 +39,8 @@ function reg(str){
 </script>
 </head>
 <body>
+<!-- #BeginLibraryItem "/library/history.lbi" --><!-- #EndLibraryItem -->
+
 <!-- #BeginLibraryItem "/library/page_header.lbi" --><!-- #EndLibraryItem -->
 <!-- #BeginLibraryItem "/library/page_sub_header.lbi" --><!-- #EndLibraryItem -->
 <!--当前位置 start-->
