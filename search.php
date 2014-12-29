@@ -668,7 +668,7 @@ else
 		"select ecs_brand.brand_id, ecs_brand.brand_name from ecs_brand, ".
 		"(SELECT distinct(g.brand_id) FROM " .$ecs->table('goods'). " AS g ".
         "WHERE g.is_delete = 0 AND g.is_on_sale = 1 AND g.is_alone_sale = 1 $attr_in ".
-        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . " ) ".$tag_where." )) as goods ".
+        "AND (( 1 " . $categories . $keywords . $brand . $min_price . $max_price . $intro . $outstock . $goods_sn . $stock_codes ." ) ".$tag_where." )) as goods ".
 		"where goods.brand_id=ecs_brand.brand_id";
 		$brands = $GLOBALS['db']->getAll($getBrandSql);
 		$smarty->assign('brands', $brands);
