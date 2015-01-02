@@ -751,13 +751,13 @@ else
     $smarty->assign('promotion_info', get_promotion_info());
 	
 	//获得所有汽车品牌
-	$my_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = 1 ORDER BY CONVERT( cat_name USING gbk )";
+	$my_sql = "SELECT cat_name, cat_id, cat_desc FROM ecs_category WHERE parent_id = 1 ORDER BY cat_desc"; //CONVERT( cat_name USING gbk )";
 	$all_car_brands =  $GLOBALS['db']->getAll($my_sql);
 	for($i=0; $i<count($all_car_brands); $i++){
 		$one_sql = "SELECT cat_name, cat_id FROM ecs_category WHERE parent_id = ".$all_car_brands[$i]['cat_id'];
 		$car_types =  $GLOBALS['db']->getAll($one_sql);
 		$all_car_brands[$i]['car_types']=$car_types;
-		$all_car_brands[$i]['first_letter']=getfirstchar($all_car_brands[$i]['cat_name']);
+		$all_car_brands[$i]['first_letter']=$all_car_brands[$i]['cat_desc']; //getfirstchar($all_car_brands[$i]['cat_name']);
 	}
 	$smarty->assign('all_car_brands', $all_car_brands);
 
