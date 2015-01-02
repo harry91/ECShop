@@ -120,7 +120,7 @@ function onChangeSearchSelector(){
 	  margin-top:7px;
 	  display:block;
 	  float:left;
-	  width:150px;
-  }</style><img src="../images/cart_img.png" style="height:30px;width:30px;float:left;display:block;margin-top:7px;margin-right:10px;cursor:pointer;" onClick="location.href='flow.php';">{insert name='cart_info'}</div>
+	  width:160px;
+  }</style><img src="../images/cart_img.png" style="height:30px;width:30px;float:left;display:block;margin-top:7px;margin-right:10px;cursor:pointer;" onClick="location.href='flow.php';"><div id="ECS_CARTINFO">{insert name='cart_info'}</div></div>
 </div>
 <!--az_search end-->

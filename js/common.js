@@ -94,20 +94,20 @@ function addToCartResponse(result)
 
     if (result.one_step_buy == '1')
     {
-      location.href = cart_url;
+      return;//location.href = cart_url;
     }
     else
     {
       switch(result.confirm_type)
       {
         case '1' :
-          if (confirm(result.message)) location.href = cart_url;
+          if (confirm(result.message)) return;//location.href = cart_url;
           break;
         case '2' :
-          if (!confirm(result.message)) location.href = cart_url;
+          if (!confirm(result.message)) return;//location.href = cart_url;
           break;
         case '3' :
-          location.href = cart_url;
+          return;//location.href = cart_url;
           break;
         default :
           break;
