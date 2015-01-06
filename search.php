@@ -856,7 +856,9 @@ function get_seachable_attributes($cat_id = 0)
 }
 
 function getRelatedStockCodes($stockId){
+
 	$timex_conn = new mysqli("115.29.208.179", "sikubo", "Sikubo@2014!", "td_all");
+	//$timex_conn = new mysqli("121.41.85.67", "sikubo", "Sikubo@2014!", "td_all");  //new database
 	if (!$timex_conn)
 	{
 		die('Could not connect timex database.');
@@ -877,6 +879,8 @@ function getRelatedStockCodes($stockId){
 				if($i>0){
 					$retStr=$retStr.", ";
 				}
+				$curr_oem_code = $row[0];
+				$retStr=$retStr."'$curr_oem_code',";
 				$curr_stock_code = $row[1];
 				$retStr=$retStr."'$curr_stock_code'";
 				$i++;
