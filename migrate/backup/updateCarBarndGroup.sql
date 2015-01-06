@@ -142,3 +142,6 @@ update ecs_category set cat_desc = 'L' where keywords = 'car-brand' and cat_name
 update ecs_category set cat_desc = 'X' where keywords = 'car-brand' and cat_name = '标致雪铁龙';
 update ecs_category set cat_desc = 'J' where keywords = 'car-brand' and cat_name = '江南';
 update ecs_category set cat_desc = 'L' where keywords = 'car-brand' and cat_name = '昌河铃木';
+update ecs_category set cat_desc = 'K' where keywords = 'car-brand' and cat_name = '凯翼汽车';
+update ecs_category set cat_desc = 'H' where keywords = 'car-brand' and cat_name = '华晨华颂';
+update ecs_category set cat_desc = 'Y' where keywords = 'car-brand' and cat_name = '东风英菲尼迪';
