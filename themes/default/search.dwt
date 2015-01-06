@@ -494,7 +494,12 @@
 			setValueByName(copiedForm, "input", "car_category", window.currCarCategoryId);
 			setValueByName(copiedForm, "input", "car_category_for_display", window.currCarCategoryName);
 			setValueByName(copiedForm, "input", "car_cat_level", window.currCarCatLevel);
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function resetAllSubSelectors(){
 			window.currCarCategoryId="";
@@ -529,31 +534,56 @@
 			var copiedForm=jQuery("form[name='listform']").clone(true);
 			setValueByName(copiedForm, "input", "category", jQuery(targetElement).attr("cat_id"));
 			setValueByName(copiedForm, "input", "category_level", parseInt(jQuery("input[name='category_level']").val())+1);
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function clearSubTypes(){
 			var copiedForm=jQuery("form[name='listform']").clone(true);
 			setValueByName(copiedForm, "input", "category", 0);
 			setValueByName(copiedForm, "input", "category_level", 0);
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function clearCarTypeFilterStr(){
 			var copiedForm=jQuery("form[name='listform']").clone(true);
 			setValueByName(copiedForm, "input", "car_category_for_display", "");
 			setValueByName(copiedForm, "input", "car_category", 0);
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function chooseBrand(targetElement){
 			var copiedForm=jQuery("form[name='listform']").clone(true);
 			setValueByName(copiedForm, "input", "brand", jQuery(targetElement).attr("brand_id"));
 			setValueByName(copiedForm, "input", "brandName", jQuery(targetElement).text());
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function clearBrand(){
 			var copiedForm=jQuery("form[name='listform']").clone(true);
 			setValueByName(copiedForm, "input", "brand", 0);
 			setValueByName(copiedForm, "input", "brandName", 0);
-			copiedForm.submit();
+			
+			copiedForm.attr("name", "listform_forsubmit");
+			copiedForm.attr("id", "form_forsubmit");
+			copiedForm.css("display", "none");
+			jQuery("body").append(copiedForm);
+			jQuery("form[name='listform_forsubmit']").submit();
 		}
 		function setValueByName(jQueryEle, tagType, targetName, value){
 			jQuery(jQueryEle).find(tagType).each(function(index, element) {
