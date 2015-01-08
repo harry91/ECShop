@@ -9,25 +9,35 @@ require_once (dirname ( __FILE__ ) . '/ecshop_goods.php');
 
 mapGoodsToCar($local_conn, $timex_conn);
 
-
-
-
-
+// unit test
+/*
+$carIdArr = null;
+$brandCode = 'OC 1022';
+$brandName = 'é©¬å‹’(MAHLE)';
+$carIdArr = getBrandItem2Car($timex_conn, $brandName, $brandCode);	
+if(is_null($carIdArr)) {
+			echo 'timex api does not return available cars for goods, brand code: '
+				.$brandCode.', brand name: '.$brandName.'<br/>';
+} else {
+   echo arrToStr($carIdArr);
+}	
+*/
+////end of unit test/////////////
 
 function mapGoodstoCar($local_conn, $timex_conn){
 	$goodsArr = getAllGoods($local_conn);
 	$goodsCount = count($goodsArr);
-	for ($i = 0; $i < $goodsCount; $i++) {		
+	for ($i = 0; $i <$goodsCount; $i++) {		
 		$tidArr = null;		
-		// excel ÖÐ,Èç¹ûÊÇÔ­³§¼þ,ÔòbrandName ÊÇÌØÊâµÄÖµ 		
-		if ($goodsArr[$i]->brandName == "Ô­³§¼þ"){
+		// excel ä¸­,å¦‚æžœæ˜¯åŽŸåŽ‚ä»¶,åˆ™brandName æ˜¯ç‰¹æ®Šçš„å€¼ 			
+		if ($goodsArr[$i]->brandName == "åŽŸåŽ‚"){
 			$tidArr = getOemItem2Car($timex_conn, $goodsArr[$i]->brandCode);
-		} else {
+		} else {		
 			$tidArr = getBrandItem2Car($timex_conn, $goodsArr[$i]->brandName, $goodsArr[$i]->brandCode);
 		}
 		
 		if(is_null($tidArr)) {
-			echo 'timex api dooes not return available cars for goods, brand code: '
+			echo 'timex api does not return available cars for goods, brand code: '
 				.$goodsArr[$i]->brandCode.', name: '.$goodsArr[$i]->brandName.'<br/>';
 			continue;
 		}
@@ -48,27 +58,28 @@ function mapGoodstoCar($local_conn, $timex_conn){
 function getOemItem2Car($timex_conn, $brandCode){
 	$queryStr =  "CALL p_searchTidByKpsCode('". $brandCode ."', @res)";	
 	$queryResult = $timex_conn->query($queryStr);	
-	
+	$tidArr = null;
 	if ($queryResult && $queryResult->num_rows > 0){				
 		$index = 0;
 		while($row = $queryResult->fetch_array() ){
 			$tidArr[$index] = $row[2];		
-			$index++;		
+			$index++;					
 		}	
 	}
 	clearStoredResults($timex_conn);
 	return $tidArr;	
 }
 
-function getBrandItem2Car($timex_conn, $brandName, $brandCode){	
-	// need to ask timex to add brand name, so far is not use
-	$queryStr =  "CALL p_searchTidByKpsCodeDealer( '". $brandCode."', @res)";	
+function getBrandItem2Car($timex_conn, $brandName, $brandCode){		
+	$queryStr =  "CALL p_searchTidBykpsCodeBrand( '".$brandCode."','".$brandName."', @res)";	
+	//echo $queryStr;	
 	$queryResult = $timex_conn->query($queryStr);	
 	$tidArr = null;
 	if ($queryResult && $queryResult->num_rows > 0){				
 		$index = 0;
+		
 		while($row = $queryResult->fetch_array() ){
-			$tidArr[$index] = $row[2];		
+			$tidArr[$index] = $row[5];					
 			$index++;		
 		}	
 	}

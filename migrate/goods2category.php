@@ -16,7 +16,7 @@ function updateGoodsCategory($local_conn, $timex_conn){
 	//for ($i = 0; $i < 2; $i++) {		
 		
 		// excel 中,如果是原厂件,则brandName 是特殊的值 		
-		if ($goodsArr[$i]->brandName == "原厂件"){
+		if ($goodsArr[$i]->brandName == "原厂"){
 			$timexCategory = getOemItemCategory($timex_conn, $goodsArr[$i]->brandCode);
 		} else {
 			$timexCategory = getBrandItemCategory($timex_conn, $goodsArr[$i]->brandName, $goodsArr[$i]->brandCode);
@@ -53,7 +53,7 @@ function getOemItemCategory($timex_conn, $brandCode){
 		$row = $queryResult->fetch_array(); 				
 		$timexCategory->part = $row[4];
 		$timexCategory->subPart = $row[5];
-		$timexCategory->accessory = $row[7];						
+		$timexCategory->accessory = $row[3];						
 	}
 	clearStoredResults($timex_conn);
 	return $timexCategory;
