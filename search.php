@@ -857,8 +857,8 @@ function get_seachable_attributes($cat_id = 0)
 
 function getRelatedStockCodes($stockId){
 
-	$timex_conn = new mysqli("115.29.208.179", "sikubo", "Sikubo@2014!", "td_all");
-	//$timex_conn = new mysqli("121.41.85.67", "sikubo", "Sikubo@2014!", "td_all");  //new database
+	//$timex_conn = new mysqli("115.29.208.179", "sikubo", "Sikubo@2014!", "td_all");
+	$timex_conn = new mysqli("121.41.85.67", "sikubo", "Sikubo@2014!", "td_all");  //new database
 	if (!$timex_conn)
 	{
 		die('Could not connect timex database.');
@@ -866,13 +866,13 @@ function getRelatedStockCodes($stockId){
 	$timex_conn->set_charset("utf8");
 	$query =  "call p_GetPartCodeByCode('$stockId', @res)";
 
+	
 	$result = $timex_conn->query($query);
 	
 	$retStr="";
 	
-	if ($result) {
-		//echo "成功返回结果<br/>";
-		if($result->num_rows > 0){
+	if ($result) {		
+		if($result->num_rows > 0){		
 			$retStr=" AND stock_code IN( ";
 			$i=0;
 			while($row = $result->fetch_array() ){
@@ -886,11 +886,13 @@ function getRelatedStockCodes($stockId){
 				$i++;
 			}
 			$retStr=$retStr.") ";
+		} else {
+			//echo "empty";
+			$retStr=" AND stock_code IN( '".$stockId."')";
 		}
 	}else {
-		//echo "未返回结果";
-	}
-	//echo $retStr."</br>";
+		echo "未返回结果";	
+	}	
 	return $retStr;
 }
 
