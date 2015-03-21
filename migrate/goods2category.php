@@ -7,35 +7,55 @@ require_once(dirname(__FILE__) . '/db_release.php');
 require_once(dirname(__FILE__) . '/ecshop_category.php');
 require_once (dirname ( __FILE__ ) . '/ecshop_goods.php');
 
+
 updateGoodsCategory($local_conn, $timex_conn);
 
 function updateGoodsCategory($local_conn, $timex_conn){
 	$goodsArr = getJustImportedGoods($local_conn);
 	$goodsCount = count($goodsArr);
 	for ($i = 0; $i < $goodsCount; $i++) {	
-	//for ($i = 0; $i < 2; $i++) {		
-		
-		// excel 中,如果是原厂件,则brandName 是特殊的值 		
-		if ($goodsArr[$i]->brandName == "原厂"){
-			$timexCategory = getOemItemCategory($timex_conn, $goodsArr[$i]->brandCode);
-		} else {
-			$timexCategory = getBrandItemCategory($timex_conn, $goodsArr[$i]->brandName, $goodsArr[$i]->brandCode);
+		$accessoryId = getCategoryId($timex_conn, $local_conn, $goodsArr[$i]->brandName, $goodsArr[$i]->brandCode);
+		if ($accessoryId <> -1) {
+			updateCategory($local_conn, $goodsArr[$i]->goodsId, $accessoryId);		
 		}
-		if($timexCategory->accessory == "unset") {
-			echo 'timex cannot find category for brand item: '. $goodsArr[$i]->brandCode.', and brand name is:'.$goodsArr[$i]->brandName.'<br/>' ;
-			continue;
-		}
-		$accessoryId = getCatIdByAccessoryAndSubPart($local_conn, $timexCategory->subPart, $timexCategory->accessory);
-		if($accessoryId == -1) {
-			echo 'local database does not exist subpart '. $timexCategory->subPart.', and accessory:'.$timexCategory->accessory. 
-					' for goods which brand code is: '.$goodsArr[$i]->brandCode.', and brand name is:'.$goodsArr[$i]->brandName.'<br/>' ;
-			continue;
-		}
-		
-		updateCategory($local_conn, $goodsArr[$i]->goodsId, $accessoryId);
-		
 	}
 }
+
+function unittest($local_conn, $timex_conn){
+	$code = 'OC 730';
+	$brand = '马勒(MAHLE)';
+	$categoryId = getCategoryId($timex_conn, $local_conn, $code,$brand);	
+}
+
+function unittest2($local_conn, $timex_conn){
+	$code = 'KI 14';
+	$brand = '马勒(MAHLE)';
+	$categoryId = getCategoryId($timex_conn, $local_conn, $code,$brand);	
+	
+}
+
+
+function getCategoryId($timex_conn, $local_conn, $goodsBrandCode,$goodsBrandName){
+	$accessorId = -1;
+	if ($goodsBrandName == "原厂"){
+		$timexCategory = getOemItemCategory($timex_conn, $goodsBrandCode);
+	} else {
+		$timexCategory = getBrandItemCategory($timex_conn, $goodsBrandName, $goodsBrandCode);
+	}
+	if($timexCategory->accessory == "unset") {
+		echo 'timex cannot find category for brand item: '. $goodsBrandCode.', and brand name:'.$goodsBrandName.'<br/>' ;
+		return $accessorId;
+	}
+	$accessoryId = getCatIdByAccessoryAndSubPart($local_conn, $timexCategory->subPart, $timexCategory->accessory);
+	if($accessoryId == -1) {
+		echo 'local database does not exist part '.
+					$timexCategory->part.', and subpart '.
+					$timexCategory->subPart.', and accessory:'.$timexCategory->accessory. 
+					' for goods which brand code is: '.$goodsBrandCode.', and brand name is:'.$goodsBrandName.'<br/>' ;	
+	}		
+	return $accessoryId;
+}
+
 
 class TimexCategory {
 	public $part;
