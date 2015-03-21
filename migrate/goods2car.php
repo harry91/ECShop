@@ -9,20 +9,34 @@ require_once (dirname ( __FILE__ ) . '/ecshop_goods.php');
 
 mapGoodsToCar($local_conn, $timex_conn);
 
-// unit test
-/*
-$carIdArr = null;
-$brandCode = 'OC 1022';
-$brandName = '马勒(MAHLE)';
-$carIdArr = getBrandItem2Car($timex_conn, $brandName, $brandCode);	
-if(is_null($carIdArr)) {
-			echo 'timex api does not return available cars for goods, brand code: '
+//unittest($local_conn, $timex_conn);
+//unittest2($local_conn, $timex_conn);
+
+function unittest($local_conn, $timex_conn) {	
+	$brandCode = 'OC 1022';
+	$brandName = '马勒(MAHLE)';
+	$carIdArr = getBrandItem2Car($timex_conn, $brandName, $brandCode);	
+	if(is_null($carIdArr)) {
+		echo 'timex api does not return available cars for goods, brand code: '
 				.$brandCode.', brand name: '.$brandName.'<br/>';
-} else {
-   echo arrToStr($carIdArr);
-}	
-*/
-////end of unit test/////////////
+	} else {
+		echo 'timex can return cars list, the car ids: '.arrToStr($carIdArr).'<br/>';
+	}
+}
+
+function unittest2($local_conn, $timex_conn) {	
+	$brandCode = '23647-PPP-000';
+	$brandName = '原厂';
+	$carIdArr = getOemItem2Car($timex_conn, $goodsArr[$i]->brandCode);	
+	if(is_null($carIdArr)) {
+		echo 'timex api does not return available cars for goods, brand code: '
+				.$brandCode.', brand name: '.$brandName.'<br/>';
+	} else {
+		echo  'timex can return cars list, the car ids: '.arrToStr($carIdArr).'<br/>';
+	}
+}
+
+
 
 function mapGoodstoCar($local_conn, $timex_conn){
 	$goodsArr = getAllGoods($local_conn);

@@ -58,7 +58,7 @@ function getBrandIsNullGoods($mysqli_link){
 function getAllGoods($mysqli_link){
     // "stock code" and "brand name" is the key to query timex api to get category information. 
 	// "cat =1" 是在商品从excel导入的时候, 指定的一个cat Id
-	$queryStr = "select goods_id, stock_code, brand_name from ecs_goods";	
+	$queryStr = "select goods_id, stock_code, brand_name from ecs_goods order by goods_id";	
 	$queryResult = $mysqli_link->query($queryStr);
 
 	if ($queryResult && $queryResult->num_rows > 0){
@@ -113,9 +113,12 @@ function updateGoodsIsCommon($mysqli_link, $goodsSn, $isCommon){
 function addGoods2Car($mysqli_link, $goodsId, $carIdsArr) {
 	$count = count($carIdsArr) ;
 	for($i =0; $i < $count; $i++){
+	/*
 		if(isExistGoodsCar($mysqli_link, $goodsId, $carIdsArr[$i])) {
+			echo 'exist';
 			continue;
 		}
+		*/
 		insertGoods2Car($mysqli_link, $goodsId, $carIdsArr[$i]);		
 	}
 }
@@ -123,6 +126,7 @@ function addGoods2Car($mysqli_link, $goodsId, $carIdsArr) {
 function insertGoods2Car($mysqli_link, $goodsId, $carId) {
 
 	$queryStr = "insert into ecs_goods_cat values (".$goodsId.", ".$carId.")";		
+	//echo 'querystr'. $queryStr.'<br/>';
 	$result = $mysqli_link->query($queryStr);	
 	clearStoredResults($mysqli_link);		
 }
@@ -130,6 +134,7 @@ function insertGoods2Car($mysqli_link, $goodsId, $carId) {
 function isExistGoodsCar($mysqli_link, $goodsId, $carId) {
 	
 	$queryStr = "select count(*) from ecs_goods_cat where goods_id=".$goodsId." and cat_id=".$carId;				
+	//echo 'querystr'. $queryStr.'<br/>';
 	$result = $mysqli_link->query($queryStr);
 	$ret = false;
 	if($result && $result->num_rows>0){
@@ -139,6 +144,7 @@ function isExistGoodsCar($mysqli_link, $goodsId, $carId) {
 		}		
 	}
 	clearStoredResults($mysqli_link);	
+	
 	return $ret;
 }
 
