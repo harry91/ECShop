@@ -84,7 +84,7 @@ function getEcshopCategory1($mysqli_link) {
 	得到所有 分总成
 */
 function getEcshopCategory2($mysqli_link) {
-	$selectCategory2Str =  "SELECT c2.cat_id as cat_id, c2.cat_name as cat_name, c1.cat_name as parent_name FROM ecs_category as c2 inner join ecs_category as c1  on c2.parent_id = c1.cat_id where c2.show_in_nav=2;";
+	$selectCategory2Str =  "SELECT c2.cat_id as cat_id, c2.cat_name as cat_name, c1.cat_name as parent_name FROM ecs_category as c2 inner join ecs_category as c1  on c2.parent_id = c1.cat_id and c1.parent_id =2;";
 	
 	$category1Result = $mysqli_link->query($selectCategory2Str);
 
@@ -105,7 +105,7 @@ function getEcshopCategory2($mysqli_link) {
 
 function createCategory2($mysqli_link, $parentId, $subCategory){
 	if(isExistCategory2($mysqli_link,$parentId, $subCategory)){
-		echo $subCategory.'已经存在';
+		echo $subCategory.' 已经存在<br/>';
 		return;
 	}
 	$insert_sql = "INSERT INTO ecs_category VALUES (?, ?, 0, '配件分类', '', ?, 60, '', '', '2', '', '1', '0', '0')";
@@ -121,7 +121,7 @@ function createCategory2($mysqli_link, $parentId, $subCategory){
 */
 function createAccessory($mysqli_link, $parentId, $timexAccessory,$new_cat_id) {
 	if(ifExistAccessory($mysqli_link,$parentId, $timexAccessory)){
-		echo $subCategory.'已经存在';
+		echo $timexAccessory.' 已经存在<br/>';
 		return;
 	}
 	$insert_sql = "INSERT INTO ecs_category VALUES (?, ?, 0, '配件分类', '', ?, 70, '', '', '3', '', '1', '0', '0')";
@@ -157,7 +157,7 @@ function ifExistAccessory($mysqli_link, $parentId, $timexAccessory) {
 
 
 function getCategory1Id($mysqli_link, $category1Name) {
-	$query_str = 'select cat_id from ecs_category where cat_name=\''.$category1Name.'\' and show_in_nav=1';		
+	$query_str = 'select cat_id from ecs_category where cat_name=\''.$category1Name.'\' and parent_id=2';		
 	$result = $mysqli_link->query($query_str);
 	$ret = 0;
 	if($result && $result->num_rows>0){
@@ -171,7 +171,7 @@ function getCategory1Id($mysqli_link, $category1Name) {
 }
 
 function isExistCategory1($mysqli_link, $category1Name) {
-	$query_str = 'select count(*) from ecs_category where cat_name=\''.$category1Name.'\' and show_in_nav=1';		
+	$query_str = 'select count(*) from ecs_category where cat_name=\''.$category1Name.'\' and parent_id=2';		
 	$result = $mysqli_link->query($query_str);
 	$ret = false;
 	if($result && $result->num_rows>0){

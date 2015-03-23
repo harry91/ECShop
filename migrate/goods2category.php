@@ -9,12 +9,13 @@ require_once (dirname ( __FILE__ ) . '/ecshop_goods.php');
 
 
 updateGoodsCategory($local_conn, $timex_conn);
-
+//unittest($local_conn, $timex_conn);
+//unittest2($local_conn, $timex_conn);
 function updateGoodsCategory($local_conn, $timex_conn){
 	$goodsArr = getJustImportedGoods($local_conn);
 	$goodsCount = count($goodsArr);
 	for ($i = 0; $i < $goodsCount; $i++) {	
-		$accessoryId = getCategoryId($timex_conn, $local_conn, $goodsArr[$i]->brandName, $goodsArr[$i]->brandCode);
+		$accessoryId = getCategoryId($timex_conn, $local_conn, $goodsArr[$i]->brandCode, $goodsArr[$i]->brandName );
 		if ($accessoryId <> -1) {
 			updateCategory($local_conn, $goodsArr[$i]->goodsId, $accessoryId);		
 		}
@@ -22,9 +23,10 @@ function updateGoodsCategory($local_conn, $timex_conn){
 }
 
 function unittest($local_conn, $timex_conn){
-	$code = 'OC 730';
+	$code = 'OC 1022';
 	$brand = '马勒(MAHLE)';
 	$categoryId = getCategoryId($timex_conn, $local_conn, $code,$brand);	
+	echo 'category id:'.$categoryId;
 }
 
 function unittest2($local_conn, $timex_conn){
@@ -38,6 +40,7 @@ function unittest2($local_conn, $timex_conn){
 function getCategoryId($timex_conn, $local_conn, $goodsBrandCode,$goodsBrandName){
 	$accessorId = -1;
 	if ($goodsBrandName == "原厂"){
+		
 		$timexCategory = getOemItemCategory($timex_conn, $goodsBrandCode);
 	} else {
 		$timexCategory = getBrandItemCategory($timex_conn, $goodsBrandName, $goodsBrandCode);
